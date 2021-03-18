@@ -1,0 +1,24 @@
+:root {
+
+}
+
+
+.back-grad {
+  background: linear-gradient(transparent, black 30%);
+}
+
+.mt-n10 {
+  margin-top: -5em;
+}
+
+
+.btn-outline-white:hover {
+  background-color: white;
+  color: black;
+}
+
+@media screen and (max-width:768px) {
+  .text-center-custom {
+    text-align: center!important;
+  }
+}
