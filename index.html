@@ -13,6 +13,7 @@
   <!-- MDB -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
 
+  <link rel="stylesheet" href="color.css">
   <link rel="stylesheet" href="style.css">
 
   <title>Document</title>
@@ -26,7 +27,7 @@
         <!-- Container wrapper -->
         <div class="container-lg">
           <!-- Navbar brand -->
-          <a class="navbar-brand" href="#">Brand</a>
+          <a class="navbar-brand" href="#"><img src="logo3.jpg" alt="MML" class="logo"></a>
 
           <a class="btn btn-outline-white d-inline d-lg-none me-3 ms-auto" href="#">Login</a>
           <!-- Toggle button -->
@@ -72,6 +73,11 @@
 
             <!-- Search form -->
             <form class="d-flex input-group w-auto form-white">
+              <select name="type" id="searchType">
+                <option value="all">All</option>
+                <option value="all">Movies</option>
+                <option value="all">TV</option>
+              </select>
               <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
               <button class="btn btn-outline-white" type="button" data-mdb-ripple-color="dark">
                 <i class="fas fa-search"></i>
@@ -85,72 +91,92 @@
       </nav>
       <!-- Navbar -->
 
-
       <!-- Carousel wrapper -->
       <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
         <!-- Inner -->
         <div class="carousel-inner">
           <!-- Single item -->
           <div class="carousel-item active">
-            <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg" class=" w-100" alt="..." />
-
+            <div class="backdrop">
+              <img src="jl-back.jpg" class="w-100 mt-n5" alt="..." />
+            </div>
             <div class="row">
-              <div class="col-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
-                <img src="iw.jpg" class="w-100 ps-3">
+              <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
+                <img src="jl.jpg" class="w-100 ps-3">
               </div>
               <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
                 <div class="row">
-                  <div class="col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
-                    <h2 class="h2 text-white mx-auto mx-md-0 d-inline-block">AVENGERS: INFINITY WAR</h2>
-                    <p class="pt-3 mb-5 text-muted mx-auto mx-md-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-                      hic in,
-                      quisquam alias
-                      quia quasi sequi itaque amet libero est ipsa repellat sit esse minima et accusamus, non mollitia
-                      doloribus consequuntur obcaecati voluptatem optio fugiat! Beatae dolore nulla quibusdam qui,
-                      voluptatem exercitationem? Dolore et nihil voluptatem in quis, sit sint.</div>
+                  <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
+                    <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Zack Snyder's Justice League</h2>
+                    <p class="pt-3 mb-5 text-crop-3 text-muted">Determined to ensure Superman's
+                      ultimate sacrifice was not in
+                      vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to
+                      protect the
+                      world from an approaching threat of catastrophic proportions.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita facilis reprehenderit
+                      excepturi
+                      deleniti consequatur magni assumenda, nihil quos dolore unde.
                     </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Single item -->
-          <!-- <div class="carousel-item">
-              <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg" class="d-block w-100" alt="..." />
-              <div class="row">
-                <div class="col-3 position-absolute bottom-0 d-none d-md-block">
-                  <img src="iw.jpg" class="w-100 ps-3">
-                </div>
-                <div class="mt-n5 col-12 px-4 px-md-0 col-md-9 offset-md-3">
-                  <h2 class="h2 text-white">AVENGERS: INFINITY WAR</h2>
-                  <div class="pt-3 mb-5 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta hic in,
-                    quisquam alias
-                    quia quasi sequi itaque amet libero est ipsa repellat sit esse minima et accusamus, non mollitia
-                    doloribus consequuntur obcaecati voluptatem optio fugiat! Beatae dolore nulla quibusdam qui,
-                    voluptatem exercitationem? Dolore et nihil voluptatem in quis, sit sint.</div>
+          <div class="carousel-item">
+            <div class="backdrop">
+              <img src="in-back.jpg" class="w-100 mt-n5" alt="..." />
+            </div>
+            <div class="row">
+              <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
+                <img src="in.jpg" class="w-100 ps-3">
+              </div>
+              <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
+                <div class="row">
+                  <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
+                    <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Inception</h2>
+                    <p class="pt-3 mb-5 text-crop-3 text-muted">Cobb, a skilled thief who commits corporate espionage
+                      by
+                      infiltrating
+                      the subconscious of his targets is offered a chance to regain his old life as payment for a task
+                      considered to be
+                      impossible: "inception", the implantation of another person's idea into a target's subconscious.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div> -->
+            </div>
+          </div>
 
           <!-- Single item -->
-          <!-- <div class="carousel-item">
-              <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg" class="d-block w-100" alt="..." />
-              <div class="row">
-                <div class="col-3 position-absolute bottom-0 d-none d-md-block">
-                  <img src="iw.jpg" class="w-100 ps-3">
+          <div class="carousel-item">
+            <div class="backdrop">
+              <img src="gvk-back.jpg" class="w-100 mt-n5" alt="..." />
+            </div>
+            <div class="row">
+              <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
+                <img src="gvk.jpg" class="w-100 ps-3">
+              </div>
+              <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
+                <div class="row">
+                  <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
+                    <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Godzilla vs. Kong</h2>
+                    <p class="pt-3 mb-5 text-crop-3 text-muted">In a time when monsters walk the Earth, humanity’s
+                      fight
+                      for its
+                      future sets Godzilla and Kong on a collision course that will see the two most powerful forces
+                      of
+                      nature on
+                      the planet collide in a spectacular battle for the ages.
+                    </p>
+                  </div>
                 </div>
-                <div class="mt-n5 col-12 px-4 px-md-0 col-md-9 offset-md-3">
-                  <h2 class="h2 text-white">AVENGERS: INFINITY WAR</h2>
-                  <div class="pt-3 mb-5 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta hic in,
-                    quisquam alias
-                    quia quasi sequi itaque amet libero est ipsa repellat sit esse minima et accusamus, non mollitia
-                    doloribus consequuntur obcaecati voluptatem optio fugiat! Beatae dolore nulla quibusdam qui,
-                    voluptatem exercitationem? Dolore et nihil voluptatem in quis, sit sint.</div>
-                </div>
-              </div> -->
+              </div>
+            </div>
+          </div>
         </div>
         <!-- Inner -->
-
 
         <!-- Indicators -->
         <div class="row">
@@ -164,188 +190,599 @@
           </div>
         </div>
         <!-- Controls -->
-        <!-- <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
-            data-mdb-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
-            data-mdb-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button> -->
+        <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+          data-mdb-slide="prev">
+          <span class="carousel-control-prev-icon mt-n10" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+          data-mdb-slide="next">
+          <span class="carousel-control-next-icon mt-n10" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
       <!-- Carousel wrapper -->
 
+      <div class="container-lg my-5">
+        <h2 class="mt-5 text-yellow fw-bold ps-2">Trending</h2>
 
-      <!-- Carousel wrapper -->
-      <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center mt-5" data-mdb-ride="carousel">
-        <!-- Controls -->
-        <div class="d-flex justify-content-center mb-4">
-          <button class="carousel-control-prev position-relative" type="button"
-            data-mdb-target="#carouselMultiItemExample" data-mdb-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+        <div class="custom-carousel position-relative">
+          <button class="btn btn-dark custom-carousel-control custom-carousel-prev position-absolute start-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-left fs-4"></i>
           </button>
-          <button class="carousel-control-next position-relative" type="button"
-            data-mdb-target="#carouselMultiItemExample" data-mdb-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+          <button class="btn btn-dark custom-carousel-control custom-carousel-next position-absolute end-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-right fs-4"></i>
           </button>
+          <div class="custom-carousel-container d-flex flex-row">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">1</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">2</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">3</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">4</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">5</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">6</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">7</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">8</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">9</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">10</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">11</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">12</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">13</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">14</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">15</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Inner -->
-        <div class="carousel-inner py-4">
-          <!-- Single item -->
-          <div class="carousel-item active">
-            <div class="container">
-              <div class="row">
-                <div class="col-6 col-lg-4">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/181.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col-6 col-lg-4 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
-                  </div>
-                </div>
+        <h2 class="mt-5 text-yellow fw-bold ps-2">Popular</h2>
 
-                <div class="col-6 col-lg-4 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/183.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
+        <div class="custom-carousel position-relative">
+          <button class="btn btn-dark custom-carousel-control custom-carousel-prev position-absolute start-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-left fs-4"></i>
+          </button>
+          <button class="btn btn-dark custom-carousel-control custom-carousel-next position-absolute end-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-right fs-4"></i>
+          </button>
+          <div class="custom-carousel-container d-flex flex-row">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">1</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
                   </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Single item -->
-          <div class="carousel-item">
-            <div class="container">
-              <div class="row">
-                <div class="col-6 col-lg-4 col-md-12">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">2</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
                   </div>
-                </div>
-
-                <div class="col-6 col-lg-4 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/185.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-6 col-lg-4 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/186.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
-                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Single item -->
-          <div class="carousel-item">
-            <div class="container">
-              <div class="row">
-                <div class="col-6 col-lg-4 mb-4 mb-lg-0">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/187.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">3</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
                   </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
                 </div>
-
-                <div class="col-6 col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/188.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">4</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
                   </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
                 </div>
-
-                <div class="col-6 col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                  <div class="card">
-                    <img src="https://mdbootstrap.com/img/new/standard/nature/189.jpg" class="card-img-top" alt="..." />
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
-                      </p>
-                      <a href="#!" class="btn btn-primary">Button</a>
-                    </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">5</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
                   </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">6</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">7</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">8</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">9</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">10</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">11</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">12</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">13</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">14</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">15</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Inner -->
+
+        <h2 class="mt-5 text-yellow fw-bold ps-2">Latest</h2>
+
+        <div class="custom-carousel position-relative">
+          <button class="btn btn-dark custom-carousel-control custom-carousel-prev position-absolute start-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-left fs-4"></i>
+          </button>
+          <button class="btn btn-dark custom-carousel-control custom-carousel-next position-absolute end-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-right fs-4"></i>
+          </button>
+          <div class="custom-carousel-container d-flex flex-row">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">1</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">2</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">3</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">4</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">5</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">6</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">7</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">8</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">9</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">10</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">11</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">12</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">13</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">14</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">15</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- Carousel wrapper -->
-
     </div>
 
     <!-- Footer -->
@@ -426,6 +863,9 @@
 
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+  <script type="text/javascript" src="./custom-carousel.js">
+
+  </script>
 </body>
 
 </html>
