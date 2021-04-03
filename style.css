@@ -1,8 +1,4 @@
 
-.logo {
-  width: 130px
-}
-
 .back-grad {
   background: linear-gradient(transparent, black 30%);
 }
@@ -57,7 +53,7 @@
   z-index: 2;
   opacity: 0.5;
   transition: all 0.1s;
-  background: transparent;
+  /* background: transparent; */
 }
 
 .custom-carousel-control:focus {
