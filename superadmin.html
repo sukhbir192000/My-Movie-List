@@ -22,19 +22,26 @@
 <body>
     <div class="container-fluid">
         <div class="row p-0">
-            <div id="sidebar" class="d-none d-md-block col-8 col-md-3 p-0 vh-100 sidebar_color border-right border-dark overflow-auto fixed-top">
+            <div id="sidebar"
+                class="d-none d-md-block col-8 col-md-3 p-0 vh-100 sidebar_color border-right border-dark overflow-auto fixed-top">
                 <div class="d-flex flex-column sidebar_color p-0  ">
                     <div class="p-0 w-100 m-0">
                         <div class="w-100 text-left text-white mt-3 ps-4 d-flex flex-row align-items-center">
                             <!-- image over here -->
                             MML
                         </div>
-                        <a routerLink="./schoolSetup"
+                        <a href="./manageMovies.html"
                             class="list-group-item content_color mt-3 ps-4 border border-dark active_color">
-                            School Setup
+                            Manage Movies
                         </a>
-                        <a routerLink="./manageSchools" class="list-group-item content_color ps-4 border border-dark">
-                            Manage Schools
+                        <a href="./manageShows.html" class="list-group-item content_color ps-4 border border-dark">
+                            Manage Shows
+                        </a>
+                        <a href="./manageCarousel.html" class="list-group-item content_color ps-4 border border-dark">
+                            Manage Carousel
+                        </a>
+                        <a href="./manageUsers.html" class="list-group-item content_color ps-4 border border-dark">
+                            Manage Users
                         </a>
 
                     </div>
@@ -43,13 +50,15 @@
 
                 </div>
             </div>
-            <span id="sidebarToggler" onClick="showSidebar()" class="d-flex justify-content-center align-items-center d-md-none sidebar_color ps-2 display-inline fixed-bottom rounded-right mb-3 navbar-expand py-2" >
+            <span id="sidebarToggler" onClick="showSidebar()"
+                class="d-flex justify-content-center align-items-center d-md-none sidebar_color ps-2 display-inline fixed-bottom rounded-right mb-3 navbar-expand py-2">
                 <!-- [ngClass]="{'offset-8':visibleSidebar}">  [ngClass]="{'navbar-rotate':visibleSidebar}"-->
-                <i class="fab fa-vuejs fa-rotate-270" ></i>
+                <i class="fab fa-vuejs fa-rotate-270"></i>
             </span>
-            <div class="col-12 col-md-9 offset-md-3 px-0 grey lighten-4 min-vh-100">
+            <div class="col-12 col-md-9 offset-md-3 px-0  min-vh-100 bg-grey ">
 
-                <div class="w-100 white text-left mt-0 shadow pe-4 d-flex flex-row py-2 justify-content-end sticky-top">
+                <div
+                    class="w-100 bg-white text-left mt-0 shadow pe-4 d-flex flex-row py-2 justify-content-end sticky-top">
                     <div class="d-flex flex-column me-3 justify-content-center align-items-end">
                         <small class="p-0 m-0 font-weight-bold">Puneet</small>
                         <small class="p-0 m-0">puneetkalsi99@gmail.com</small>
@@ -58,8 +67,67 @@
                         alt="avatar image" height="55" />
 
                 </div>
-                <div>
-                    Sample Text
+                <div class="ps-3 pe-3 ">
+
+                    <div class="min-vh-100 d-flex flex-column px-1 px-md-3 ">
+                        <div class="p-0">
+                            <div class="row p-0 text-dark">
+                                <div class="col-12 pb-3 pt-4 ps-1 ps-md-4">
+                                    <h1 class="h1-responsive">Manage Movies</h1>
+                                </div>
+                            </div>
+                            <!-- Tabs navs -->
+
+
+                        </div>
+
+                        <div class="row text-dark border round px-3 bg-white ">
+                            <div class="col-12 col-md-6 mb-4 ps-0 pt-3 ">
+                                <h3 class="h3-responsive mb-4">Search Movie</h3>
+                                <div class="">
+                                    <div class="form-outline">
+                                        <input type="text" id="form1" class="form-control" />
+                                        <label class="form-label" for="form1">Example label</label>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-12 col-md-6 pt-0 pt-md-3 mb-4">
+                                <div class="d-flex flex-row justify-content-md-end justify-content-center align-items-end h-100">
+                                    <button class="btn btn-dark">+ Add</button>
+                                </div>
+                            </div>
+                            <table class="table-responsive mt-3 mb-5">
+                                <thead class="table-dark border">
+                                    <tr>
+                                        <th scope="col" class="text-center">#</th>
+                                        <th scope="col" class="text-center">Movie Name</th>
+                                        <th scope="col" class="text-center">Genre</th>
+                                        <th scope="col" class="text-center">Release</th>
+                                      </tr>
+                                  
+                                </thead>
+                                <tbody class="border">
+                                    <tr>
+                                        <th scope="row" class="text-center">1</th>
+                                        <td class="text-center">Test</td>
+                                        <td class="text-center">Test</td>
+                                        <td class="text-center">date</td>
+                                      </tr>
+                                </tbody>
+                              </table>
+
+                        </div>
+
+
+
+                        <div class="d-flex flex-row justify-content-center w-100 mt-3" *ngIf="schoolList.length>0">
+                            <angular-paginator (pageChange)="currentPage = $event"></angular-paginator>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,7 +150,7 @@
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-90");
 
 
-        
+
         }
     </script>
 </body>
