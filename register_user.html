@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login_user.css">
+
+    <title>Registration Page</title>
+</head>
+
+<body>
+    <div class="container-fluid min-vh-100" style="background-image: url('./bg_login.jpg'); background-size: cover; background-repeat: no-repeat;
+        background-position: center center; ">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7)">
+            <div class="row h-100 p-0 ">
+                <div class="d-flex flex-row align-items-center justify-content-center col-12 col-sm-8 col-md-6 col-xl-4 offset-sm-2 offset-md-3 offset-xl-4 text-center min-vh-100">
+                    <div class="h-100 h-sm-initial py-4" style="background-color: rgba(0, 0, 0, 0.8);">
+                        <img src="./logo3.jpg" class="w-25 mt-3" alt="">
+                        <div class="text-white fs-4 mt-3">
+                           Register to My Movie List
+                        </div>
+
+                        <div class="mx-5 mt-3 px-3">
+                            <form>
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="input-group form-outline form-white mb-4">
+                                            <input type="text" id="form2Example1" class="form-control"placeholder="First Name..." required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="input-group form-outline form-white mb-4">
+                                            <input type="text" id="form2Example1" class="form-control"placeholder="Last Name..." required/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="input-group form-outline form-white mb-4">
+                                        <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-user text-dark"></i> </span>
+                                        <input type="text" id="form2Example1" class="form-control"placeholder="Username..." required/>
+                                    </div>
+                                </div>
+                                <!-- Email input -->
+                                <div class="input-group form-outline form-white mb-4">
+                                    <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-envelope text-dark"></i> </span>
+                                    <input type="email" id="form2Example1" class="form-control" placeholder="Email.."required />
+                                  </div>
+
+                                <!-- Password input -->
+                                <div class="input-group form-outline form-white mb-4">
+                                    <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-key text-dark"></i></span>
+                                    <input type="password" id="form2Example2" class="form-control" placeholder="Enter Password..." required/>
+                                </div>
+
+                                <div class="input-group form-outline form-white mb-4">
+                                    <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-key text-dark"></i></span>
+                                    <input type="password" id="form2Example2" class="form-control" placeholder="Confirm Password..." required/>
+                                </div>
+                                <!-- Checkbox -->
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-outline-yellow text-white btn-block btn-hover-custom mb-4">Sign up</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+</body>
+
+</html>

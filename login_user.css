@@ -1,0 +1,17 @@
+.form-check-input[type=checkbox]:focus::before{
+    content: none;
+}
+
+.form-check-input[type=checkbox]:focus::after{
+    background-color: #262626;
+}
+
+.btn-hover-custom:hover{
+    color: #262626 !important;
+}
+
+@media screen and (min-width: 576px) {
+    .h-sm-initial{
+        height: initial !important;
+    }
+}
