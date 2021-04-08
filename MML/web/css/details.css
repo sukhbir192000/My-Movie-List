@@ -1,0 +1,58 @@
+.backdrop-details {
+  background: url("../images/in-back.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+.backdrop-details > div {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#cast-carousel .card .img-container {
+  position: relative;
+}
+
+#cast-carousel .card .img-container::before {
+  content: "";
+  display: block;
+  margin-top: 127%;
+}
+
+#cast-carousel .card .img-container .card-img-top {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#cast-carousel .card .card-body {
+  z-index: 1;
+}
+
+.card-img-overlay {
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.card:hover .card-img-overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+}
+
+.nav-pills .nav-link > span {
+  padding: 0 10px 7px;
+}
+
+.nav-pills .nav-link.active > span {
+  padding: 0 10px 7px;
+  border-bottom: 5px #F9C80E solid;
+}
+
+#review-list {
+  list-style: none;
+}
+
+.cancel-btn {
+  color: #000;
+  background-color: #c5c5c5;
+}

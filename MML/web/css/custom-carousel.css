@@ -1,0 +1,35 @@
+
+.custom-carousel-container {
+  overflow-x: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth;
+}
+
+.custom-carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-carousel-container>div {
+  box-sizing: border-box;
+  padding: 0 0.75em;
+}
+
+.custom-carousel-control {
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 0.5;
+  transition: all 0.1s;
+  /* background: transparent; */
+}
+
+.custom-carousel-control:focus {
+  background: transparent;
+}
+
+.custom-carousel-control:hover {
+  background-color: #131313;
+  color: #F9C80E;
+  opacity: 0.8;
+}
+

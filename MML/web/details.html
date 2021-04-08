@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="mdb.dark.min.css"> -->
+
+  <link rel="stylesheet" href="css/color.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/details.css">
+  <link rel="stylesheet" href="css/custom-carousel.css">
+  <link rel="stylesheet" href="css/rating.css">
+
+  <title>Movie Page</title>
+</head>
+
+<body>
+  <div class="container-fluid bg-black p-0 min-vh-100 d-flex flex-column justify-content-between">
+    <div>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <!-- Container wrapper -->
+        <div class="container-lg">
+          <!-- Navbar brand -->
+          <a class="navbar-brand" href="index.html"><img src="images/logo3.jpg" alt="MML" class="logo"></a>
+
+          <a class="btn btn-outline-white d-inline d-lg-none me-3 ms-auto" href="#">Login</a>
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <!-- Navbar dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <!-- Dropdown menu -->
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <!-- Left links -->
+
+            <!-- Search form -->
+            <form class="d-flex flex-row input-group w-auto form-white">
+              <select name="type" id="searchType" class="" aria-multiselectable="false" aria-disabled="false"
+                aria-haspopup="true" aria-expanded="false">
+                <option value="all">All</option>
+                <option value="all">Movies</option>
+                <option value="all">TV</option>
+              </select>
+              <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
+              <button class="btn btn-outline-white" type="button" data-mdb-ripple-color="dark">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+            <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="#">Login</a>
+          </div>
+          <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+
+      <div class="backdrop-details">
+        <div class="w-100">
+          <div class="container-lg ">
+            <div class="row py-2 py-sm-5 px-2 px-sm-0">
+              <div class="col-12 col-sm-5 col-md-3 ">
+                <div class="position-relative">
+                  <img src="images/in.jpg" alt="poster" class="w-100 shadow-2-strong">
+                  <div class="w-25 position-absolute end-0 bottom-0 d-block d-md-none m-1">
+                    <svg id="animated-small" viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45" fill="rgba(0,0,0,0.8)" />
+                      <path id="progress-small" stroke-linecap="round" stroke-width="5" stroke="#F9C80E" fill="none" d="M50 10
+                           a 40 40 0 0 1 0 80
+                           a 40 40 0 0 1 0 -80">
+                      </path>
+                      <text id="count-small" x="50" y="50" text-anchor="middle" dy="7" font-size="20"
+                        fill="#FFF">84%</text>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-12 col-sm-7 col-md-9 text-white d-flex flex-column justify-content-center align-items-start pt-3 pt-sm-0">
+                <div class="row w-100">
+                  <div class="col-12 col-md-10">
+                    <h3 class="display-5 fw-normal">Inception</h3>
+                    <p class="text-muted mb-0">Your mind is the scene of the crime.</p>
+                  </div>
+                  <div class="d-none d-md-block col-md-2 pe-xl-5">
+                    <svg id="animated-big" viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45" fill="rgba(0,0,0,0.8)" />
+                      <path id="progress-big" stroke-linecap="round" stroke-width="5" stroke="#F9C80E" fill="none" d="M50 10
+                             a 40 40 0 0 1 0 80
+                             a 40 40 0 0 1 0 -80">
+                      </path>
+                      <text id="count-big" x="50" y="50" text-anchor="middle" dy="7" font-size="20"
+                        fill="#FFF">84%</text>
+                    </svg>
+                  </div>
+                </div>
+                <p class=""><span class="d-block d-md-inline mb-3 mb-md-0">03/24/2021 (IN)</span>
+                  <span class="d-block d-md-inline">&#x25CF; Action, Science Fiction</span>
+                  <span class="d-block d-md-inline">&#x25CF; 1h 53m</span>
+                </p>
+
+                <p>
+                  Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his
+                  targets is offered a chance to regain his old life as payment for a task considered to be impossible:
+                  "inception", the implantation of another person's idea into a target's subconscious.
+                </p>
+
+                <button class="btn btn-yellow fs-5 mx-auto">+ Add to WatchList</button>
+
+                <h4>Stream on: </h4>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a href="#"><img class="w-100" src="http://image.tmdb.org/t/p/w45/68MNrwlkpF7WnmNPXLah69CR5cb.jpg"
+                        alt=""></a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#"><img class="w-100" src="http://image.tmdb.org/t/p/w45/rgbalNWbAuhWklHH5JAnF53Wjey.jpg"
+                        alt=""></a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-lg px-3 my-5">
+        <h2 class="mt-5 text-yellow fw-bold ps-2">Cast</h2>
+
+        <div id="cast-carousel" class="custom-carousel position-relative">
+          <button
+            class="btn btn-dark custom-carousel-control custom-carousel-prev position-absolute start-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-left fs-4"></i>
+          </button>
+          <button
+            class="btn btn-dark custom-carousel-control custom-carousel-next position-absolute end-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-right fs-4"></i>
+          </button>
+          <div class="custom-carousel-container d-flex flex-row">
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+              <div class="card h-100 bg-dark text-white">
+                <div class="img-container">
+                  <img src="https://image.tmdb.org/t/p/w342/u525jeDOzg9hVdvYfeehTGnw7Aa.jpg" class="card-img-top"
+                    alt="Ben Affleck" />
+                </div>
+                <div class="card-body bg-dark">
+                  <h5 class="card-title">Ben Affleck</h5>
+                  <p class="card-text">
+                    Bruce Wayne / Batman
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+              <div class="card h-100 bg-dark text-white">
+                <div class="img-container">
+                  <img src="https://image.tmdb.org/t/p/w342/fysvehTvU6bE3JgxaOTRfvQJzJ4.jpg" class="card-img-top"
+                    alt="Gal Gadot" />
+                </div>
+                <div class="card-body bg-dark">
+                  <h5 class="card-title">Gal Gadot</h5>
+                  <p class="card-text">
+                    Diana Prince / Wonder Woman
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <h2 class="mt-5 text-yellow fw-bold ps-2">More like this</h2>
+
+        <div class="custom-carousel position-relative">
+          <button
+            class="btn btn-dark custom-carousel-control custom-carousel-prev position-absolute start-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-left fs-4"></i>
+          </button>
+          <button
+            class="btn btn-dark custom-carousel-control custom-carousel-next position-absolute end-0 top-50 py-4 px-3">
+            <i class="fas fa-chevron-right fs-4"></i>
+          </button>
+          <div class="custom-carousel-container d-flex flex-row">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="images/gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">1</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="card bg-dark text-white">
+                <img src="images/gvk.jpg" class="card-img-top" alt="..." />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
+                  <div>
+                    <h4 class="card-title text-center">2</h4>
+                    <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                  </div>
+                  <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="social-section" class="container-lg px-3 my-5">
+        <div class="heading-container mt-5 d-block d-sm-flex flex-row justify-content-start align-items-baseline">
+          <div class="d-flex flex-row justify-content-between">
+            <h2 class="text-yellow fw-bold px-2 py-0 d-inline-block d-sm-block">Social</h2>
+            <button class="btn btn-yellow d-inline-block d-sm-none" type="button" data-mdb-toggle="collapse"
+              data-mdb-target="#postReview" aria-expanded="false" aria-controls="postReview"><i
+                class="fas fa-pencil-alt fs-6"></i></button>
+          </div>
+          <!-- Tabs navs -->
+          <ul class="nav nav-pills nav-justified mb-3 ps-2 ps-sm-4" id="social-nav" role="tablist">
+            <li class="nav-item h-auto " role="presentation">
+              <a class="nav-link bg-black text-white fs-6 px-1 active" id="review-button" data-mdb-toggle="pill"
+                href="#review-content" role="tab" aria-controls="review-content"
+                aria-selected="true"><span>Reviews</span></a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link bg-black text-white fs-6 px-1" id="comments-button" data-mdb-toggle="pill"
+                href="#comments-content" role="tab" aria-controls="comments-content"
+                aria-selected="false"><span>Comments</span></a>
+            </li>
+          </ul>
+          <!-- Tabs navs -->
+          <button class="btn btn-yellow ms-auto d-none d-sm-inline-block fs-6" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#postReview" aria-expanded="false" aria-controls="postReview">
+            <i class="fas fa-pencil-alt"></i><span class="d-none d-md-inline px-1">Write a review</span>
+          </button>
+        </div>
+
+        <!-- Tabs content -->
+        <div class="tab-content" id="social-content">
+          <div class="tab-pane fade show active" id="review-content" role="tabpanel" aria-labelledby="review-button">
+
+            <ul id="review-list" class="px-2 ps-md-4">
+              <!-- <div class="collapse" id="postReview">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit sunt quis reiciendis nobis similique accusantium tempora quisquam ea nesciunt numquam.
+              </div> -->
+              <div class="collapse" id="postReview">
+                <div class="mb-4">
+                  <div class="card bg-dark text-white">
+                    <div class="card-header">
+                      <h4 class="my-2">Post a review</h4>
+                    </div>
+                    <div class="card-body">
+                      <form action="#">
+                        <div class="mb-3">
+                          <h5>Your Rating</h5>
+                          <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5"
+                            data-step="0.5">
+                        </div>
+                        <div class="form-outline form-white mb-3">
+                          <input type="text" id="postTitle" name="title" class="form-control form-control-lg" />
+                          <label class="form-label" for="formControlLg">Title (optional)</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-3">
+                          <textarea class="form-control" id="postDescription" name="description" rows="4"></textarea>
+                          <label class="form-label" for="textAreaExample">Description</label>
+                        </div>
+                        <button id="postBtn" type="button" class="btn btn-yellow me-2">Submit</button>
+                        <button id="cancelPostBtn" type="button" class="btn cancel-btn" type="button"
+                          data-mdb-toggle="collapse" data-mdb-target="#postReview" aria-expanded="false"
+                          aria-controls="postReview">Cancel</button>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <li class="mb-4">
+                <div class="card bg-dark text-white">
+                  <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                    <div class="row gx-2 flex-grow-1 w-auto">
+                      <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
+                        <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
+                          alt="" class="w-100 rounded-circle">
+                      </div>
+                      <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
+                        <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
+                          <h4 class="my-0 d-inline-block">JPV852</h4><br>
+                          <span class="text-muted mx-sm-2">February 8, 2021</span>
+                        </div>
+                        <div>
+                          <i class="fas fa-star text-yellow"></i><i class="fas fa-star text-yellow"></i><i
+                            class="fas fa-star text-yellow"></i><i class="fas fa-star-half-alt text-yellow"></i><i
+                            class="far fa-star text-yellow"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fs-5 d-flex flex-column flex-sm-row">
+                      <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
+                        <span class="px-1">420</span><span><i class="far fa-thumbs-up"></i></span>
+                      </div>
+                      <span class="d-none d-sm-inline px-1 text-muted">|</span>
+                      <div
+                        class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
+                        <span><i class="far fa-thumbs-down"></i></span><span class="px-1">69</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, expedita.
+                    </h5>
+                    <p class="card-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quae nam alias temporibus sed
+                      magnam dignissimos aperiam, qui aut architecto iure, molestiae asperiores quia animi veritatis
+                      culpa, quasi aliquam corrupti reiciendis doloribus. Molestias eius perferendis perspiciatis,
+                      accusamus officiis illo repellendus laudantium blanditiis veritatis explicabo et possimus vero
+                      autem quo consequatur.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="card bg-dark text-white">
+                  <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                    <div class="row gx-2 flex-grow-1 w-auto">
+                      <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
+                        <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
+                          alt="" class="w-100 rounded-circle">
+                      </div>
+                      <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
+                        <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
+                          <h4 class="my-0 d-inline-block">JPV852</h4><br>
+                          <span class="text-muted mx-sm-2">February 8, 2021</span>
+                        </div>
+                        <div>
+                          <i class="fas fa-star text-yellow"></i><i class="fas fa-star text-yellow"></i><i
+                            class="fas fa-star text-yellow"></i><i class="fas fa-star-half-alt text-yellow"></i><i
+                            class="far fa-star text-yellow"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fs-5 d-flex flex-column flex-sm-row">
+                      <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
+                        <span class="px-1">420</span><span><i class="far fa-thumbs-up"></i></span>
+                      </div>
+                      <span class="d-none d-sm-inline px-1 text-muted">|</span>
+                      <div
+                        class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
+                        <span><i class="far fa-thumbs-down"></i></span><span class="px-1">69</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, expedita.
+                    </h5>
+                    <p class="card-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quae nam alias temporibus sed
+                      magnam dignissimos aperiam, qui aut architecto iure, molestiae asperiores quia animi veritatis
+                      culpa, quasi aliquam corrupti reiciendis doloribus. Molestias eius perferendis perspiciatis,
+                      accusamus officiis illo repellendus laudantium blanditiis veritatis explicabo et possimus vero
+                      autem quo consequatur.
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane fade" id="comments-content" role="tabpanel" aria-labelledby="comments-button">
+            <div id="disqus_thread"></div>
+          </div>
+        </div>
+        <!-- Tabs content -->
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-lg-start text-white">
+      <!-- Grid container -->
+      <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Footer Content</h5>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+              molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+              voluptatem veniam, est atque cumque eum delectus sint!
+            </p>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Links</h5>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="#!" class="text-white">Link 1</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 2</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 3</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 4</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-0">Links</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!" class="text-white">Link 1</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 2</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 3</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Link 4</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </div>
+
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+
+  <script>
+    var countBig = $(('#count-big'));
+    var length = parseInt(countBig.text()) * 251.2 / 100;
+    $({ Counter: 0 }).animate({ Counter: countBig.text() }, {
+      duration: 2000,
+      easing: 'linear',
+      step: function () {
+        countBig.text(Math.ceil(this.Counter) + "%");
+      }
+    });
+
+    var sBig = Snap('#animated-big');
+    var progressBig = sBig.select('#progress-big');
+
+    progressBig.attr({ strokeDasharray: '0, 251.2' });
+    Snap.animate(0, length, function (value) {
+      progressBig.attr({ 'stroke-dasharray': value + ',251.2' });
+    }, 2000);
+
+    var countSmall = $(('#count-small'));
+    length = parseInt(countSmall.text()) * 251.2 / 100;
+    $({ Counter: 0 }).animate({ Counter: countSmall.text() }, {
+      duration: 2000,
+      easing: 'linear',
+      step: function () {
+        countSmall.text(Math.ceil(this.Counter) + "%");
+      }
+    });
+
+    var sSmall = Snap('#animated-small');
+    var progressSmall = sSmall.select('#progress-small');
+
+    progressSmall.attr({ strokeDasharray: '0, 251.2' });
+    Snap.animate(0, length, function (value) {
+      progressSmall.attr({ 'stroke-dasharray': value + ',251.2' });
+    }, 2000);
+  </script>
+
+  <script src="scripts/custom-carousel.js"></script>
+  <script src="scripts/rating.js"></script>
+
+  <script>
+
+    function addLike(likeDiv, dislikeDiv) {
+      likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) + 1;
+      const icon = likeDiv.children[1].children[0];
+      icon.classList.remove('far');
+      icon.classList.add('fas');
+    }
+
+    function removeLike(likeDiv, dislikeDiv) {
+      likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) - 1;
+      const icon = likeDiv.children[1].children[0];
+      icon.classList.remove('fas');
+      icon.classList.add('far');
+    }
+
+    function addDislike(likeDiv, dislikeDiv) {
+      dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) + 1;
+      const icon = dislikeDiv.children[0].children[0];
+      icon.classList.remove('far');
+      icon.classList.add('fas');
+    }
+
+    function removeDislike(likeDiv, dislikeDiv) {
+      dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) - 1;
+      const icon = dislikeDiv.children[0].children[0];
+      icon.classList.remove('fas');
+      icon.classList.add('far');
+    }
+
+    function likeHandler(e) {
+      const likeDiv = e.currentTarget;
+      const dislikeDiv = likeDiv.parentElement.children[2];
+
+      const icon = likeDiv.children[1].children[0];
+      if (icon.classList.contains('fas')) {
+        removeLike(likeDiv, dislikeDiv);
+      }
+      else {
+        addLike(likeDiv, dislikeDiv);
+        const dislikeIcon = dislikeDiv.children[0].children[0];
+        if (dislikeIcon.classList.contains('fas')) {
+          removeDislike(likeDiv, dislikeDiv);
+        }
+      }
+    }
+
+    function dislikeHandler(e) {
+      const dislikeDiv = e.currentTarget;
+      const likeDiv = dislikeDiv.parentNode.children[0];
+
+      const icon = dislikeDiv.children[0].children[0];
+      if (icon.classList.contains('fas')) {
+        removeDislike(likeDiv, dislikeDiv);
+      }
+      else {
+        addDislike(likeDiv, dislikeDiv);
+        const likeIcon = likeDiv.children[1].children[0];
+        if (likeIcon.classList.contains('fas')) {
+          removeLike(likeDiv, dislikeDiv);
+        }
+      }
+    }
+
+    const likeBtns = document.querySelectorAll(".likes");
+    const dislikeBtns = document.querySelectorAll(".dislikes");
+
+    likeBtns.forEach(btn => btn.addEventListener('click', likeHandler, true));
+    dislikeBtns.forEach(btn => btn.addEventListener('click', dislikeHandler));
+
+  </script>
+
+  <script src="scripts/disqus.js"></script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+
+  <script>
+    const postBtn = document.getElementById('postBtn');
+    const cancelPostBtn = document.getElementById('cancelPostBtn');
+    const postForm = postBtn.parentElement;
+    let inputs = postForm.querySelectorAll('input');
+    inputs = [...inputs, postForm.querySelector('textarea')]
+
+    postBtn.addEventListener('click', (e) => {
+      const values = inputs.map(elem => elem.value);
+      console.log(values);
+
+      inputs.forEach(elem => { elem.value = ""; });
+    });
+
+    cancelPostBtn.addEventListener('click', (e) => {
+      inputs.forEach(elem => {
+        elem.value = "";
+        elem.classList.remove('active');
+      });
+      const clearBtn = document.querySelector('.rating-container .clear-rating');
+      clearBtn.click();
+    })
+  </script>
+
+</body>
+
+</html>

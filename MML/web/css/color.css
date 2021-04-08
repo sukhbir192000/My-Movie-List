@@ -141,3 +141,7 @@ button.bg-yellow:focus {
 a.text-yellow:hover, a.text-yellow:focus {
   color: #cea405 !important;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
