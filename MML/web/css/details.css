@@ -7,6 +7,11 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
+  color: #000;
+  background-color: #F9C80E;
+}
+
 #cast-carousel .card .img-container {
   position: relative;
 }

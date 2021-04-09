@@ -146,8 +146,19 @@
                   "inception", the implantation of another person's idea into a target's subconscious.
                 </p>
 
-                <button class="btn btn-yellow fs-5 mx-auto">+ Add to WatchList</button>
-
+                <!-- <button class="btn btn-yellow fs-5 mx-auto">+ Add to WatchList</button> -->
+                <div class="dropdown mx-auto">
+                  <button class="btn btn-yellow fs-5 dropdown-toggle" type="button" id="watchlist-btn"
+                    data-mdb-toggle="dropdown" aria-expanded="false">Add to WatchList
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark" aria-labelledby="watchlist-btn">
+                    <li><a class="dropdown-item" href="#">Watching</a></li>
+                    <li><a class="dropdown-item" href="#">Completed</a></li>
+                    <li><a class="dropdown-item" href="#">On hold</a></li>
+                    <li><a class="dropdown-item" href="#">Dropped</a></li>
+                    <li><a class="dropdown-item" href="#">Plan to watch</a></li>
+                  </ul>
+                </div>
                 <h4>Stream on: </h4>
                 <ul class="list-inline">
                   <li class="list-inline-item">
