@@ -1,0 +1,46 @@
+.btn-check:active + .btn-outline-yellow, 
+.btn-check:checked + .btn-outline-yellow, 
+.btn-outline-yellow.active, 
+.btn-outline-yellow.dropdown-toggle.show, 
+.btn-outline-yellow:active {
+
+    color: #000;
+    background-color: #F9C80E;
+    border-color: #F9C80E;
+
+}
+
+.to-watchlist-opacity{
+    opacity: 0.6;
+}
+
+.to-watchlist-opacity:hover{
+    opacity: 1;
+}
+
+.give-rating-hover{
+    opacity: 0.6;
+}
+
+.give-rating-hover:hover{
+    opacity: 1;
+    color: #F9C80E;
+}
+
+.bg-grey{
+    opacity: 1;
+}
+
+@media screen and (min-width: 576px){
+    .position-sm-absolute{
+        position: absolute;
+    }
+
+    .fs-sm-6{
+        font-size: 18px !important;
+    }
+
+    .bg-sm-dark{
+        background-color: #262626;
+    }
+}
