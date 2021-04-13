@@ -33,17 +33,17 @@
                         </div>
 
                         <div class="mx-5 mt-3 px-3">
-                            <form>
+                            <form method="POST" action="/MML/register">
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
                                 <div class="row">
                                     <div class="col-12 col-sm-6">
                                         <div class="input-group form-outline form-white mb-4">
-                                            <input type="text" id="form2Example1" class="form-control"placeholder="First Name..." required/>
+                                            <input type="text" id="first-name-input" name="first-name" class="form-control"placeholder="First Name..." required/>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="input-group form-outline form-white mb-4">
-                                            <input type="text" id="form2Example1" class="form-control"placeholder="Last Name..." required/>
+                                            <input type="text" id="last-name-input" name="last-name" class="form-control"placeholder="Last Name..." required/>
                                         </div>
                                     </div>
                                 </div>
@@ -51,24 +51,24 @@
                                 <div class="col">
                                     <div class="input-group form-outline form-white mb-4">
                                         <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-user text-dark"></i> </span>
-                                        <input type="text" id="form2Example1" class="form-control"placeholder="Username..." required/>
+                                        <input type="text" id="username-input" name="username" class="form-control"placeholder="Username..." required/>
                                     </div>
                                 </div>
                                 <!-- Email input -->
                                 <div class="input-group form-outline form-white mb-4">
                                     <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-envelope text-dark"></i> </span>
-                                    <input type="email" id="form2Example1" class="form-control" placeholder="Email.."required />
+                                    <input type="email" id="email-input" name="email" class="form-control" placeholder="Email.."required />
                                   </div>
 
                                 <!-- Password input -->
                                 <div class="input-group form-outline form-white mb-4">
                                     <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-key text-dark"></i></span>
-                                    <input type="password" id="form2Example2" class="form-control" placeholder="Enter Password..." required/>
+                                    <input type="password" id="password-input" name="password" class="form-control" placeholder="Enter Password..." required/>
                                 </div>
 
                                 <div class="input-group form-outline form-white mb-4">
                                     <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-key text-dark"></i></span>
-                                    <input type="password" id="form2Example2" class="form-control" placeholder="Confirm Password..." required/>
+                                    <input type="password" id="confirm-password-input" name="confirm-password" class="form-control" placeholder="Confirm Password..." required/>
                                 </div>
                                 <!-- Checkbox -->
 
