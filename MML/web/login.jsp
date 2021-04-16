@@ -65,7 +65,7 @@
                                         <div class="col d-flex justify-content-center">
                                             <!-- Checkbox -->
                                             <div class="form-check">
-                                                <input class="form-check-input bg-dark" style="border-color: #FFF;" type="checkbox" value="" id="remember" name="remember" checked />
+                                                <input class="form-check-input bg-dark" style="border-color: #FFF;" type="checkbox" value="true" id="remember" name="remember" checked />
                                                 <label class="form-check-label" for="remember"> Remember me </label>
                                             </div>
                                         </div>

@@ -2,3 +2,18 @@
 .logo {
   width: 130px
 }
+
+.searchType {
+    text-align-last: center
+}
+
+.searchType:focus {
+    outline: none !important;
+}
+
+
+.navbar-username {
+    max-width: 7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

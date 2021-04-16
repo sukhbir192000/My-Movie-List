@@ -1,34 +1,58 @@
 package servlets;
 
+import beans.UserAuthToken;
+import daos.UserAuthDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author sukhb
- */
-public class ContentController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        RequestDispatcher rd = request.getRequestDispatcher("details.jsp");
-        rd.forward(request, response);
+        HttpSession session = request.getSession();
+        session.removeAttribute("loggedUser");
+        session.invalidate();
+
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            String selector = "";
+
+            for (Cookie aCookie : cookies) {
+                if (aCookie.getName().equals("selector")) {
+                    selector = aCookie.getValue();
+                }
+            }
+
+            if (!selector.isEmpty()) {
+                // delete token from database
+                UserAuthDao authDao = new UserAuthDao();
+                UserAuthToken token = authDao.findBySelector(selector);
+
+                if (token != null) {
+                    System.out.println("DELETE THIS RN!! " + token.getId());
+                    authDao.delete(token.getId());
+                }
+                
+                Cookie cookieSelector = new Cookie("selector", "");
+                cookieSelector.setMaxAge(0);
+
+                Cookie cookieValidator = new Cookie("validator", "");
+                cookieValidator.setMaxAge(0);
+                response.addCookie(cookieSelector);
+                response.addCookie(cookieValidator);
+            }
+        }
+
+        response.sendRedirect("/MML/home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

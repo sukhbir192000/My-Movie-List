@@ -1,18 +1,15 @@
 package servlets;
 
+import daos.UsernameDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author sukhb
- */
-public class ContentController extends HttpServlet {
+
+public class UsernameCheck extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -25,10 +22,18 @@ public class ContentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        RequestDispatcher rd = request.getRequestDispatcher("details.jsp");
-        rd.forward(request, response);
+        response.setContentType("text/plain;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            UsernameDao dao = new UsernameDao();
+            if(dao.checkUname(request.getParameter("uname"))) {
+                out.println("true");
+            }
+            else {
+                out.println("false");
+            }
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

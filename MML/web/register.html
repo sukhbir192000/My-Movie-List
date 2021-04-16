@@ -116,6 +116,7 @@
     <script>
     
         let validName = false
+        let uniqueName = false
         let validPass = false
         let isSame = false
 
@@ -128,7 +129,7 @@
         const passMisMatchError = document.getElementById('password-mismatch-error')
 
         function enableSubmit(){
-            if(validName && validPass && isSame){
+            if(validName && validPass && isSame && uniqueName){
                 submit.classList.remove('disabled')
             }
             else{
@@ -145,6 +146,24 @@
             else{
                 userLengthError.classList.add('h-0')
                 userLengthError.classList.remove('h-max')
+            }
+            enableSubmit()
+        }
+        
+        async function checkUserUnique(e){
+            if(!validName) return
+            
+            let response = await fetch('/MML/checkUsername?uname='+username.value)
+            let text = await response.text()
+            uniqueName = text.trim() == 'false'
+            
+            if(!uniqueName) {
+                userTakenError.classList.remove('h-0')
+                userTakenError.classList.add('h-max')
+            }
+            else{
+                userTakenError.classList.add('h-0')
+                userTakenError.classList.remove('h-max')
             }
             enableSubmit()
         }
@@ -178,6 +197,9 @@
         const username = document.getElementById('username-input')
         username.addEventListener('keyup', checkUserCreds)
         username.addEventListener('change', checkUserCreds)
+        
+        username.addEventListener('keyup', checkUserUnique)
+        username.addEventListener('change', checkUserUnique)
 
         // Check Password
         const passEntered = document.getElementById('password-input')

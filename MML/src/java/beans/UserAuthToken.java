@@ -1,12 +1,27 @@
-
 package beans;
 
+import java.sql.ResultSet;
 
 public class UserAuthToken implements java.io.Serializable {
+
     private long id;
     private String selector;
     private String validator;
-    private User user;
+    private int userId;
+
+    public UserAuthToken() {
+    }
+
+    public UserAuthToken(ResultSet rs) {
+        try {
+            this.id = rs.getLong("id");
+            this.selector = rs.getString("selector");
+            this.validator = rs.getString("validator");
+            this.userId = rs.getInt("user_id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public long getId() {
         return id;
@@ -32,14 +47,12 @@ public class UserAuthToken implements java.io.Serializable {
         this.validator = validator;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-    
-    
 
 }

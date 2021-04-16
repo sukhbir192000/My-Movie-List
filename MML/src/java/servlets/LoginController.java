@@ -5,6 +5,7 @@ import beans.UserAuthToken;
 import daos.LoginDao;
 import daos.UserAuthDao;
 import java.io.IOException;
+import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -31,7 +32,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
 
         String uname = request.getParameter("uname"),
-                pass = request.getParameter("pass");
+                pass = HashGeneratorUtils.generateSHA256(request.getParameter("pass"));
         boolean rememberMe = "true".equals(request.getParameter("remember"));
 
         LoginDao dao = new LoginDao();
@@ -48,6 +49,7 @@ public class LoginController extends HttpServlet {
                 // create new token (selector, validator)
                 UserAuthToken newToken = new UserAuthToken();
                 String selector = "", rawValidator = "", hashedValidator = "";
+                
                 while (!created) {
                     selector = RandomStringUtils.randomAlphanumeric(12);
                     rawValidator = RandomStringUtils.randomAlphanumeric(64);
@@ -57,7 +59,7 @@ public class LoginController extends HttpServlet {
                     newToken.setSelector(selector);
                     newToken.setValidator(hashedValidator);
 
-                    newToken.setUser(user);
+                    newToken.setUserId(user.getUserId());
 
                     // save the token into the database
                     created = authDao.create(newToken);
@@ -74,6 +76,7 @@ public class LoginController extends HttpServlet {
                 response.addCookie(cookieSelector);
                 response.addCookie(cookieValidator);
             }
+            response.sendRedirect("/MML/home");
 
         } else {
             request.setAttribute("invalid", true);

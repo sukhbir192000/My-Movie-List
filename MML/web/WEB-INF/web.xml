@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>UserAuthenticationFilter</filter-name>
+        <filter-class>filters.UserAuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>First</servlet-name>
         <servlet-class>servlets.HomeController</servlet-class>
@@ -16,6 +24,14 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>servlets.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsernameCheck</servlet-name>
+        <servlet-class>servlets.UsernameCheck</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>servlets.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -31,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsernameCheck</servlet-name>
+        <url-pattern>/checkUsername</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

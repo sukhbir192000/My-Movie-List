@@ -3,7 +3,6 @@ package beans;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 public class User implements Serializable {
@@ -11,27 +10,27 @@ public class User implements Serializable {
             lastName,
             username,
             email;
-    private int userId;
+    private int userId,
+                role;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String email, int userId) {
+    public User(String firstName, String lastName, String username, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.userId = userId;
     }
     
     public User(ResultSet rs) {
         try {
-            rs.next();
             this.firstName = rs.getString("first_name");
             this.lastName = rs.getString("last_name");
             this.username = rs.getString("username");
             this.email = rs.getString("email");
             this.userId = rs.getInt("user_id");
+            this.role = rs.getString("role").equals("user") ? 0 : 1;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +43,6 @@ public class User implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
 
     public String getFirstName() {
         return firstName;
@@ -77,5 +75,14 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+    
     
 }
