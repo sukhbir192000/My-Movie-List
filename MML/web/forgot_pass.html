@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login_user.css">
+
+    <title>Change your password</title>
+</head>
+
+<body>
+    <div class="container-fluid min-vh-100" style="background-image: url('images/bg_login.jpg'); background-size: cover; background-repeat: no-repeat;
+        background-position: center center; ">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7)">
+            <div class="row h-100 p-0 ">
+                <div class="d-flex flex-row align-items-center justify-content-center col-12 col-sm-8 col-md-6 col-xl-4 offset-sm-2 offset-md-3 offset-xl-4 text-center min-vh-100">
+                    <div class="h-100 h-sm-initial py-4" style="background-color: rgba(0, 0, 0, 0.8);">
+                        <img src="images/logo3.jpg" class="w-25 mt-3" alt="">
+                        <div class="text-white fs-4 mt-3">
+                            Change your password
+                        </div>
+
+                        <div class="mx-5 mt-3 px-3">
+                            <form method="POST" action="/MML/register">
+                               
+
+                                <!-- Password input -->
+                                <div class="mb-4">
+                                    <div class="input-group form-outline form-white">
+                                        <span class="input-group-text bg-yellow border border-yellow"> <i
+                                                class="fas fa-key text-dark"></i></span>
+                                        <input type="password" id="password-input" name="password" class="form-control"
+                                            placeholder="Enter New Password..." required />
+                                    </div>
+                                    <div id="password-length-error" class="overflow-hidden h-0 text-danger text-start transition"><small>The password should be 8 or more characters long!</small></div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="input-group form-outline form-white">
+                                        <span class="input-group-text bg-yellow border border-yellow"> <i
+                                                class="fas fa-key text-dark"></i></span>
+                                        <input type="password" id="confirm-password-input" name="confirm-password"
+                                            class="form-control" placeholder="Confirm Password..." required />
+                                    </div>
+                                    <div id="password-mismatch-error" class="overflow-hidden h-0 text-danger text-start transition"><small>The passwords do not match!</small></div>
+                                </div>
+
+                                
+                                <!-- Checkbox -->
+
+                                <!-- Submit button -->
+                                <button type="submit" id="submit-form"
+                                    class=" btn btn-outline-yellow border border-yellow disabled text-white btn-block btn-hover-custom mb-4">Change Pasword</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+
+    <script>
+    
+        let validName = false
+        let validPass = false
+        let isSame = false
+
+        const submit = document.getElementById('submit-form')
+
+        const userLengthError = document.getElementById('username-length-error')
+        const userTakenError = document.getElementById('username-taken-error')
+
+        const passLengthError = document.getElementById('password-length-error')
+        const passMisMatchError = document.getElementById('password-mismatch-error')
+
+        function enableSubmit(){
+            if(validPass && isSame){
+                submit.classList.remove('disabled')
+            }
+            else{
+                submit.classList.add('disabled')
+            }
+        }
+
+
+        function checkPassCreds(e){
+            validPass = (e.target.value.length >= 8)
+            if(!validPass){
+                passLengthError.classList.remove('h-0')
+                passLengthError.classList.add('h-max')
+            }
+            else{
+                passLengthError.classList.add('h-0')
+                passLengthError.classList.remove('h-max')
+            }
+            enableSubmit()
+        }
+
+        function checkPassConf(e){
+            isSame = passEntered.value == passConfirm.value
+            if(!isSame){
+                passMisMatchError.classList.remove('h-0')
+                passMisMatchError.classList.add('h-max')
+            }
+            else{
+                passMisMatchError.classList.add('h-0')
+                passMisMatchError.classList.remove('h-max')
+            }
+            enableSubmit()
+        }
+
+
+        // Check Password
+        const passEntered = document.getElementById('password-input')
+        passEntered.addEventListener('keyup', checkPassCreds)
+        passEntered.addEventListener('change', checkPassCreds)
+
+        // Confirm password
+        const passConfirm = document.getElementById('confirm-password-input')
+        passConfirm.addEventListener('keyup', checkPassConf)
+        passConfirm.addEventListener('change', checkPassConf)
+
+
+
+    </script>
+
+</body>
+
+</html>
