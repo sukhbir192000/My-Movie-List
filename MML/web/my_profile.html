@@ -49,10 +49,11 @@
         .table-img {
             max-width: 100px !important;
         }
-        @media screen and (max-width:576px){
+
+        @media screen and (max-width:576px) {
             .table-img {
-            max-width: 50px !important;
-        }
+                max-width: 50px !important;
+            }
         }
     </style>
 </head>
@@ -136,13 +137,18 @@
 
                         <div
                             class="col offset-0 offset-md-4 offset-xl-3 d-flex flex-column justify-content-end align-items-center align-items-md-start  justify-content-md-center justify-content-lg-end">
-                            <div style="height:0;padding-top:50%;background-image:url('images/in.jpg');background-size: cover;"
-                                class="w-50  d-block d-md-none mt-3 rounded-circle">
+                            <div style="height:0;padding-top:40%;width:40%;background-image:url('images/in.jpg');background-size: cover;"
+                                class=" d-block d-md-none mt-3 rounded-circle">
 
                             </div>
 
 
                             <h1 class="h1 pb-2 pt-3 text-white ps-md-5 ">Puneet Singh</h1>
+
+
+                        </div>
+                        <div class="position-absolute top-0 pt-3 pe-md-5 pe-3 d-flex flex-column justify-content-end align-items-end">
+                            <div><button class="btn btn-light ps-2 pe-3 px-md-3" style="white-space: nowrap;"><i class="fas fa-user-edit me-2"></i>Edit <span class="d-none d-md-inline">Profile</span>  </button></div>
 
                         </div>
                         <button class="btn  btn-yellow d-block d-md-none">Add
@@ -247,10 +253,10 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade show mt-0  " id="watchlist-content" role="tabpanel">
+                        <div class="tab-pane fade show mt-0 px-3  " id="watchlist-content" role="tabpanel">
                             <!-- Pills navs -->
-                            <ul class="nav nav-pills mb-4 d-block d-sm-flex flex-row justify-content-center px-0 ps-2 " id="ex1"
-                                role="tablist">
+                            <ul class="nav nav-pills mb-4 d-block d-sm-flex flex-row justify-content-center px-0 ps-2 "
+                                id="ex1" role="tablist">
                                 <li class="nav-item mx-0" role="presentation">
                                     <a class="nav-link straight-corner fw-bold  active m-0 text-center" id="ex1-tab-1"
                                         data-mdb-toggle="pill" href="#ex1-pills-1" role="tab"
@@ -279,7 +285,7 @@
                                                 <tr class="bg-yellow text-dark">
                                                     <th scope="col" class="text-center"></th>
                                                     <th scope="col" class="text-center">Name</th>
-                                                    <th scope="col" class="text-center d-md-block d-none">Desc</th>
+                                                    <th scope="col" class="text-center">Desc</th>
                                                     <th scope="col" class="text-center">Rating</th>
                                                 </tr>
                                             </thead>
@@ -288,7 +294,7 @@
                                                     <th scope="row" class="align-middle"><img class="table-img"
                                                             src="images/in.jpg"></th>
                                                     <td class="align-middle">Content</td>
-                                                    <td class="align-middle d-md-block d-none">extremely long content i want to test
+                                                    <td class="align-middle ">extremely long content i want to test
                                                         outextremely long content i
                                                         want to test outextremely long content i want to test
                                                         outextremely
@@ -304,14 +310,14 @@
                                                             src="images/in.jpg"></th>
 
                                                     <td class="align-middle">Justice League</td>
-                                                    <td class="align-middle d-md-block d-none">this is the description</td>
+                                                    <td class="align-middle">this is the description</td>
                                                     <td class="align-middle">4.9</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row"><img class="table-img" src="images/in.jpg"></th>
 
                                                     <td class="align-middle">Iron Man</th>
-                                                    <td class="align-middle d-md-block d-none">I am iron man.</td>
+                                                    <td class="align-middle">I am iron man.</td>
                                                     <td class="align-middle">3.7</td>
                                                 </tr>
                                             </tbody>
@@ -328,7 +334,48 @@
                             </div>
                             <!-- Pills content -->
                         </div>
-                        <div class="tab-pane fade show mt-0 " id="friendlist-content" role="tabpanel"></div>
+                        <div class="tab-pane fade show mt-0 " id="friendlist-content" role="tabpanel">
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                    <tr class="bg-yellow text-dark">
+                                        <th scope="col" class="text-center"></th>
+                                        <th scope="col" class="text-center">Name</th>
+                                        <th scope="col" class="text-center">About</th>
+                                        <th scope="col" class="text-center">Options</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="align-middle"><img class="table-img" src="images/in.jpg">
+                                        </th>
+                                        <td class="align-middle text-center">Content</td>
+                                        <td class="align-middle text-center">Yo me chill</td>
+                                        <td class="align-middle text-center"><button
+                                                class="btn btn-small btn-yellow ">Remove Friend</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="align-middle"><img class="table-img" src="images/in.jpg">
+                                        </th>
+
+                                        <td class="align-middle text-center">Justice League</td>
+                                        <td class="align-middle text-center">Yo me chill too</td>
+
+                                        <td class="align-middle text-center"><button
+                                                class="btn btn-small btn-yellow">Remove Friend</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><img class="table-img" src="images/in.jpg"></th>
+
+                                        <td class="align-middle text-center">Iron Man</th>
+                                        <td class="align-middle text-center">Yo me chill three</td>
+
+                                        <td class="align-middle text-center"><button
+                                                class="btn btn-small btn-yellow">Remove Friend</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Tabs content -->
