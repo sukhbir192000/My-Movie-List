@@ -69,4 +69,7 @@
   .custom-carousel-next {
     transform: translateY(-50%) translateX(50%);
   }
+  .mt-md-n10 {
+    margin-top: -5em;
+  }
 }
