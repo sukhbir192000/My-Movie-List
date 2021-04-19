@@ -1,6 +1,6 @@
 package servlets;
 
-import daos.UsernameDao;
+import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -25,7 +25,7 @@ public class UsernameCheck extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            UsernameDao dao = new UsernameDao();
+            UserDao dao = new UserDao();
             if(dao.checkUname(request.getParameter("uname"))) {
                 out.println("true");
             }

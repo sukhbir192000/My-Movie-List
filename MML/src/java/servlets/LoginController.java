@@ -2,7 +2,7 @@ package servlets;
 
 import beans.User;
 import beans.UserAuthToken;
-import daos.LoginDao;
+import daos.UserDao;
 import daos.UserAuthDao;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
                 pass = HashGeneratorUtils.generateSHA256(request.getParameter("pass"));
         boolean rememberMe = "true".equals(request.getParameter("remember"));
 
-        LoginDao dao = new LoginDao();
+        UserDao dao = new UserDao();
 
         User user = dao.validate(uname, pass);
         if (user != null) {

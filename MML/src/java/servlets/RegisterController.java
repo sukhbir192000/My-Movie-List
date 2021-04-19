@@ -1,6 +1,6 @@
 package servlets;
 
-import daos.RegisterDao;
+import daos.UserDao;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -34,8 +34,8 @@ public class RegisterController extends HttpServlet {
         String lastName = request.getParameter("last-name");
         String email = request.getParameter("email");
         
-        RegisterDao dao = new RegisterDao();
-        dao.createUser(uname, hashedPass, firstName, lastName, email);
+        UserDao dao = new UserDao();
+        dao.create(uname, hashedPass, firstName, lastName, email);
         
         response.sendRedirect("/MML/login");
         
