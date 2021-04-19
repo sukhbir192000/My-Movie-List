@@ -1,5 +1,6 @@
 package beans;
 
+import daos.UserDao;
 import java.sql.ResultSet;
 
 public class UserAuthToken implements java.io.Serializable {
@@ -53,6 +54,11 @@ public class UserAuthToken implements java.io.Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+    
+    public User getUser() {
+        UserDao userDao = new UserDao();
+        return userDao.findByUserId(userId);
     }
 
 }

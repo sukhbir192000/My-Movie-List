@@ -53,6 +53,27 @@ public class UserAuthDao implements Dao {
         return null;
     }
     
+    public boolean update(UserAuthToken token) {
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("UPDATE user_auth SET selector = ?, validator = ? WHERE id = ?");
+            
+            ps.setString(1, token.getSelector());
+            ps.setString(2, token.getValidator());
+            ps.setLong(3, token.getId());
+            int res = ps.executeUpdate();
+            if(res > 0) {
+                return true;
+            }
+            
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+    
     public void delete(long token_id) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
