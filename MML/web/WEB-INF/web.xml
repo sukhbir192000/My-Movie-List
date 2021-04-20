@@ -32,6 +32,22 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>servlets.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>servlets.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailController</servlet-name>
+        <servlet-class>servlets.EmailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailSentController</servlet-name>
+        <servlet-class>servlets.EmailSentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailCheck</servlet-name>
+        <servlet-class>servlets.EmailCheck</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -55,6 +71,22 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/forgot%20password</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailSentController</servlet-name>
+        <url-pattern>/EmailSentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailController</servlet-name>
+        <url-pattern>/email%20sent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailCheck</servlet-name>
+        <url-pattern>/checkEmail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

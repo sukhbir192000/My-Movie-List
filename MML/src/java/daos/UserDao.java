@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class UserDao implements Dao {
@@ -88,6 +90,42 @@ public class UserDao implements Dao {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public boolean checkEmail(String email){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT email FROM user WHERE email = ?");
+            
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void UpdatePassword(ResultSet rs, String hashedPass){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("UPDATE user SET password = ? WHERE user_id = ?");
+            
+            ps.setString(1, hashedPass);
+            ps.setInt(2, rs.getInt("user_id"));
+            
+            int hasExecuted = ps.executeUpdate();
+            if(hasExecuted > 0){
+                System.out.println("Email has been successfully sent!");
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

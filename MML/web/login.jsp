@@ -72,7 +72,7 @@
 
                                         <div class="col">
                                             <!-- Simple link -->
-                                            <a class="text-white" href="#!">Forgot password?</a>
+                                            <a class="text-white" href="/MML/forgot%20password">Forgot password?</a>
                                         </div>
                                     </div>
 
