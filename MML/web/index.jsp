@@ -169,7 +169,7 @@
                                     <div class="row g-0">
                                         <a href="/MML/content" class="text-white" target="_blank">
                                             <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
-                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
                                         </a>
                                         <div class="card-body bg-dark col-8 col-sm-12 ">
@@ -254,7 +254,7 @@
                                     <div class="row g-0">
                                         <a href="/MML/content" class="text-white" target="_blank">
                                             <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
-                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
                                         </a>
                                         <div class="card-body bg-dark col-8 col-sm-12 ">
@@ -337,7 +337,7 @@
                                     <div class="row g-0">
                                         <a href="/MML/content" class="text-white" target="_blank">
                                             <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
-                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
                                         </a>
                                         <div class="card-body bg-dark col-8 col-sm-12 ">
