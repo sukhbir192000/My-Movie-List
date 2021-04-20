@@ -1,5 +1,6 @@
 package servlets;
 
+import daos.ApiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -7,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 
 /**
  *
@@ -27,6 +29,11 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        ApiDao dao = new ApiDao();
+        
+        // GET TRENDING
+        JSONArray trendingArray = dao.getRequestArray("/trending/movie/week");
+        request.setAttribute("trending", trendingArray);
         
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);

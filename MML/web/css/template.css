@@ -31,10 +31,6 @@
     opacity: 1;
 }
 
-.content{
-    display: none;
-}
-
 .rating-container .rating-stars{
     font-size: 18px;
 }
