@@ -33,7 +33,13 @@ public class HomeController extends HttpServlet {
         
         // GET TRENDING
         JSONArray trendingArray = dao.getRequestArray("/trending/movie/week");
+        JSONArray popularArray = dao.getRequestArray("/movie/popular");
+      
+        JSONArray upcomingArray= dao.getRequestArray("/movie/upcoming");
+ 
         request.setAttribute("trending", trendingArray);
+        request.setAttribute("popular", popularArray);
+        request.setAttribute("upcoming", upcomingArray);
         
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);

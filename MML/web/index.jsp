@@ -162,68 +162,68 @@
                             <%
                                 JSONArray trendingArray = (JSONArray) request.getAttribute("trending");
                                 for (int i = 0; i < trendingArray.size(); i++) {
-                                    JSONObject trendingItem = (JSONObject) trendingArray.get(i);
+                                    JSONObject contentItem = (JSONObject) trendingArray.get(i);
                             %>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                        <div class="card h-100 bg-dark text-white position-relative">
-                                            <div class="row g-0">
-                                                <a href="/MML/content" class="text-white" target="_blank">
-                                                    <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
-                                                        <img src="https://image.tmdb.org/t/p/w185/<%=trendingItem.get("poster_path")%>" class="card-img-top" />
-                                                    </div>
-                                                </a>
-                                                <div class="card-body bg-dark col-8 col-sm-12 ">
-                                                    <a href="/MML/content" class="text-white" target="_blank">
-                                                        <h5 class="card-title"><%=trendingItem.get("title")%></h5>
-                                                        <p class="card-text line-clamp d-sm-none my-1">
-                                                            <%=trendingItem.get("overview")%>
-                                                        </p>
-                                                        <p class="card-text m-0 text-muted">
-                                                            <%=trendingItem.get("release_date")%>
-                                                        </p>
-                                                    </a>
-                                                    <div class="d-sm-flex d-none">
-                                                        <div  class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 end-0 m-1 to-watchlist-opacity" style="z-index: 4;">
-        
-                                                            <div class="dropdown mx-auto d-none d-sm-flex" >
-                                                                <i id="rating" class="fas fa-star fs-3 fs-sm-6 p-2 fw-bold give-rating-hover"
-                                                                    data-mdb-toggle="dropdown"
-                                                                    aria-expanded="false" style="z-index: 3;">
-                                                                
-                                                                </i>
-                                                                <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
-                                                                    aria-labelledby="rating-btn" >
-                                                                    <li>
-                                                                        <a class="dropdown-item p-0 bg-dark" href="#">
-                                                                            <input name="input-1"
-                                                                                class="rating rating-loading" data-min="0"
-                                                                                data-max="5" data-step="0.5" style="height: 0;">
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-        
-                                                        <div class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 start-0 m-1 to-watchlist-opacity">
-                                                            <div class="dropdown mx-auto d-none d-sm-flex">
-                                                                <i class="fas fa-plus fs-3 fs-sm-6 p-2 fw-bold watchlist-icon" data-mdb-toggle="dropdown" aria-expanded="false"> </i>
-                                                                <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
-                                                                    aria-labelledby="watchlist-btn">
-                                                                    <li><span class="dropdown-item watching" href="#" id="">Watching</span></li>
-                                                                    <li><span class="dropdown-item completed" href="#" id="">Completed</span></li>
-                                                                    <li><span class="dropdown-item onhold" href="#" id="">On hold</span></li>
-                                                                    <li><span class="dropdown-item dropped" href="#" id="">Dropped</span></li>
-                                                                    <li><span class="dropdown-item planned" href="#" id="">Plan to watch</span></li>
-                                                                </ul>
-                                                            </div>
-        
-                                                        </div>
-                                                    </div>
-        
-                                                </div>
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
+                                <div class="card h-100 bg-dark text-white position-relative">
+                                    <div class="row g-0">
+                                        <a href="/MML/content" class="text-white" target="_blank">
+                                            <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
+                                        </a>
+                                        <div class="card-body bg-dark col-8 col-sm-12 ">
+                                            <a href="/MML/content" class="text-white" target="_blank">
+                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                <p class="card-text line-clamp d-sm-none my-1">
+                                                    <%=contentItem.get("overview")%>
+                                                </p>
+                                                <p class="card-text m-0 text-muted">
+                                                    <%=contentItem.get("release_date")%>
+                                                </p>
+                                            </a>
+                                            <div class="d-sm-flex d-none">
+                                                <!-- <div  class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 end-0 m-1 to-watchlist-opacity" style="z-index: 4;">
+
+                                                    <div class="dropdown mx-auto d-none d-sm-flex" >
+                                                        <i id="rating" class="fas fa-star fs-3 fs-sm-6 p-2 fw-bold give-rating-hover"
+                                                            data-mdb-toggle="dropdown"
+                                                            aria-expanded="false" style="z-index: 3;">
+                                                        
+                                                        </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="rating-btn" >
+                                                            <li>
+                                                                <a class="dropdown-item p-0 bg-dark" href="#">
+                                                                    <input name="input-1"
+                                                                        class="rating rating-loading" data-min="0"
+                                                                        data-max="5" data-step="0.5" style="height: 0;">
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 start-0 m-1 to-watchlist-opacity">
+                                                    <div class="dropdown mx-auto d-none d-sm-flex">
+                                                        <i class="fas fa-plus fs-3 fs-sm-6 p-2 fw-bold watchlist-icon" data-mdb-toggle="dropdown" aria-expanded="false"> </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="watchlist-btn">
+                                                            <li><span class="dropdown-item watching" href="#" id="">Watching</span></li>
+                                                            <li><span class="dropdown-item completed" href="#" id="">Completed</span></li>
+                                                            <li><span class="dropdown-item onhold" href="#" id="">On hold</span></li>
+                                                            <li><span class="dropdown-item dropped" href="#" id="">Dropped</span></li>
+                                                            <li><span class="dropdown-item planned" href="#" id="">Plan to watch</span></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div> -->
+                                            </div>
+
                                         </div>
                                     </div>
+                                </div>
+                            </div>
                             <%
                                 }
                             %>
@@ -231,7 +231,7 @@
                         </div>
                     </div>
 
-                    
+
                     <h2 class="mt-5 text-yellow fw-bold ps-2">Popular</h2>
 
                     <div class="custom-carousel position-relative">
@@ -244,24 +244,78 @@
                             <i class="fas fa-chevron-right fs-4"></i>
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
-                            <a href="/MML/content" class="text-white" target="_blank">
-                                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                    <div class="card bg-dark text-white">
-                                        <img src="images/gvk.jpg" class="card-img-top" alt="..." />
-                                        <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center" style="pointer-events: none;">
-                                            <div>
-                                                <h4 class="card-title text-center">1</h4>
-                                                <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                            <%
+                                JSONArray popularArray = (JSONArray) request.getAttribute("popular");
+                                for (int i = 0; i < popularArray.size(); i++) {
+                                    JSONObject contentItem = (JSONObject) popularArray.get(i);
+                            %>
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
+                                <div class="card h-100 bg-dark text-white position-relative">
+                                    <div class="row g-0">
+                                        <a href="/MML/content" class="text-white" target="_blank">
+                                            <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
-                                            <a href="#!" class="btn btn-primary" style="pointer-events: all;">+ WATCHLIST</a>
+                                        </a>
+                                        <div class="card-body bg-dark col-8 col-sm-12 ">
+                                            <a href="/MML/content" class="text-white" target="_blank">
+                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                <p class="card-text line-clamp d-sm-none my-1">
+                                                    <%=contentItem.get("overview")%>
+                                                </p>
+                                                <p class="card-text m-0 text-muted">
+                                                    <%=contentItem.get("release_date")%>
+                                                </p>
+                                            </a>
+                                            <div class="d-sm-flex d-none">
+                                                <!-- <div  class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 end-0 m-1 to-watchlist-opacity" style="z-index: 4;">
+
+                                                    <div class="dropdown mx-auto d-none d-sm-flex" >
+                                                        <i id="rating" class="fas fa-star fs-3 fs-sm-6 p-2 fw-bold give-rating-hover"
+                                                            data-mdb-toggle="dropdown"
+                                                            aria-expanded="false" style="z-index: 3;">
+                                                        
+                                                        </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="rating-btn" >
+                                                            <li>
+                                                                <a class="dropdown-item p-0 bg-dark" href="#">
+                                                                    <input name="input-1"
+                                                                        class="rating rating-loading" data-min="0"
+                                                                        data-max="5" data-step="0.5" style="height: 0;">
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 start-0 m-1 to-watchlist-opacity">
+                                                    <div class="dropdown mx-auto d-none d-sm-flex">
+                                                        <i class="fas fa-plus fs-3 fs-sm-6 p-2 fw-bold watchlist-icon" data-mdb-toggle="dropdown" aria-expanded="false"> </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="watchlist-btn">
+                                                            <li><span class="dropdown-item watching" href="#" id="">Watching</span></li>
+                                                            <li><span class="dropdown-item completed" href="#" id="">Completed</span></li>
+                                                            <li><span class="dropdown-item onhold" href="#" id="">On hold</span></li>
+                                                            <li><span class="dropdown-item dropped" href="#" id="">Dropped</span></li>
+                                                            <li><span class="dropdown-item planned" href="#" id="">Plan to watch</span></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div> -->
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
 
-                    <h2 class="mt-5 text-yellow fw-bold ps-2">Latest</h2>
+                    <h2 class="mt-5 text-yellow fw-bold ps-2">Upcoming</h2>
 
                     <div class="custom-carousel position-relative">
                         <button
@@ -273,20 +327,74 @@
                             <i class="fas fa-chevron-right fs-4"></i>
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
-                            <a href="/MML/content" class="text-white" target="_blank">
-                                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                    <div class="card bg-dark text-white">
-                                        <img src="images/gvk.jpg" class="card-img-top" alt="..." />
-                                        <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center" style="pointer-events: none;">
-                                            <div>
-                                                <h4 class="card-title text-center">1</h4>
-                                                <i class="fas fa-star text-yellow mx-1"></i> 6.9
+                            <%
+                                JSONArray upcomingArray = (JSONArray) request.getAttribute("upcoming");
+                                for (int i = 0; i < upcomingArray.size(); i++) {
+                                    JSONObject contentItem = (JSONObject) upcomingArray.get(i);
+                            %>
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
+                                <div class="card h-100 bg-dark text-white position-relative">
+                                    <div class="row g-0">
+                                        <a href="/MML/content" class="text-white" target="_blank">
+                                            <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                <img src="https://image.tmdb.org/t/p/w185/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
-                                            <a href="#!" class="btn btn-primary" style="pointer-events: all;">+ WATCHLIST</a>
+                                        </a>
+                                        <div class="card-body bg-dark col-8 col-sm-12 ">
+                                            <a href="/MML/content" class="text-white" target="_blank">
+                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                <p class="card-text line-clamp d-sm-none my-1">
+                                                    <%=contentItem.get("overview")%>
+                                                </p>
+                                                <p class="card-text m-0 text-muted">
+                                                    <%=contentItem.get("release_date")%>
+                                                </p>
+                                            </a>
+                                            <div class="d-sm-flex d-none">
+                                                <!-- <div  class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 end-0 m-1 to-watchlist-opacity" style="z-index: 4;">
+
+                                                    <div class="dropdown mx-auto d-none d-sm-flex" >
+                                                        <i id="rating" class="fas fa-star fs-3 fs-sm-6 p-2 fw-bold give-rating-hover"
+                                                            data-mdb-toggle="dropdown"
+                                                            aria-expanded="false" style="z-index: 3;">
+                                                        
+                                                        </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="rating-btn" >
+                                                            <li>
+                                                                <a class="dropdown-item p-0 bg-dark" href="#">
+                                                                    <input name="input-1"
+                                                                        class="rating rating-loading" data-min="0"
+                                                                        data-max="5" data-step="0.5" style="height: 0;">
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="rounded-circle bg-dark cursor-pointer position-sm-absolute top-0 start-0 m-1 to-watchlist-opacity">
+                                                    <div class="dropdown mx-auto d-none d-sm-flex">
+                                                        <i class="fas fa-plus fs-3 fs-sm-6 p-2 fw-bold watchlist-icon" data-mdb-toggle="dropdown" aria-expanded="false"> </i>
+                                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark border border-yellow"
+                                                            aria-labelledby="watchlist-btn">
+                                                            <li><span class="dropdown-item watching" href="#" id="">Watching</span></li>
+                                                            <li><span class="dropdown-item completed" href="#" id="">Completed</span></li>
+                                                            <li><span class="dropdown-item onhold" href="#" id="">On hold</span></li>
+                                                            <li><span class="dropdown-item dropped" href="#" id="">Dropped</span></li>
+                                                            <li><span class="dropdown-item planned" href="#" id="">Plan to watch</span></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div> -->
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -303,115 +411,7 @@
         <!-- MDB -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
         <script type="text/javascript" src="scripts/custom-carousel.js"></script>
-        <script src="scripts/rating.js"></script>
-        <script>
-            const change = document.querySelectorAll('.watchlist-icon')
-            const watching = document.querySelectorAll('.watching')
-            const completed = document.querySelectorAll('.completed')
-            const onhold = document.querySelectorAll('.onhold')
-            const dropped = document.querySelectorAll('.dropped')
-            const planned = document.querySelectorAll('.planned')
 
-            var icons = ['fa-eye', 'fa-check', 'fa-pause', 'fa-plus', 'fa-trash', 'fa-tasks']
-
-            function toWatching(e){
-                var iconChange = e.target.parentNode.parentNode.parentNode.children[0] 
-                if(iconChange.classList.contains('fa-eye')){
-                    iconChange.classList.remove('fa-eye')
-                    iconChange.classList.add('fa-plus')
-                }
-
-                else{
-                    for(let i = 0; i<icons.length; i++){
-                        iconChange.classList.remove(icons[i])
-                    }
-                    iconChange.classList.add('fa-eye')
-                }
-            }
-            watching.forEach(watch =>{
-                watch.addEventListener('click', toWatching)
-            })
-
-            // ------------------------------------------------------------
-
-            function toCompleted(e){
-                var iconChange = e.target.parentNode.parentNode.parentNode.children[0] 
-                if(iconChange.classList.contains('fa-check')){
-                    iconChange.classList.remove('fa-check')
-                    iconChange.classList.add('fa-plus')
-                }
-
-                else{
-                    for(let i = 0; i<icons.length; i++){
-                        iconChange.classList.remove(icons[i])
-                    }
-                    iconChange.classList.add('fa-check')
-                }
-            }
-            completed.forEach(complete =>{
-                complete.addEventListener('click', toCompleted)
-            })
-
-            // ------------------------------------------------------------
-
-            function toHold(e){
-                var iconChange = e.target.parentNode.parentNode.parentNode.children[0] 
-                if(iconChange.classList.contains('fa-pause')){
-                    iconChange.classList.remove('fa-pause')
-                    iconChange.classList.add('fa-plus')
-                }
-
-                else{
-                    for(let i = 0; i<icons.length; i++){
-                        iconChange.classList.remove(icons[i])
-                    }
-                    iconChange.classList.add('fa-pause')
-                }
-            }
-            onhold.forEach(hold =>{
-                hold.addEventListener('click', toHold)
-            })
-
-            // ------------------------------------------------------------
-
-            function toDropped(e){
-                var iconChange = e.target.parentNode.parentNode.parentNode.children[0]
-                if(iconChange.classList.contains('fa-trash')){
-                    iconChange.classList.remove('fa-trash')
-                    iconChange.classList.add('fa-plus')
-                }
-
-                else{
-                    for(let i = 0; i<icons.length; i++){
-                        iconChange.classList.remove(icons[i])
-                    }
-                    iconChange.classList.add('fa-trash')
-                }
-            }
-            dropped.forEach(drop =>{
-                drop.addEventListener('click', toDropped)
-            })
-
-            // ------------------------------------------------------------
-
-            function toPlanned(e){
-                var iconChange = e.target.parentNode.parentNode.parentNode.children[0]
-                if(iconChange.classList.contains('fa-tasks')){
-                    iconChange.classList.remove('fa-tasks')
-                    iconChange.classList.add('fa-plus')
-                }
-
-                else{
-                    for(let i = 0; i<icons.length; i++){
-                        iconChange.classList.remove(icons[i])
-                    }
-                    iconChange.classList.add('fa-tasks')
-                }
-            }
-            planned.forEach(plan =>{
-                plan.addEventListener('click', toPlanned)
-            })
-        </script>
 
     </body>
 
