@@ -1,6 +1,9 @@
 .backdrop-details {
-  background: url("../images/in-back.jpg") center center no-repeat;
-  background-size: cover;
+  
+  background-size: cover !important;
+  background-position:center top;
+  
+      
 }
 
 .backdrop-details > div {

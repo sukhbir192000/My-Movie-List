@@ -5,18 +5,25 @@
  */
 package servlets;
 
+import beans.User;
+import daos.ContentDao;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author Puneet
  */
-public class ShowController extends HttpServlet {
+public class WatchListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,21 +36,38 @@ public class ShowController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ShowController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ShowController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            StringBuilder buffer = new StringBuilder();
+            BufferedReader reader = request.getReader();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+                buffer.append(System.lineSeparator());
+            }
+
+            String data = buffer.toString();
+            System.out.println("hi" + data);
+            JSONParser parser = new JSONParser();
+            JSONObject statusToUpdate = (JSONObject) parser.parse(data);
+
+            ContentDao statusDao = new ContentDao();
+            int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
+            statusDao.setMovieStatus(userId, (long)statusToUpdate.get("movieId"), (String) statusToUpdate.get("listStatus"));
+
+            HashMap<String, Boolean> responseMap = new HashMap<String, Boolean>();
+            responseMap.put("success", true);
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
+        } catch (Exception e) {
+            HashMap<String, Boolean> responseMap = new HashMap<String, Boolean>();
+            responseMap.put("success", false);
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
+            e.printStackTrace();
         }
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

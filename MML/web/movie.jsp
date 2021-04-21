@@ -1,5 +1,8 @@
 
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,14 +33,16 @@
         <div class="container-fluid bg-black p-0 min-vh-100 d-flex flex-column justify-content-between">
             <div>
                 <jsp:include page="navbar.jsp" />
-
-                <div class="backdrop-details">
+                <%
+                    JSONObject details = (JSONObject) request.getAttribute("details");
+                %>
+                <div class="backdrop-details" style="background: url('https://image.tmdb.org/t/p/w1280/<%=details.get("backdrop_path")%>') center center no-repeat;">
                     <div class="w-100">
                         <div class="container-lg ">
                             <div class="row py-2 py-sm-5 px-2 px-sm-0">
                                 <div class="col-12 col-sm-5 col-md-3 ">
                                     <div class="position-relative">
-                                        <img src="images/in.jpg" alt="poster" class="w-100 shadow-2-strong">
+                                        <img src="https://image.tmdb.org/t/p/w500/<%=details.get("poster_path")%>" alt="poster" class="w-100 shadow-2-strong">
                                         <div class="w-25 position-absolute end-0 bottom-0 d-block d-md-none m-1">
                                             <svg id="animated-small" viewbox="0 0 100 100">
                                             <circle cx="50" cy="50" r="45" fill="rgba(0,0,0,0.8)" />
@@ -46,7 +51,7 @@
                                                   a 40 40 0 0 1 0 -80">
                                             </path>
                                             <text id="count-small" x="50" y="50" text-anchor="middle" dy="7" font-size="20"
-                                                  fill="#FFF">84%</text>
+                                                  fill="#FFF"><%=(Double) details.get("vote_average") * 10%></text>
                                             </svg>
                                         </div>
                                     </div>
@@ -55,8 +60,8 @@
                                     class="col-12 col-sm-7 col-md-9 text-white d-flex flex-column justify-content-center align-items-start pt-3 pt-sm-0">
                                     <div class="row w-100">
                                         <div class="col-12 col-md-10">
-                                            <h3 class="display-5 fw-normal">Inception</h3>
-                                            <p class="text-muted mb-0">Your mind is the scene of the crime.</p>
+                                            <h3 class="display-5 fw-normal"><%=details.get("original_title")%></h3>
+                                            <p class="text-muted mb-0"><%=details.get("tagline")%></p>
                                         </div>
                                         <div class="d-none d-md-block col-md-2 pe-xl-5">
                                             <svg id="animated-big" viewbox="0 0 100 100">
@@ -66,45 +71,49 @@
                                                   a 40 40 0 0 1 0 -80">
                                             </path>
                                             <text id="count-big" x="50" y="50" text-anchor="middle" dy="7" font-size="20"
-                                                  fill="#FFF">84%</text>
+                                                  fill="#FFF"><%=(Double) details.get("vote_average") * 10%>%</text>
                                             </svg>
                                         </div>
                                     </div>
-                                    <p class=""><span class="d-block d-md-inline mb-3 mb-md-0">03/24/2021 (IN)</span>
-                                        <span class="d-block d-md-inline">&#x25CF; Action, Science Fiction</span>
-                                        <span class="d-block d-md-inline">&#x25CF; 1h 53m</span>
+                                    <p class=""><span class="d-block d-md-inline mb-3 mb-md-0"><%=details.get("release_date")%></span>
+                                        <span class="d-block d-md-inline">&#x25CF;<%
+                                            JSONArray genreArray = (JSONArray) details.get("genres");
+                                            for (int i = 0; i < genreArray.size(); i++) {
+                                                JSONObject genreItem = (JSONObject) genreArray.get(i);
+                                                if (genreItem != null) {
+
+                                            %>
+                                            <%=genreItem.get("name")%>
+                                            <%if (i != (genreArray.size() - 1)) {%>
+                                            ,
+                                            <%}%>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </span>
+                                        <span class="d-block d-md-inline">&#x25CF; <%=details.get("runtime")%> minutes</span>
                                     </p>
 
                                     <p>
-                                        Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his
-                                        targets is offered a chance to regain his old life as payment for a task considered to be impossible:
-                                        "inception", the implantation of another person's idea into a target's subconscious.
+                                        <%=details.get("overview")%>
+
                                     </p>
 
                                     <!-- <button class="btn btn-yellow fs-5 mx-auto">+ Add to WatchList</button> -->
-                                    <div class="dropdown mx-auto">
+                                    <!--to do-->
+                                    <div class="dropdown mx-auto" id="watchListButton">
                                         <button class="btn btn-yellow fs-5 dropdown-toggle" type="button" id="watchlist-btn"
-                                                data-mdb-toggle="dropdown" aria-expanded="false">Add to WatchList
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark" aria-labelledby="watchlist-btn">
-                                            <li><a class="dropdown-item" href="#">Watching</a></li>
-                                            <li><a class="dropdown-item" href="#">Completed</a></li>
-                                            <li><a class="dropdown-item" href="#">On hold</a></li>
-                                            <li><a class="dropdown-item" href="#">Dropped</a></li>
-                                            <li><a class="dropdown-item" href="#">Plan to watch</a></li>
+                                                data-mdb-toggle="dropdown" aria-expanded="false" style="min-width:20vw !important;"><%=request.getAttribute("status")%></button>
+                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark" aria-labelledby="watchlist-btn" >
+                                            <li><span class="dropdown-item" href="#">Watching</span></li>
+                                            <li><span class="dropdown-item" href="#">Completed</span></li>
+                                            <li><span class="dropdown-item" href="#">On hold</span></li>
+                                            <li><span class="dropdown-item" href="#">Dropped</span></li>
+                                            <li><span class="dropdown-item" href="#">Plan to watch</span></li>
                                         </ul>
                                     </div>
-                                    <h4>Stream on: </h4>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#"><img class="w-100" src="http://image.tmdb.org/t/p/w45/68MNrwlkpF7WnmNPXLah69CR5cb.jpg"
-                                                             alt=""></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"><img class="w-100" src="http://image.tmdb.org/t/p/w45/rgbalNWbAuhWklHH5JAnF53Wjey.jpg"
-                                                             alt=""></a>
-                                        </li>
-                                    </ul>
+
 
                                 </div>
                             </div>
@@ -126,35 +135,31 @@
                             <i class="fas fa-chevron-right fs-4"></i>
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
+                            <%for (int i = 0; i < ((JSONArray) request.getAttribute("cast")).size(); i++) {
+                                    JSONObject castItem = (JSONObject) ((JSONArray) request.getAttribute("cast")).get(i);
+                            %>
                             <div class="col-xl-2 col-md-3 col-sm-4 col-6">
                                 <div class="card h-100 bg-dark text-white">
                                     <div class="img-container">
-                                        <img src="https://image.tmdb.org/t/p/w342/u525jeDOzg9hVdvYfeehTGnw7Aa.jpg" class="card-img-top"
-                                             alt="Ben Affleck" />
+                                        <%if (castItem.get("profile_path")==null) {%>
+                                        <img src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg" class="card-img-top my-auto"
+                                             alt="<%=castItem.get("original_name")%>" />
+                                        <%} else {%>
+                                        <img src="https://image.tmdb.org/t/p/w342/<%=castItem.get("profile_path")%>" class="card-img-top"
+                                             alt="<%=castItem.get("original_name")%>" />
+                                        <%}%>
                                     </div>
                                     <div class="card-body bg-dark">
-                                        <h5 class="card-title">Ben Affleck</h5>
+                                        <h5 class="card-title"><%=castItem.get("original_name")%></h5>
                                         <p class="card-text">
-                                            Bruce Wayne / Batman
+                                            <%=castItem.get("character")%>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            <%}%>
 
-                            <div class="col-xl-2 col-md-3 col-sm-4 col-6">
-                                <div class="card h-100 bg-dark text-white">
-                                    <div class="img-container">
-                                        <img src="https://image.tmdb.org/t/p/w342/fysvehTvU6bE3JgxaOTRfvQJzJ4.jpg" class="card-img-top"
-                                             alt="Gal Gadot" />
-                                    </div>
-                                    <div class="card-body bg-dark">
-                                        <h5 class="card-title">Gal Gadot</h5>
-                                        <p class="card-text">
-                                            Diana Prince / Wonder Woman
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -377,7 +382,46 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+        <script>
+            let optionsList = document.querySelectorAll("#watchListButton ul li");
+            optionsList.forEach((optionItem) => {
+                optionItem.addEventListener('click', watchListHandler);
+            })
+            function watchListHandler(event) {
+                console.log("clicked", event.target.innerText);
+                postData('/MML/watchlist', {
+                    listStatus: event.target.innerText,
+                    movieId:<%=request.getParameter("id")%>
+                })
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if (data.success) {
+                                let watchListButton = document.querySelector("#watchListButton button");
+                                watchListButton.innerText = event.target.innerText;
+                            }
+                        });
 
+            }
+            async function postData(url = '', data = {}) {
+                // Default options are marked with *
+                const response = await fetch(url, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                                // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify(data) // body data type must match "Content-Type" header
+                });
+                return response.json(); // parses JSON response into native JavaScript objects
+            }
+
+
+        </script>
         <script>
             var countBig = $(('#count-big'));
             var length = parseInt(countBig.text()) * 251.2 / 100;

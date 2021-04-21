@@ -1,5 +1,8 @@
 package servlets;
 
+import beans.User;
+import daos.ApiDao;
+import daos.ContentDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -7,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -26,7 +31,18 @@ public class MovieController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        ApiDao dao = new ApiDao();
+
+        ContentDao statusDao = new ContentDao();
+        int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
+        String movieStatus = statusDao.getMovieStatus(userId, Integer.parseInt(request.getParameter("id")));
+        JSONObject movieDetails = dao.getRequestObject("/movie/" + request.getParameter("id"));
+        JSONArray castDetails = dao.getRequestArray("/movie/" + request.getParameter("id")+"/credits","cast");
+        System.out.println("cast"+castDetails);
+        System.out.println("details" + movieDetails);
+        request.setAttribute("details", movieDetails);
+        request.setAttribute("cast", castDetails);
+        request.setAttribute("status", movieStatus);
         RequestDispatcher rd = request.getRequestDispatcher("movie.jsp");
         rd.forward(request, response);
     }
