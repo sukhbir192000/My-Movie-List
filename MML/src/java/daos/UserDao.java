@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.HashGeneratorUtils;
 
 
 public class UserDao implements Dao {
@@ -109,23 +110,63 @@ public class UserDao implements Dao {
         return false;
     }
     
-    public void UpdatePassword(ResultSet rs, String hashedPass){
+    public boolean passwordMatch(int uid, String hashedPass){
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT password FROM user WHERE user_id = ?");
+
+            ps.setInt(1, uid);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                String pass = rs.getString("password");
+                if(pass.equals(hashedPass)) return true;
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public void UpdatePassword(int uid, String hashedPass){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement ps = con.prepareStatement("UPDATE user SET password = ? WHERE user_id = ?");
             
             ps.setString(1, hashedPass);
-            ps.setInt(2, rs.getInt("user_id"));
+            ps.setInt(2, uid);
             
-            int hasExecuted = ps.executeUpdate();
-            if(hasExecuted > 0){
-                System.out.println("Email has been successfully sent!");
-            }
+            int updated = ps.executeUpdate();
             
         } catch (Exception ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void UpdateDetails(int uid, String fname, String lname, String uname){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("UPDATE user SET first_name = ?, last_name = ?, username = ? WHERE user_id = ?");
+            
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, uname);
+            ps.setInt(4, uid);
+            
+            int updated = ps.executeUpdate();
+            if(updated>0){
+                System.out.println("Updated details successfully");
+            }
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 
 }

@@ -19,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utils.HashGeneratorUtils;
 import utils.sendEmail;
 
@@ -47,7 +48,7 @@ public class EmailController extends HttpServlet {
                     
                     String tempPass = sendEmail.mailPassword(recipient);
                     String hashedTempPass = HashGeneratorUtils.generateSHA256(tempPass);
-                    user_pass.UpdatePassword(rs, hashedTempPass);
+                    user_pass.UpdatePassword(rs.getInt("user_id"), hashedTempPass);
                     
                     RequestDispatcher rd = request.getRequestDispatcher("email_sent.jsp");
                     rd.forward(request, response);
@@ -77,7 +78,7 @@ public class EmailController extends HttpServlet {
                     
                     String tempPass = sendEmail.mailPassword(recipient);
                     String hashedTempPass = HashGeneratorUtils.generateSHA256(tempPass);
-                    user_pass.UpdatePassword(rs, hashedTempPass);
+                    user_pass.UpdatePassword(rs.getInt("user_id"), hashedTempPass);
                     
                     RequestDispatcher rd = request.getRequestDispatcher("email_sent.jsp");
                     rd.forward(request, response);

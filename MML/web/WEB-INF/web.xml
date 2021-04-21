@@ -52,6 +52,22 @@
         <servlet-name>ShowController</servlet-name>
         <servlet-class>servlets.ShowController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditProfileController</servlet-name>
+        <servlet-class>servlets.EditProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyProfileController</servlet-name>
+        <servlet-class>servlets.MyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <servlet-class>servlets.UpdateProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>servlets.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -99,6 +115,22 @@
     <servlet-mapping>
         <servlet-name>ShowController</servlet-name>
         <url-pattern>/ShowController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProfileController</servlet-name>
+        <url-pattern>/editProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/detailsUpdated</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/passwordChanged</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -93,8 +93,8 @@
                         <span class="navbar-username ps-1 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam rerum illum quasi mollitia perspiciatis perferendis quisquam enim tenetur laboriosam non.</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                        <li><a class="dropdown-item" href="#">My profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="/MML/profile">My profile</a></li>
+                        <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
                         <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
                     </ul>
                 </li>
