@@ -13,7 +13,7 @@
         <servlet-class>servlets.HomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ContentController</servlet-name>
+        <servlet-name>MovieController</servlet-name>
         <servlet-class>servlets.MovieController</servlet-class>
     </servlet>
     <servlet>
@@ -47,6 +47,10 @@
     <servlet>
         <servlet-name>EmailCheck</servlet-name>
         <servlet-class>servlets.EmailCheck</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowController</servlet-name>
+        <servlet-class>servlets.ShowController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>EmailCheck</servlet-name>
         <url-pattern>/checkEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowController</servlet-name>
+        <url-pattern>/ShowController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
