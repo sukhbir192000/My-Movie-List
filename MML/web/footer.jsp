@@ -9,32 +9,33 @@
         <div class="row">
             <!--Grid column-->
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Footer Content</h5>
+                <h6 class="text-uppercase font-italic"> Our Goal </h6>
 
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                    molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                    voluptatem veniam, est atque cumque eum delectus sint!
+                <p style="font-size: 14px;">
+                    To make tracking of the movies the users have watched, are currently watching or plan to watch - much easier and reliable 
+                    by providing them with the most up-to date data. To provide the users with the ability to post their own reviews, ratings
+                    and take part in discussions relating to the movies that they have watched and even friend other users. 
+                    
                 </p>
             </div>
             <!--Grid column-->
 
             <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Links</h5>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0 ">
+                <h6 class="text-uppercase">Moving around MML</h6>
 
-                <ul class="list-unstyled mb-0">
+                <ul class="list-unstyled mb-0" style="font-size: 14px;">
                     <li>
-                        <a href="#!" class="text-white">Link 1</a>
+                        <a href="/MML/" class="text-muted">Home</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 2</a>
+                        <a href="/MML/login" class="text-muted">Login</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 3</a>
+                        <a href="/MML/register" class="text-muted">Sign up</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 4</a>
+                        <a href="#!" class="text-muted">Reach us</a>
                     </li>
                 </ul>
             </div>
@@ -42,20 +43,20 @@
 
             <!--Grid column-->
             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-0">Links</h5>
+                <h6 class="text-uppercase ">Accessing content</h6>
 
-                <ul class="list-unstyled">
+                <ul class="list-unstyled" style="font-size: 14px;">
                     <li>
-                        <a href="#!" class="text-white">Link 1</a>
+                        <a href="#!" class="text-muted">Popular</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 2</a>
+                        <a href="#!" class="text-muted">Trending</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 3</a>
+                        <a href="#!" class="text-muted">Upcoming</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-white">Link 4</a>
+                        <a href="#!" class="text-muted">Search</a>
                     </li>
                 </ul>
             </div>
@@ -67,8 +68,8 @@
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        © 2021 Copyright:
+        <a class="text-white" href="/MML/home">My Movie List</a>
     </div>
     <!-- Copyright -->
 </footer>
