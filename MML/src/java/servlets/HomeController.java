@@ -32,14 +32,17 @@ public class HomeController extends HttpServlet {
         ApiDao dao = new ApiDao();
         
         // GET TRENDING
-        JSONArray trendingArray = dao.getRequestArray("/trending/movie/week");
-        JSONArray popularArray = dao.getRequestArray("/movie/popular");
-      
-        JSONArray upcomingArray= dao.getRequestArray("/movie/upcoming");
+        JSONArray trendingMovieArray = dao.getRequestArray("/trending/movie/week");
+        JSONArray trendingShowArray = dao.getRequestArray("/trending/tv/week");
+        JSONArray popularMovieArray = dao.getRequestArray("/movie/popular");
+        JSONArray popularShowArray = dao.getRequestArray("/tv/popular");
+        JSONArray upcomingMovieArray= dao.getRequestArray("/movie/upcoming");
  
-        request.setAttribute("trending", trendingArray);
-        request.setAttribute("popular", popularArray);
-        request.setAttribute("upcoming", upcomingArray);
+        request.setAttribute("trendingMovies", trendingMovieArray);
+        request.setAttribute("trendingShows", trendingShowArray);
+        request.setAttribute("popularMovies", popularMovieArray);
+        request.setAttribute("popularShows", popularShowArray);
+        request.setAttribute("upcomingMovies", upcomingMovieArray);
         
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);

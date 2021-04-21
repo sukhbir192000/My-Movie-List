@@ -22,6 +22,15 @@
   color: #F9C80E;
 }
 
+.nav-pills .nav-link > span {
+  padding: 0 10px 7px;
+}
+
+.nav-pills .nav-link.active > span {
+  padding: 0 10px 7px;
+  border-bottom: 5px #F9C80E solid;
+}
+
 .text-crop-3 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
