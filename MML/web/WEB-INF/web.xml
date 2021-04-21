@@ -14,7 +14,7 @@
     </servlet>
     <servlet>
         <servlet-name>ContentController</servlet-name>
-        <servlet-class>servlets.ContentController</servlet-class>
+        <servlet-class>servlets.MovieController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -53,8 +53,12 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ContentController</servlet-name>
-        <url-pattern>/content</url-pattern>
+        <servlet-name>MovieController</servlet-name>
+        <url-pattern>/movie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowController</servlet-name>
+        <url-pattern>/show</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
