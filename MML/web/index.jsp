@@ -185,16 +185,13 @@
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
                                                 <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
-                                                    <div class="card h-100 bg-dark text-white position-relative">
+                                                    <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
-                                                            <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                            <div class="img-container hover-zoom bg-image">
                                                                 <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                                             </div>
-                                                            <div class="card-body bg-dark col-8 col-sm-12 ">
+                                                            <div class="card-body bg-dark">
                                                                 <h5 class="card-title"><%=contentItem.get("title")%></h5>
-                                                                <p class="card-text line-clamp d-sm-none my-1">
-                                                                    <%=contentItem.get("overview")%>
-                                                                </p>
                                                                 <p class="card-text m-0 text-muted">
                                                                     <%=contentItem.get("release_date")%>
                                                                 </p>
@@ -228,16 +225,13 @@
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
                                                 <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white">
-                                                    <div class="card h-100 bg-dark text-white position-relative">
+                                                    <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
-                                                                <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                                <div class="img-container hover-zoom bg-image">
                                                                     <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                                                 </div>
-                                                            <div class="card-body bg-dark col-8 col-sm-12 ">
+                                                            <div class="card-body bg-dark">
                                                                     <h5 class="card-title"><%=contentItem.get("name")%></h5>
-                                                                    <p class="card-text line-clamp d-sm-none my-1">
-                                                                        <%=contentItem.get("overview")%>
-                                                                    </p>
                                                                     <p class="card-text m-0 text-muted">
                                                                         <%=contentItem.get("first_air_date")%>
                                                                     </p>
@@ -295,16 +289,13 @@
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
                                                 <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
-                                                    <div class="card h-100 bg-dark text-white position-relative">
+                                                    <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
-                                                            <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                            <div class="img-container hover-zoom bg-image">
                                                                 <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                                             </div>
-                                                            <div class="card-body bg-dark col-8 col-sm-12 ">
+                                                            <div class="card-body bg-dark">
                                                                 <h5 class="card-title"><%=contentItem.get("title")%></h5>
-                                                                <p class="card-text line-clamp d-sm-none my-1">
-                                                                    <%=contentItem.get("overview")%>
-                                                                </p>
                                                                 <p class="card-text m-0 text-muted">
                                                                     <%=contentItem.get("release_date")%>
                                                                 </p>
@@ -338,16 +329,13 @@
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
                                                 <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white">
-                                                    <div class="card h-100 bg-dark text-white position-relative">
+                                                    <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
-                                                                <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
-                                                                    <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
-                                                                </div>
-                                                            <div class="card-body bg-dark col-8 col-sm-12 ">
+                                                            <div class="img-container hover-zoom bg-image">
+                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                            </div>
+                                                            <div class="card-body bg-dark">
                                                                     <h5 class="card-title"><%=contentItem.get("name")%></h5>
-                                                                    <p class="card-text line-clamp d-sm-none my-1">
-                                                                        <%=contentItem.get("overview")%>
-                                                                    </p>
                                                                     <p class="card-text m-0 text-muted">
                                                                         <%=contentItem.get("first_air_date")%>
                                                                     </p>
@@ -385,16 +373,13 @@
                             %>
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
                                         <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
-                                            <div class="card h-100 bg-dark text-white position-relative">
+                                            <div class="card h-100 bg-dark text-white">
                                                 <div class="row g-0">
-                                                    <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
+                                                    <div class="img-container hover-zoom bg-image">
                                                         <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                                     </div>
-                                                    <div class="card-body bg-dark col-8 col-sm-12 ">
+                                                    <div class="card-body bg-dark">
                                                         <h5 class="card-title"><%=contentItem.get("title")%></h5>
-                                                        <p class="card-text line-clamp d-sm-none my-1">
-                                                            <%=contentItem.get("overview")%>
-                                                        </p>
                                                         <p class="card-text m-0 text-muted">
                                                             <%=contentItem.get("release_date")%>
                                                         </p>
