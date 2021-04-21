@@ -184,7 +184,7 @@
                                             JSONObject contentItem = (JSONObject) trendingMovieArray.get(i);
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white" target="_blank">
+                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
                                                     <div class="card h-100 bg-dark text-white position-relative">
                                                         <div class="row g-0">
                                                             <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
@@ -227,7 +227,7 @@
                                             JSONObject contentItem = (JSONObject) trendingShowArray.get(i);
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                                <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white" target="_blank">
+                                                <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white">
                                                     <div class="card h-100 bg-dark text-white position-relative">
                                                         <div class="row g-0">
                                                                 <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
@@ -294,7 +294,7 @@
                                             JSONObject contentItem = (JSONObject) popularMovieArray.get(i);
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white" target="_blank">
+                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
                                                     <div class="card h-100 bg-dark text-white position-relative">
                                                         <div class="row g-0">
                                                             <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
@@ -337,7 +337,7 @@
                                             JSONObject contentItem = (JSONObject) popularShowArray.get(i);
                                     %>
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                                <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white" target="_blank">
+                                                <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white">
                                                     <div class="card h-100 bg-dark text-white position-relative">
                                                         <div class="row g-0">
                                                                 <div class="img-container col-4 col-sm-12 hover-zoom bg-image">
@@ -384,7 +384,7 @@
                                     JSONObject contentItem = (JSONObject) upcomingArray.get(i);
                             %>
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                        <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white" target="_blank">
+                                        <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
                                             <div class="card h-100 bg-dark text-white position-relative">
                                                 <div class="row g-0">
                                                     <div class="img-container col-4 col-sm-12 hover-zoom bg-image">

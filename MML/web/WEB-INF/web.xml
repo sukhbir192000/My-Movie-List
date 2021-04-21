@@ -121,10 +121,10 @@
         <url-pattern>/ShowController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>WatchListController</servlet-name>
         <url-pattern>/watchlist</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MyProfileController</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
@@ -139,7 +139,6 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/passwordChanged</url-pattern>
->>>>>>> 9c139d89e5d68a905f489ff17a114620d42dff77
     </servlet-mapping>
     <session-config>
         <session-timeout>
