@@ -72,6 +72,10 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>servlets.ChangePasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePictures</servlet-name>
+        <servlet-class>servlets.UpdatePictures</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/passwordChanged</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePictures</servlet-name>
+        <url-pattern>/picturesUpdated</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
