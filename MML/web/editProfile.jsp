@@ -137,7 +137,7 @@
                                 <input type="password" id="currPass" name="currPass" class="form-control" />
                                 <label class="form-label" for="curPass">Enter Current Password</label>
                             </div>
-                            <div id="current-password-length-error" class="overflow-hidden h-0 text-danger text-start transition"><small>The password should be 8 or more characters long!</small></div>
+                            
                         </div>
                         <div class="col-12 col-md-6 px-3 mb-4">
                             <div class=" form-outline form-white ">
@@ -234,15 +234,7 @@
         }
         
         function checkCurrPassLength(e){
-            currPassLengthCheck = (e.target.value.length >= 8)
-            if(!currPassLengthCheck){
-                currentPassLengthError.classList.remove('h-0')
-                currentPassLengthError.classList.add('h-max')
-            }
-            else{
-                currentPassLengthError.classList.add('h-0')
-                currentPassLengthError.classList.remove('h-max')
-            }
+            currPassLengthCheck = (e.target.value.length > 0)
             enablePasswordChange()
         }
 

@@ -90,7 +90,7 @@
                             alt=""
                             loading="lazy"
                         />-->
-                        <span class="navbar-username ps-1 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam rerum illum quasi mollitia perspiciatis perferendis quisquam enim tenetur laboriosam non.</span>
+                        <span class="navbar-username ps-1 text-white"> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
                         <li><a class="dropdown-item" href="/MML/profile">My profile</a></li>
