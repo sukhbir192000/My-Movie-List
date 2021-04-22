@@ -1,38 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import beans.User;
-import daos.ReviewDao;
+import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Puneet
- */
-public class ReviewController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class UpdatePictures extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String bannerPic = request.getParameter("bannerPic");
+        String profilePic = request.getParameter("profilePic");
+        UserDao user_dao = new UserDao();
+        HttpSession ses = request.getSession();
+        User user = (User) ses.getAttribute("loggedUser");
+        int uid = user.getUserId();
+        user_dao.updatePicture(uid, bannerPic, profilePic);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,19 +49,7 @@ public class ReviewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-//        System.out.println("url"+request.getHeader("referer"));
-      
-        int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
-        ReviewDao reviewDao=new ReviewDao();
-        float rating=0;
-        if(request.getParameter("input-1")!=null&&!request.getParameter("input-1").equals("")){
-            rating=Float.parseFloat(request.getParameter("input-1"));
-        }
-      
-        System.out.println("rating"+rating);
-        reviewDao.setMovieReview(userId, Long.parseLong(request.getParameter("contentId")), request.getParameter("description"), request.getParameter("title"),rating);
-        response.sendRedirect(request.getHeader("referer"));
+        processRequest(request, response);
     }
 
     /**

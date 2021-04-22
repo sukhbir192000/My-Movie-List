@@ -76,6 +76,10 @@
         <servlet-name>ReviewController</servlet-name>
         <servlet-class>servlets.ReviewController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePictures</servlet-name>
+        <servlet-class>servlets.UpdatePictures</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -147,6 +151,10 @@
     <servlet-mapping>
         <servlet-name>ReviewController</servlet-name>
         <url-pattern>/ReviewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePictures</servlet-name>
+        <url-pattern>/picturesUpdated</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

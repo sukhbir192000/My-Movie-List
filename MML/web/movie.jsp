@@ -1,4 +1,6 @@
 
+<%@page import="beans.User"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -141,7 +143,7 @@
                             <div class="col-xl-2 col-md-3 col-sm-4 col-6">
                                 <div class="card h-100 bg-dark text-white">
                                     <div class="img-container">
-                                        <%if (castItem.get("profile_path")==null) {%>
+                                        <%if (castItem.get("profile_path") == null) {%>
                                         <img src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg" class="card-img-top my-auto"
                                              alt="<%=castItem.get("original_name")%>" />
                                         <%} else {%>
@@ -177,30 +179,30 @@
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
                             <%
-                                        JSONArray similarMovieArray = (JSONArray) request.getAttribute("similar");
-                                        for (int i = 0; i < similarMovieArray.size(); i++) {
-                                            JSONObject contentItem = (JSONObject) similarMovieArray.get(i);
-                                    %>
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
-                                                    <div class="card h-100 bg-dark text-white">
-                                                        <div class="row g-0">
-                                                            <div class="img-container hover-zoom bg-image">
-                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
-                                                            </div>
-                                                            <div class="card-body bg-dark">
-                                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
-                                                                <p class="card-text m-0 text-muted">
-                                                                    <%=contentItem.get("release_date")%>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
+                                JSONArray similarMovieArray = (JSONArray) request.getAttribute("similar");
+                                for (int i = 0; i < similarMovieArray.size(); i++) {
+                                    JSONObject contentItem = (JSONObject) similarMovieArray.get(i);
+                            %>
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
+                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
+                                    <div class="card h-100 bg-dark text-white">
+                                        <div class="row g-0">
+                                            <div class="img-container hover-zoom bg-image">
+                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
-                                    <%
-                                        }
-                                    %>
+                                            <div class="card-body bg-dark">
+                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                <p class="card-text m-0 text-muted">
+                                                    <%=contentItem.get("release_date")%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -238,6 +240,7 @@
                         <div class="tab-pane fade show active" id="review-content" role="tabpanel" aria-labelledby="review-button">
 
                             <ul id="review-list" class="px-2 ps-md-4">
+
                                 <!-- <div class="collapse" id="postReview">
                                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit sunt quis reiciendis nobis similique accusantium tempora quisquam ea nesciunt numquam.
                                 </div> -->
@@ -248,22 +251,23 @@
                                                 <h4 class="my-2">Post a review</h4>
                                             </div>
                                             <div class="card-body">
-                                                <form action="#">
+                                                <form action="/MML/ReviewController" method="POST">
+                                                    <input name="contentId" type="hidden" value="<%=request.getParameter("id")%>">
                                                     <div class="mb-3">
                                                         <h5>Your Rating</h5>
                                                         <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5"
                                                                data-step="0.5">
                                                     </div>
                                                     <div class="form-outline form-white mb-3">
-                                                        <input type="text" id="postTitle" name="title" class="form-control form-control-lg" />
+                                                        <input type="text" id="postTitle" name="title" class="form-control form-control-lg" required/>
                                                         <label class="form-label" for="formControlLg">Title</label>
                                                     </div>
 
                                                     <div class="form-outline form-white mb-3">
-                                                        <textarea class="form-control" id="postDescription" name="description" rows="4"></textarea>
+                                                        <textarea class="form-control" id="postDescription" name="description" rows="4" required></textarea>
                                                         <label class="form-label" for="textAreaExample">Description</label>
                                                     </div>
-                                                    <button id="postBtn" type="button" class="btn btn-yellow me-2">Submit</button>
+                                                    <button id="postBtn" type="submit" class="btn btn-yellow me-2">Submit</button>
                                                     <button id="cancelPostBtn" type="button" class="btn cancel-btn" type="button"
                                                             data-mdb-toggle="collapse" data-mdb-target="#postReview" aria-expanded="false"
                                                             aria-controls="postReview">Cancel</button>
@@ -273,7 +277,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <h3 class="h3-responsive text-white">My Reviews</h3>
+                                <%
+                                    JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
+                                    for (int i = 0; i < myReviews.size(); i++) {
+                                        JSONObject myReview = (JSONObject) myReviews.get(i);
 
+                                %>
                                 <li class="mb-4">
                                     <div class="card bg-dark text-white">
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
@@ -284,42 +294,72 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block">JPV852</h4><br>
-                                                        <span class="text-muted mx-sm-2">February 8, 2021</span>
+                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
-                                                        <i class="fas fa-star text-yellow"></i><i class="fas fa-star text-yellow"></i><i
-                                                            class="fas fa-star text-yellow"></i><i class="fas fa-star-half-alt text-yellow"></i><i
-                                                            class="far fa-star text-yellow"></i>
+                                                        <%
+                                                            float j = Float.parseFloat((String) myReview.get("rating"));
+                                                            while (j >= 1) {
+
+                                                        %>       
+
+                                                        <i class="fas fa-star text-yellow"></i>
+                                                        <%                                                                j--;
+                                                            }
+                                                            if (j == 0.5) {
+                                                        %>
+                                                        <i class="fas fa-star-half-alt text-yellow"></i>
+                                                        <%
+                                                        } else {%>
+                                                        <i class="far fa-star text-yellow"></i>
+
+                                                        <%}
+                                                            j = Float.parseFloat((String) myReview.get("rating"));
+                                                            int emptyStars = 4 - ((int) j);
+                                                            while (emptyStars > 0) {
+                                                        %>
+                                                        <i class="far fa-star text-yellow"></i>
+                                                        <%
+                                                                emptyStars--;
+                                                            }
+
+                                                        %>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="fs-5 d-flex flex-column flex-sm-row">
                                                 <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
-                                                    <span class="px-1">420</span><span><i class="far fa-thumbs-up"></i></span>
+                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far fa-thumbs-up"></i></span>
                                                 </div>
                                                 <span class="d-none d-sm-inline px-1 text-muted">|</span>
                                                 <div
                                                     class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
-                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1">69</span>
+                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, expedita.
+                                                <%=myReview.get("heading")%>
                                             </h5>
                                             <p class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quae nam alias temporibus sed
-                                                magnam dignissimos aperiam, qui aut architecto iure, molestiae asperiores quia animi veritatis
-                                                culpa, quasi aliquam corrupti reiciendis doloribus. Molestias eius perferendis perspiciatis,
-                                                accusamus officiis illo repellendus laudantium blanditiis veritatis explicabo et possimus vero
-                                                autem quo consequatur.
+                                                <%=myReview.get("content")%>
                                             </p>
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <%}%>
+                                <h3 class="h3-responsive text-white">All Reviews</h3>
+                                <%
+                                    JSONArray allReviews = (JSONArray) request.getAttribute("allReviews");
+                                    for (int i = 0; i < myReviews.size(); i++) {
+                                        JSONObject myReview = (JSONObject) allReviews.get(i);
+
+                                %>
+                                <li class="mb-4">
                                     <div class="card bg-dark text-white">
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
                                             <div class="row gx-2 flex-grow-1 w-auto">
@@ -329,41 +369,64 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block">JPV852</h4><br>
-                                                        <span class="text-muted mx-sm-2">February 8, 2021</span>
+                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
-                                                        <i class="fas fa-star text-yellow"></i><i class="fas fa-star text-yellow"></i><i
-                                                            class="fas fa-star text-yellow"></i><i class="fas fa-star-half-alt text-yellow"></i><i
-                                                            class="far fa-star text-yellow"></i>
+                                                        <%
+                                                            float j = Float.parseFloat((String) myReview.get("rating"));
+                                                            while (j >= 1) {
+
+                                                        %>       
+
+                                                        <i class="fas fa-star text-yellow"></i>
+                                                        <%                                                                j--;
+                                                            }
+                                                            if (j == 0.5) {
+                                                        %>
+                                                        <i class="fas fa-star-half-alt text-yellow"></i>
+                                                        <%
+                                                        } else {%>
+                                                        <i class="far fa-star text-yellow"></i>
+
+                                                        <%}
+                                                            j = Float.parseFloat((String) myReview.get("rating"));
+                                                            int emptyStars = 4 - ((int) j);
+                                                            while (emptyStars > 0) {
+                                                        %>
+                                                        <i class="far fa-star text-yellow"></i>
+                                                        <%
+                                                                emptyStars--;
+                                                            }
+
+                                                        %>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="fs-5 d-flex flex-column flex-sm-row">
                                                 <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
-                                                    <span class="px-1">420</span><span><i class="far fa-thumbs-up"></i></span>
+                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far fa-thumbs-up"></i></span>
                                                 </div>
                                                 <span class="d-none d-sm-inline px-1 text-muted">|</span>
                                                 <div
                                                     class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
-                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1">69</span>
+                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, expedita.
+                                                <%=myReview.get("heading")%>
                                             </h5>
                                             <p class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur quae nam alias temporibus sed
-                                                magnam dignissimos aperiam, qui aut architecto iure, molestiae asperiores quia animi veritatis
-                                                culpa, quasi aliquam corrupti reiciendis doloribus. Molestias eius perferendis perspiciatis,
-                                                accusamus officiis illo repellendus laudantium blanditiis veritatis explicabo et possimus vero
-                                                autem quo consequatur.
+                                                <%=myReview.get("content")%>
                                             </p>
                                         </div>
                                     </div>
                                 </li>
+                                <%}%>
                             </ul>
                         </div>
                         <div class="tab-pane fade" id="comments-content" role="tabpanel" aria-labelledby="comments-button">
@@ -544,14 +607,7 @@
             let inputs = postForm.querySelectorAll('input');
             inputs = [...inputs, postForm.querySelector('textarea')]
 
-            postBtn.addEventListener('click', (e) => {
-                const values = inputs.map(elem => elem.value);
-                console.log(values);
 
-                inputs.forEach(elem => {
-                    elem.value = "";
-                });
-            });
 
             cancelPostBtn.addEventListener('click', (e) => {
                 inputs.forEach(elem => {

@@ -112,21 +112,21 @@
                         </div>
                     </form>
 
-                    <form class="text-white row wow animated bounceInLeft">
+                    <form class="text-white row wow animated bounceInLeft" action="/MML/picturesUpdated" method="POST" >
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-camera-retro"></i> Personalize </h3>
                         <div class="col-12 col-md-6  px-3">
-                            <label class="form-label text-white" for="customFile1">Banner Photo</label>
-                            <input type="file" class="form-control" id="customFile1" />
+                            <label class="form-label text-white" for="bannerPic">Banner Photo</label>
+                            <input type="file" class="form-control" id="bannerPic" name="bannerPic" />
 
                         </div>
 
                         <div class="col-12 col-md-6 px-3 bg">
-                            <label class="form-label text-white" for="customFile2">Profile Photo</label>
-                            <input type="file" class="form-control" id="customFile2" />
+                            <label class="form-label text-white" for="profilePic">Profile Photo</label>
+                            <input type="file" class="form-control" id="profilePic" name="profilePic" />
 
                         </div>
                         <div class="d-flex flex-row justify-content-end mt-4">
-                            <button class="btn btn-yellow">Update Photos</button>
+                            <button type="submit" class="btn btn-yellow">Update Photos</button>
                         </div>
                     </form>
                     <form class="text-white row mt-4 wow animated bounceInUp" method="POST" action="/MML/passwordChanged" >
