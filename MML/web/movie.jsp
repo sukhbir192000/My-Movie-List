@@ -176,31 +176,31 @@
                             <i class="fas fa-chevron-right fs-4"></i>
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                <div class="card bg-dark text-white">
-                                    <img src="images/gvk.jpg" class="card-img-top" alt="..." />
-                                    <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
-                                        <div>
-                                            <h4 class="card-title text-center">1</h4>
-                                            <i class="fas fa-star text-yellow mx-1"></i> 6.9
-                                        </div>
-                                        <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                <div class="card bg-dark text-white">
-                                    <img src="images/gvk.jpg" class="card-img-top" alt="..." />
-                                    <div class="card-img-overlay h-100 d-flex flex-column justify-content-around align-items-center">
-                                        <div>
-                                            <h4 class="card-title text-center">2</h4>
-                                            <i class="fas fa-star text-yellow mx-1"></i> 6.9
-                                        </div>
-                                        <a href="#!" class="btn btn-primary">+ WATCHLIST</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <%
+                                        JSONArray similarMovieArray = (JSONArray) request.getAttribute("similar");
+                                        for (int i = 0; i < similarMovieArray.size(); i++) {
+                                            JSONObject contentItem = (JSONObject) similarMovieArray.get(i);
+                                    %>
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
+                                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
+                                                    <div class="card h-100 bg-dark text-white">
+                                                        <div class="row g-0">
+                                                            <div class="img-container hover-zoom bg-image">
+                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                            </div>
+                                                            <div class="card-body bg-dark">
+                                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                                <p class="card-text m-0 text-muted">
+                                                                    <%=contentItem.get("release_date")%>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                    <%
+                                        }
+                                    %>
                         </div>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                                                     </div>
                                                     <div class="form-outline form-white mb-3">
                                                         <input type="text" id="postTitle" name="title" class="form-control form-control-lg" />
-                                                        <label class="form-label" for="formControlLg">Title (optional)</label>
+                                                        <label class="form-label" for="formControlLg">Title</label>
                                                     </div>
 
                                                     <div class="form-outline form-white mb-3">
