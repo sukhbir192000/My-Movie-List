@@ -301,7 +301,7 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
@@ -376,7 +376,7 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>

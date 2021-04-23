@@ -51,7 +51,7 @@ import org.json.simple.JSONObject;
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             
-            PreparedStatement ps = con.prepareStatement("SELECT review.*,review_likes.liked FROM review left Join review_likes on review.id=review_likes.review_id and review_likes.user_id=? WHERE content_id= ? AND content_type=true and NOT review.user_id= ?  ORDER BY review_date desc");
+            PreparedStatement ps = con.prepareStatement("SELECT review.*,review_likes.liked,user.username FROM review left Join review_likes on review.id=review_likes.review_id and review_likes.user_id=?  Join user on user.user_id=review.user_id WHERE content_id= ? AND content_type=true and NOT review.user_id= ?  ORDER BY review_date desc");
             ps.setInt(1,userId);
             ps.setInt(2, contentId);
             ps.setInt(3,userId);
@@ -67,6 +67,7 @@ import org.json.simple.JSONObject;
                 myJson.put("date",rs.getString("review_date"));
                 myJson.put("rating",rs.getString("review_rating"));
                 myJson.put("liked",rs.getString("liked"));
+                myJson.put("username",rs.getString("username"));
                 
                 reviewList.add(myJson);
             }
@@ -85,7 +86,7 @@ import org.json.simple.JSONObject;
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             
-            PreparedStatement ps = con.prepareStatement("SELECT review.*,review_likes.liked FROM review left Join review_likes on review.id=review_likes.review_id and review_likes.user_id=? WHERE review.user_id= ? AND content_id= ? AND content_type=true ORDER BY review_date desc");
+            PreparedStatement ps = con.prepareStatement("SELECT review.*,review_likes.liked,user.username FROM review left Join review_likes on review.id=review_likes.review_id and review_likes.user_id=?  Join user on user.user_id=review.user_id WHERE review.user_id= ? AND content_id= ? AND content_type=true ORDER BY review_date desc");
             ps.setInt(1, userId);
             ps.setInt(2, userId);
             ps.setInt(3, contentId);
@@ -102,6 +103,7 @@ import org.json.simple.JSONObject;
                 myJson.put("date",rs.getString("review_date"));
                 myJson.put("rating",rs.getString("review_rating"));
                 myJson.put("liked",rs.getString("liked"));
+                myJson.put("username",rs.getString("username"));
                 
                 reviewList.add(myJson);
             }
