@@ -60,8 +60,14 @@ public class LikeDao implements Dao {
                 System.out.println("updated data");
 
             }
-            ps = con.prepareStatement("UPDATE review SET review_up = review_up + 1 WHERE id= ? ");;
+            ps = con.prepareStatement("SELECT * from review where id=?");
             ps.setInt(1, reviewId);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            int reviewCount = result.getInt("review_up");
+            ps = con.prepareStatement("UPDATE review SET review_up = ? WHERE id= ? ");
+            ps.setInt(1, reviewCount + 1);
+            ps.setInt(2, reviewId);
             ps.executeUpdate();
             rs = ps.executeUpdate();
             if (rs > 0) {
@@ -95,8 +101,14 @@ public class LikeDao implements Dao {
                 System.out.println("updated data");
 
             }
-            ps = con.prepareStatement("UPDATE review SET review_up = review_up - 1 WHERE id= ? ");;
+            ps = con.prepareStatement("SELECT * from review where id=?");
             ps.setInt(1, reviewId);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            int reviewCount = result.getInt("review_up");
+            ps = con.prepareStatement("UPDATE review SET review_up = ? WHERE id= ? ");
+            ps.setInt(1, reviewCount - 1);
+            ps.setInt(2, reviewId);
             ps.executeUpdate();
             rs = ps.executeUpdate();
             if (rs > 0) {
@@ -133,8 +145,14 @@ public class LikeDao implements Dao {
                 System.out.println("updated data");
 
             }
-            ps = con.prepareStatement("UPDATE review SET review_down = review_down + 1 WHERE id= ? ");;
+            ps = con.prepareStatement("SELECT * from review where id=?");
             ps.setInt(1, reviewId);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            int reviewCount = result.getInt("review_down");
+            ps = con.prepareStatement("UPDATE review SET review_down = ? WHERE id= ? ");;
+            ps.setInt(1, reviewCount+1);
+            ps.setInt(2, reviewId);
             ps.executeUpdate();
             rs = ps.executeUpdate();
             if (rs > 0) {
@@ -169,8 +187,14 @@ public class LikeDao implements Dao {
                 System.out.println("updated data");
 
             }
-            ps = con.prepareStatement("UPDATE review SET review_down = review_down - 1 WHERE id= ? ");;
+            ps = con.prepareStatement("SELECT * from review where id=?");
             ps.setInt(1, reviewId);
+            ResultSet result = ps.executeQuery();
+            result.next();
+            int reviewCount = result.getInt("review_down");
+            ps = con.prepareStatement("UPDATE review SET review_down = ? WHERE id= ? ");
+            ps.setInt(1,reviewCount-1);
+            ps.setInt(2, reviewId);
             ps.executeUpdate();
             rs = ps.executeUpdate();
             if (rs > 0) {

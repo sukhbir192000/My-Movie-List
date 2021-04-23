@@ -283,9 +283,7 @@
                                     JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
                                     if (allReviews.size() == 0 && myReviews.size()== 0) {%>
                                 <p class="text-white">No reviews yet!</p>
-                                <%} else {%>
-                                <h3 class="h3-responsive text-white">My Reviews</h3>
-                                <%
+                                <%} else {
 
                                     for (int i = 0; i < myReviews.size(); i++) {
                                         JSONObject myReview = (JSONObject) myReviews.get(i);
@@ -301,7 +299,7 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
@@ -359,7 +357,6 @@
                                     </div>
                                 </li>
                                 <%}%>
-                                <h3 class="h3-responsive text-white">All Reviews</h3>
                                 <%
 
                                     for (int i = 0; i < allReviews.size(); i++) {
@@ -376,7 +373,7 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=((User) (request.getSession().getAttribute("loggedUser"))).getUsername()%></h4><br>
+                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>

@@ -22,7 +22,7 @@ public class UserAuthenticationFilter implements Filter {
     private HttpServletRequest httpRequest;
 
     private static final String[] loginRequiredURLs = {
-        "/view_profile", "/edit_profile", "/update_profile"
+        "/logout", "/profile", "/editProfile", "/update_profile"
     };
 
     private FilterConfig filterConfig = null;
@@ -108,18 +108,17 @@ public class UserAuthenticationFilter implements Filter {
         String loginURI = httpRequest.getContextPath() + "/login";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
-
+        
         if (loggedIn && (isLoginRequest || isLoginPage)) {
             // the user is already logged in and he's trying to login again
             // then forward to the homepage
-            httpRequest.getRequestDispatcher("/").forward(request, response);
+            System.out.println("I'm here");
+            httpResponse.sendRedirect("/home");
 
         } else if (!loggedIn && isLoginRequired()) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            String loginPage = "/login";
-            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginPage);
-            dispatcher.forward(request, response);
+            httpResponse.sendRedirect("/login");
         } else {
             // for other requested pages that do not require authentication
             // or the user is already logged in, continue to the destination
