@@ -37,21 +37,27 @@ public class MovieController extends HttpServlet {
         ApiDao dao = new ApiDao();
         ReviewDao reviewDao = new ReviewDao();
         ContentDao statusDao = new ContentDao();
-        int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
-        String movieStatus = statusDao.getMovieStatus(userId, Integer.parseInt(request.getParameter("id")));
+        User user = (User)(request.getSession().getAttribute("loggedUser"));
+        int userId = -1;
+        String movieStatus = null;
+        JSONArray myReviews = null;
+        if(user!=null) {
+            userId = user.getUserId();
+            movieStatus = statusDao.getMovieStatus(userId, Integer.parseInt(request.getParameter("id")));
+            myReviews = reviewDao.getMyMovieReviews(userId, Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("status", movieStatus);
+            request.setAttribute("myReviews", myReviews);
+        }
         JSONArray allReviews = reviewDao.getAllMovieReviews(userId,Integer.parseInt(request.getParameter("id")));
-        JSONArray myReviews = reviewDao.getMyMovieReviews(userId, Integer.parseInt(request.getParameter("id")));
+        
         JSONObject movieDetails = dao.getRequestObject("/movie/" + request.getParameter("id"));
         JSONArray castDetails = dao.getRequestArray("/movie/" + request.getParameter("id") + "/credits", "cast");
         JSONArray similarDetails = dao.getRequestArray("/movie/" + request.getParameter("id") + "/similar", "results");
 
-        System.out.println("cast" + castDetails);
-        System.out.println("details" + movieDetails);
+        
         request.setAttribute("details", movieDetails);
         request.setAttribute("cast", castDetails);
-        request.setAttribute("status", movieStatus);
         request.setAttribute("similar", similarDetails);
-        request.setAttribute("myReviews", myReviews);
         request.setAttribute("allReviews", allReviews);
         RequestDispatcher rd = request.getRequestDispatcher("movie.jsp");
         rd.forward(request, response);
