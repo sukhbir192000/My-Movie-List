@@ -70,17 +70,22 @@
 </head>
 
 <body>
-    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successImage" role="alert" data-mdb-color="secondary">
+    <div class="d-none alert alert-danger mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="errorPassword" role="alert" data-mdb-color="secondary">
+        <i class="fas fa-check me-2"></i>
+        Incorrect credentials!
+    </div>
+    
+    <div class="d-none alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successImage" role="alert" data-mdb-color="secondary">
         <i class="fas fa-check me-2"></i>
         Image successfully updated!
     </div>
     
-    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successName" role="alert" data-mdb-color="secondary">
+    <div class="d-none alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successName" role="alert" data-mdb-color="secondary">
         <i class="fas fa-check me-2"></i>
         Names successfully updated!
     </div>
     
-    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successPassword" role="alert" data-mdb-color="secondary">
+    <div class="d-none alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successPassword" role="alert" data-mdb-color="secondary">
         <i class="fas fa-check me-2"></i>
         Password successfully updated!
     </div>
@@ -222,8 +227,10 @@
                 success: function (data) {
                     const alert = document.getElementById("successName");
                     alert.classList.add('show');
+                    alert.classList.remove('d-none')
                     setTimeout(() => {
                         alert.classList.remove('show');
+                        alert.classList.add('d-none')
                     }, 2000)
                 },
                 error: function (e) {
@@ -242,11 +249,26 @@
                 processData: false,
                 timeout: 600000,
                 success: function (data) {
-                    const alert = document.getElementById("successPassword");
-                    alert.classList.add('show');
-                    setTimeout(() => {
-                        alert.classList.remove('show');
-                    }, 2000)
+                    data = (JSON.parse(data))
+                    if(data.success == false){
+                        const alert = document.getElementById("errorPassword");
+                        alert.classList.add('show');
+                        alert.classList.remove('d-none')
+                        setTimeout(() => {
+                            alert.classList.remove('show');
+                            alert.classList.add('d-none')
+                        }, 2000)
+                    }
+                    else{
+                        const alert = document.getElementById("successPassword");
+                        alert.classList.add('show');
+                        alert.classList.remove('d-none')
+                        setTimeout(() => {
+                            alert.classList.remove('show');
+                            alert.classList.add('d-none')
+                        }, 2000)
+                    }
+                    
                 },
                 error: function (e) {
                     console.log("Error")
@@ -277,6 +299,7 @@
                 success: function (data) {
                     const alert = document.getElementById("successImage");
                     alert.classList.add('show');
+                    alert.classList.remove('d-none')
                     setTimeout(() => {
                         alert.classList.remove('show');
                     }, 2000)

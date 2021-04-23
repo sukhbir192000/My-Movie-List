@@ -4,11 +4,13 @@ import beans.User;
 import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 import utils.HashGeneratorUtils;
 
 public class ChangePasswordController extends HttpServlet {
@@ -27,11 +29,20 @@ public class ChangePasswordController extends HttpServlet {
         if(matched){
             String newHashedPass = HashGeneratorUtils.generateSHA256(newPass);  
             userDao.UpdatePassword(user.getUserId(), newHashedPass);
+            HashMap<String, Boolean> responseMap = new HashMap<String, Boolean>();
+            responseMap.put("success", true);
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
         }
         
         else{
             System.out.println("The current password entered is incorrect!");
-            
+            HashMap<String, Boolean> responseMap = new HashMap<String, Boolean>();
+            responseMap.put("success", false);
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
         }
     }
 
