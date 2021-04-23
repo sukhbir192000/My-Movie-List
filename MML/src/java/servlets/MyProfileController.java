@@ -1,5 +1,7 @@
 package servlets;
 
+import beans.User;
+import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +14,9 @@ public class MyProfileController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        UserDao userDao=new UserDao();
+        User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("currentUser", currentUser);
         RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");
         rd.forward(request, response);
     }
