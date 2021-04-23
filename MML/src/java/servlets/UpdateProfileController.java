@@ -23,7 +23,6 @@ public class UpdateProfileController extends HttpServlet {
         int uid = user.getUserId();
         UserDao udao = new UserDao();
         udao.UpdateDetails(uid, firstName, lastName, username);
-        response.sendRedirect("/MML/editProfile"); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
