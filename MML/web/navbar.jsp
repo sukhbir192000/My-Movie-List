@@ -92,7 +92,7 @@
                         <span class="navbar-username ps-1 text-white"> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                        <li><a class="dropdown-item" href="/MML/profile">My profile</a></li>
+                        <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
                         <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
                         <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
                     </ul>

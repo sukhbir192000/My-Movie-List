@@ -4,6 +4,7 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="beans.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,12 @@
     <div class="container-fluid bg-black p-0 min-vh-100 d-flex flex-column justify-content-between">
         <div>
             <jsp:include page="navbar.jsp" />
+            <% 
+                HttpSession ses = request.getSession();
+                User loggedUser = (User) ses.getAttribute("loggedUser");
+                User currentUser= (User) request.getAttribute("currentUser");
 
+            %>
             <div class="row position-relative p-0 m-0">
                 <div class="min-vh-25 bg-danger d-flex flex-column justify-content-end"
                     style="background:url('images/in-back.jpg');background-size: cover;">
@@ -84,14 +90,18 @@
                             </div>
 
 
-                            <h1 class="h1 pb-2 pt-3 text-white ps-md-5 ">Puneet Singh</h1>
+                            <h1 class="h1 pb-2 pt-3 text-white ps-md-5 "><%=currentUser.getUsername()%></h1>
 
 
                         </div>
+                            <%
+                                int userId=Integer.parseInt(request.getParameter("id"));
+                                if(loggedUser.getUserId()==userId){%>
                         <div class="position-absolute top-0 pt-3 pe-md-5 pe-3 d-flex flex-column justify-content-end align-items-end">
                             <div><a href="/MML/editProfile" class="btn btn-light ps-2 pe-3 px-md-3" style="white-space: nowrap;"><i class="fas fa-user-edit me-2"></i>Edit <span class="d-none d-md-inline">Profile</span>  </a></div>
-
+                       
                         </div>
+                         <%}%>
                         <button class="btn  btn-yellow d-block d-md-none">Add
                             Friend</button>
                     </div>
