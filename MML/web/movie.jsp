@@ -1,4 +1,5 @@
 
+<%@page import="daos.LikeDao"%>
 <%@page import="beans.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.json.simple.JSONArray"%>
@@ -277,15 +278,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%
+                                    JSONArray allReviews = (JSONArray) request.getAttribute("allReviews");
+                                    JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
+                                    if (allReviews.size() == 0 && myReviews.size()== 0) {%>
+                                <p class="text-white">No reviews yet!</p>
+                                <%} else {%>
                                 <h3 class="h3-responsive text-white">My Reviews</h3>
                                 <%
-                                    JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
+
                                     for (int i = 0; i < myReviews.size(); i++) {
                                         JSONObject myReview = (JSONObject) myReviews.get(i);
 
                                 %>
                                 <li class="mb-4">
-                                    <div class="card bg-dark text-white">
+                                    <div class="card bg-dark text-white" id="<%=myReview.get("id")%>">
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
                                             <div class="row gx-2 flex-grow-1 w-auto">
                                                 <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
@@ -332,12 +339,12 @@
                                             </div>
                                             <div class="fs-5 d-flex flex-column flex-sm-row">
                                                 <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
-                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far fa-thumbs-up"></i></span>
+                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==1){%>fas<%} %> fa-thumbs-up"></i></span>
                                                 </div>
                                                 <span class="d-none d-sm-inline px-1 text-muted">|</span>
                                                 <div
                                                     class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
-                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
+                                                    <span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==0){%>fas<%} %> fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -354,13 +361,13 @@
                                 <%}%>
                                 <h3 class="h3-responsive text-white">All Reviews</h3>
                                 <%
-                                    JSONArray allReviews = (JSONArray) request.getAttribute("allReviews");
-                                    for (int i = 0; i < myReviews.size(); i++) {
+
+                                    for (int i = 0; i < allReviews.size(); i++) {
                                         JSONObject myReview = (JSONObject) allReviews.get(i);
 
                                 %>
                                 <li class="mb-4">
-                                    <div class="card bg-dark text-white">
+                                    <div class="card bg-dark text-white" id="<%=myReview.get("id")%>">
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
                                             <div class="row gx-2 flex-grow-1 w-auto">
                                                 <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
@@ -407,12 +414,12 @@
                                             </div>
                                             <div class="fs-5 d-flex flex-column flex-sm-row">
                                                 <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
-                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far fa-thumbs-up"></i></span>
+                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==1){%>fas<%} %>fa-thumbs-up"></i></span>
                                                 </div>
                                                 <span class="d-none d-sm-inline px-1 text-muted">|</span>
                                                 <div
                                                     class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
-                                                    <span><i class="far fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
+                                                    <span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==0){%>fas<%} %> fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -426,7 +433,9 @@
                                         </div>
                                     </div>
                                 </li>
-                                <%}%>
+                                <%}
+                                    }%>
+
                             </ul>
                         </div>
                         <div class="tab-pane fade" id="comments-content" role="tabpanel" aria-labelledby="comments-button">
@@ -528,63 +537,112 @@
 
         <script>
 
-            function addLike(likeDiv, dislikeDiv) {
-                likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) + 1;
-                const icon = likeDiv.children[1].children[0];
-                icon.classList.remove('far');
-                icon.classList.add('fas');
+            async function addLike(likeDiv, dislikeDiv) {
+
+                let reviewId = likeDiv.parentNode.parentNode.parentNode.id;
+                await postData('/MML/LikeDislikeController', {
+                    reviewId: reviewId,
+                    toDo: '0'
+                })
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if (data.success) {
+                                likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) + 1;
+                                const icon = likeDiv.children[1].children[0];
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                            }
+                        });
+
             }
 
-            function removeLike(likeDiv, dislikeDiv) {
-                likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) - 1;
-                const icon = likeDiv.children[1].children[0];
-                icon.classList.remove('fas');
-                icon.classList.add('far');
+            async function removeLike(likeDiv, dislikeDiv) {
+
+                let reviewId = likeDiv.parentNode.parentNode.parentNode.id;
+                await postData('/MML/LikeDislikeController', {
+                    reviewId: reviewId,
+                    toDo: '1'
+                })
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if (data.success) {
+                                likeDiv.children[0].textContent = parseInt(likeDiv.children[0].textContent) - 1;
+                                const icon = likeDiv.children[1].children[0];
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                            }
+                        });
             }
 
-            function addDislike(likeDiv, dislikeDiv) {
-                dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) + 1;
-                const icon = dislikeDiv.children[0].children[0];
-                icon.classList.remove('far');
-                icon.classList.add('fas');
+            async function addDislike(likeDiv, dislikeDiv) {
+
+                let reviewId = likeDiv.parentNode.parentNode.parentNode.id;
+                await postData('/MML/LikeDislikeController', {
+                    reviewId: reviewId,
+                    toDo: '2'
+                })
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if (data.success) {
+                                dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) + 1;
+                                const icon = dislikeDiv.children[0].children[0];
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                            }
+                        });
             }
 
-            function removeDislike(likeDiv, dislikeDiv) {
-                dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) - 1;
-                const icon = dislikeDiv.children[0].children[0];
-                icon.classList.remove('fas');
-                icon.classList.add('far');
+            async function removeDislike(likeDiv, dislikeDiv) {
+
+                let reviewId = likeDiv.parentNode.parentNode.parentNode.id;
+                await postData('/MML/LikeDislikeController', {
+                    reviewId: reviewId,
+                    toDo: '3'
+                })
+                        .then(data => {
+                            console.log(data); // JSON data parsed by `data.json()` call
+                            if (data.success) {
+                                dislikeDiv.children[1].textContent = parseInt(dislikeDiv.children[1].textContent) - 1;
+                                const icon = dislikeDiv.children[0].children[0];
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                            }
+                        });
             }
 
-            function likeHandler(e) {
+            async function likeHandler(e) {
                 const likeDiv = e.currentTarget;
                 const dislikeDiv = likeDiv.parentElement.children[2];
 
                 const icon = likeDiv.children[1].children[0];
                 if (icon.classList.contains('fas')) {
-                    removeLike(likeDiv, dislikeDiv);
+                    await removeLike(likeDiv, dislikeDiv);
                 } else {
-                    addLike(likeDiv, dislikeDiv);
                     const dislikeIcon = dislikeDiv.children[0].children[0];
                     if (dislikeIcon.classList.contains('fas')) {
-                        removeDislike(likeDiv, dislikeDiv);
+                        await removeDislike(likeDiv, dislikeDiv);
                     }
+                    addLike(likeDiv, dislikeDiv);
+
+
                 }
             }
 
-            function dislikeHandler(e) {
+            async function dislikeHandler(e) {
                 const dislikeDiv = e.currentTarget;
                 const likeDiv = dislikeDiv.parentNode.children[0];
 
                 const icon = dislikeDiv.children[0].children[0];
                 if (icon.classList.contains('fas')) {
-                    removeDislike(likeDiv, dislikeDiv);
+                    await removeDislike(likeDiv, dislikeDiv);
                 } else {
-                    addDislike(likeDiv, dislikeDiv);
                     const likeIcon = likeDiv.children[1].children[0];
                     if (likeIcon.classList.contains('fas')) {
-                        removeLike(likeDiv, dislikeDiv);
+                        await removeLike(likeDiv, dislikeDiv);
                     }
+                    addDislike(likeDiv, dislikeDiv);
+
+
                 }
             }
 
