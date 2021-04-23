@@ -39,7 +39,7 @@ public class MovieController extends HttpServlet {
         ContentDao statusDao = new ContentDao();
         int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
         String movieStatus = statusDao.getMovieStatus(userId, Integer.parseInt(request.getParameter("id")));
-        JSONArray allReviews = reviewDao.getAllMovieReviews(Integer.parseInt(request.getParameter("id")));
+        JSONArray allReviews = reviewDao.getAllMovieReviews(userId,Integer.parseInt(request.getParameter("id")));
         JSONArray myReviews = reviewDao.getMyMovieReviews(userId, Integer.parseInt(request.getParameter("id")));
         JSONObject movieDetails = dao.getRequestObject("/movie/" + request.getParameter("id"));
         JSONArray castDetails = dao.getRequestArray("/movie/" + request.getParameter("id") + "/credits", "cast");
