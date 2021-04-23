@@ -2,6 +2,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.ResultSet;
 
 
@@ -12,6 +13,25 @@ public class User implements Serializable {
             email;
     private int userId,
                 role;
+    
+    private Blob bannerPic,
+                 profilePic;
+
+    public Blob getBannerPic() {
+        return bannerPic;
+    }
+
+    public void setBannerPic(Blob bannerPic) {
+        this.bannerPic = bannerPic;
+    }
+
+    public Blob getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(Blob profilePic) {
+        this.profilePic = profilePic;
+    }
 
     public User() {
     }

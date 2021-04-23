@@ -70,6 +70,20 @@
 </head>
 
 <body>
+    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successImage" role="alert" data-mdb-color="secondary">
+        <i class="fas fa-check me-2"></i>
+        Image successfully updated!
+    </div>
+    
+    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successName" role="alert" data-mdb-color="secondary">
+        <i class="fas fa-check me-2"></i>
+        Names successfully updated!
+    </div>
+    
+    <div class="alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successPassword" role="alert" data-mdb-color="secondary">
+        <i class="fas fa-check me-2"></i>
+        Password successfully updated!
+    </div>
     <div class="container-fluid bg-black p-0 min-vh-100 d-flex flex-column justify-content-between">
         <div>
             <% 
@@ -85,7 +99,7 @@
             
             <div class="row position-relative p-0 m-0 pb-5">
                 <div class="col-12 col-md-6 offset-md-3 pt-5 ">
-                    <form class="text-white row wow animated bounceInRight" method = "POST" action="/MML/detailsUpdated">
+                    <form id="namesForm" class="text-white row wow animated bounceInRight" method = "POST" action="/MML/detailsUpdated">
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-house-user"></i> General</h3>
                         <div class="col-12 col-md-6 px-3">
                             <div class=" form-outline form-white mb-4">
@@ -111,8 +125,7 @@
                             <button type="submit" id="updateNames" class="btn btn-yellow disabled ">Update Names</button>
                         </div>
                     </form>
-
-                    <form class="text-white row wow animated bounceInLeft" action="/MML/picturesUpdated" method="POST" >
+                    <form id="pictureUpdate" enctype="multipart/form-data" action="/MML/picturesUpdated" method="POST" class="text-white row wow animated bounceInLeft" >
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-camera-retro"></i> Personalize </h3>
                         <div class="col-12 col-md-6  px-3">
                             <label class="form-label text-white" for="bannerPic">Banner Photo</label>
@@ -126,10 +139,10 @@
 
                         </div>
                         <div class="d-flex flex-row justify-content-end mt-4">
-                            <button type="submit" class="btn btn-yellow">Update Photos</button>
+                            <button id="updatePic" type="button" class="btn btn-yellow">Update Photos</button>
                         </div>
                     </form>
-                    <form class="text-white row mt-4 wow animated bounceInUp" method="POST" action="/MML/passwordChanged" >
+                    <form id="passwordForm" class="text-white row mt-4 wow animated bounceInUp" method="POST" action="/MML/passwordChanged" >
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-shield-alt"></i> Security</h3>
 
                         <div class="col-12 px-3 mb-4">
@@ -195,6 +208,88 @@
         const currentPassLengthError = document.getElementById('current-password-length-error')
         
         const passSubmit = document.getElementById('passSubmit')
+        const updatePic = document.getElementById('updatePic')
+        
+        function sendNamesForm(e){
+            e.preventDefault()
+            $.ajax({
+                type: "POST",
+                enctype: 'application/x-www-form-urlencoded',
+                url: "/MML/detailsUpdated",
+                data: $('#namesForm').serialize(),
+                processData: false,
+                timeout: 600000,
+                success: function (data) {
+                    const alert = document.getElementById("successName");
+                    alert.classList.add('show');
+                    setTimeout(() => {
+                        alert.classList.remove('show');
+                    }, 2000)
+                },
+                error: function (e) {
+                    console.log("Error")
+                }
+            });
+        }
+        
+        function sendPasswordForm(e){
+            e.preventDefault()
+            $.ajax({
+                type: "POST",
+                enctype: 'application/x-www-form-urlencoded',
+                url: "/MML/passwordChanged",
+                data: $('#passwordForm').serialize(),
+                processData: false,
+                timeout: 600000,
+                success: function (data) {
+                    const alert = document.getElementById("successPassword");
+                    alert.classList.add('show');
+                    setTimeout(() => {
+                        alert.classList.remove('show');
+                    }, 2000)
+                },
+                error: function (e) {
+                    console.log("Error")
+                }
+            });
+            document.getElementById("passwordForm").reset()
+//            currPassEntered.value = ""
+//            passEntered.value = ""
+//            passConfirm.value = ""
+            
+        }
+        
+        
+        function sendImageForm(e){
+            e.preventDefault()
+            var form = $('#pictureUpdate')[0];
+            var data = new FormData(form);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/MML/picturesUpdated",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    const alert = document.getElementById("successImage");
+                    alert.classList.add('show');
+                    setTimeout(() => {
+                        alert.classList.remove('show');
+                    }, 2000)
+                },
+                error: function (e) {
+                    console.log("Error")
+                }
+            });
+        }
+        
+        updatePic.addEventListener('click', sendImageForm)
+        passSubmit.addEventListener('click', sendPasswordForm)
+        updatesNamesBtn.addEventListener('click', sendNamesForm)
         
         function enableSubmit(){
             if(userUnique || uname.value == '<%=uname%>'){

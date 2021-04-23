@@ -2,6 +2,10 @@
 package daos;
 
 import beans.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -168,5 +172,74 @@ public class UserDao implements Dao {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
+    
+//    public void insertPicture(int uid, InputStream image, String type){
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//            PreparedStatement ps = con.prepareStatement("UPDATE user SET "+type+" = ? WHERE user_id = ?");
+//            
+//            ps.setBlob(1, (InputStream) image);
+//            ps.setInt(2, uid);
+//            
+//            
+//            ps.executeUpdate();
+//            if(updated>0){
+//                System.out.println("Updated details successfully");
+//            }
+//        } catch (Exception ex) {
+//            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+    
+    public void updatePicture(int uid, InputStream image, String type){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("UPDATE user SET "+ type +" = ? WHERE user_id = ?");
+            
+            ps.setBlob(1, image);
+            ps.setInt(2, uid);
+            
+            int updated = ps.executeUpdate();
+            if(updated>0){
+                System.out.println("Updated details successfully");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void userImages(int uid, InputStream bannerStream, FileInputStream profileStream){
+        try {
+            
+            User currentUser = findByUserId(uid);
+            Blob blobBanner = currentUser.getBannerPic();
+            Blob blobProfile = currentUser.getProfilePic();
+            System.out.println("this is bannerstream: " + bannerStream);
+            updatePicture(uid, bannerStream, "banner_pic");
+
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Blob retrieveImages(int uid){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE user_id = ?");
+            
+            ps.setInt(1, uid);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getBlob("banner_pic");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 }

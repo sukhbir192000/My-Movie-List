@@ -31,6 +31,7 @@ public class ChangePasswordController extends HttpServlet {
         
         else{
             System.out.println("The current password entered is incorrect!");
+            
         }
     }
 
