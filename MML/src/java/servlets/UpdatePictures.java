@@ -3,12 +3,14 @@ package servlets;
 import beans.User;
 import daos.ContentDao;
 import daos.UserDao;
+import daos.imageDao;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -32,32 +34,39 @@ public class UpdatePictures extends HttpServlet {
 
         // Input stream of the upload file
         InputStream inputStream = null;
-
-        String message = null;
-
-        // Obtains the upload file part in this multipart request
-        Part filePart = request.getPart("bannerPic");
-
-        if (filePart != null) {
-
-            // Prints out some information for debugging
-            System.out.println(filePart.getName());
-            System.out.println(filePart.getSize());
-            System.out.println(filePart.getContentType());
-
-            // Obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-        }
-
-        // Sends the statement to the database server
         User user = ((User)(request.getSession().getAttribute("loggedUser")));
         UserDao userDao = new UserDao();
+        if(request.getParameter("typePic").equals("profile")){
+            
+            // Updating database
+            Part filePart = request.getPart("profilePic");
+            inputStream = filePart.getInputStream();
+            userDao.updatePicture(user.getUserId(), inputStream, "profile_pic");
+            
+            // Updating session cookie
+            Blob image = userDao.retrieveImage(user.getUserId(), "profile_pic");
+            imageDao im = new imageDao();
+            user.setProfilePic(im.convertToBase64(image));
+            
+            // Sending response
+            HashMap<String, String> responseMap = new HashMap<String, String>();
+            responseMap.put("changeProfilePic", user.getProfilePic());
+            
+            responseMap.put("isEmpty", user.getProfilePic().isEmpty() ? "true" : "false");
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
+        }
         
-        userDao.userImages(user.getUserId(), inputStream, null);
-        
-        System.out.println(message);
-
-
+        else if(request.getParameter("typePic").equals("banner")){
+            Part filePart = request.getPart("bannerPic");
+            inputStream = filePart.getInputStream();
+            userDao.updatePicture(user.getUserId(), inputStream, "banner_pic");
+            
+            Blob image = userDao.retrieveImage(user.getUserId(), "banner_pic");
+            imageDao im = new imageDao();
+            user.setBannerPic(im.convertToBase64(image));
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

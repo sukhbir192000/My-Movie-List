@@ -130,24 +130,34 @@
                             <button type="submit" id="updateNames" class="btn btn-yellow disabled ">Update Names</button>
                         </div>
                     </form>
-                    <form id="pictureUpdate" enctype="multipart/form-data" action="/MML/picturesUpdated" method="POST" class="text-white row wow animated bounceInLeft" >
-                        <h3 class="h3 mb-4 text-yellow"><i class="fas fa-camera-retro"></i> Personalize </h3>
-                        <div class="col-12 col-md-6  px-3">
-                            <label class="form-label text-white" for="bannerPic">Banner Photo</label>
-                            <input type="file" class="form-control" id="bannerPic" name="bannerPic" />
+                    
+                    <h3 class="h3 mb-4 text-yellow"><i class="fas fa-camera-retro"></i> Personalize </h3>
+                    <div class="row p-0">
+                        <form id="pictureUpdate" enctype="multipart/form-data" action="/MML/picturesUpdated" method="POST" class="col-12 col-md-6 text-white wow animated bounceInLeft" >
+                            <div class="">
+                                <label class="form-label text-white" for="bannerPic">Banner Photo</label>
+                                <input type="file" class="form-control" id="bannerPic" name="bannerPic" />
 
-                        </div>
+                            </div>
+                            <input name="typePic" type="hidden" value="banner" />
+                            <div class="d-flex flex-row justify-content-end mt-4">
+                                <button id="bannerUpdatePic" type="button" class="btn btn-yellow">Update Photo</button>
+                            </div>
+                        </form>
+                        
+                        <form id="profilePictureUpdate" enctype="multipart/form-data" action="/MML/picturesUpdated" method="POST" class="col-12 col-md-6 text-white wow animated bounceInLeft">
+                            <div class="">
+                                <label class="form-label text-white" for="profilePic">Profile Photo</label>
+                                <input type="file" class="form-control" id="profilePic" name="profilePic" />
 
-                        <div class="col-12 col-md-6 px-3 bg">
-                            <label class="form-label text-white" for="profilePic">Profile Photo</label>
-                            <input type="file" class="form-control" id="profilePic" name="profilePic" />
-
-                        </div>
-                        <div class="d-flex flex-row justify-content-end mt-4">
-                            <button id="updatePic" type="button" class="btn btn-yellow">Update Photos</button>
-                        </div>
-                    </form>
-                    <form id="passwordForm" class="text-white row mt-4 wow animated bounceInUp" method="POST" action="/MML/passwordChanged" >
+                            </div>
+                            <input name="typePic" type="hidden" value="profile" />
+                            <div class="d-flex flex-row justify-content-end mt-4">
+                                <button id="updatePic" type="button" class="btn btn-yellow">Update Photo</button>
+                            </div>
+                        </form>
+                    </div>
+                    <form id="passwordForm"  class="text-white row mt-4 wow animated bounceInUp" method="POST" action="/MML/passwordChanged" >
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-shield-alt"></i> Security</h3>
 
                         <div class="col-12 px-3 mb-4">
@@ -214,9 +224,15 @@
         
         const passSubmit = document.getElementById('passSubmit')
         const updatePic = document.getElementById('updatePic')
+        const bannerUpdate = document.getElementById('bannerUpdatePic')
+        
+        const navbarUsername = document.getElementById('username-change-navbar')
+        const navbarProfilePic = document.getElementById('change-profile-pic')
+        const defaultProfilePic = document.getElementById('default-profile-pic')
         
         function sendNamesForm(e){
             e.preventDefault()
+            
             $.ajax({
                 type: "POST",
                 enctype: 'application/x-www-form-urlencoded',
@@ -225,6 +241,9 @@
                 processData: false,
                 timeout: 600000,
                 success: function (data) {
+                    data = (JSON.parse(data))
+                    var name = data.changeName
+                    navbarUsername.innerText = name
                     const alert = document.getElementById("successName");
                     alert.classList.add('show');
                     alert.classList.remove('d-none')
@@ -237,6 +256,7 @@
                     console.log("Error")
                 }
             });
+            
         }
         
         function sendPasswordForm(e){
@@ -275,18 +295,14 @@
                 }
             });
             document.getElementById("passwordForm").reset()
-//            currPassEntered.value = ""
-//            passEntered.value = ""
-//            passConfirm.value = ""
-            
         }
+        
         
         
         function sendImageForm(e){
             e.preventDefault()
-            var form = $('#pictureUpdate')[0];
+            var form = e.target.parentNode.parentNode;
             var data = new FormData(form);
-
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -297,22 +313,40 @@
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
+                    data = (JSON.parse(data))
+                    let updatedImage = data.changeProfilePic
+                    let isEmpty = data.isEmpty
+                    if(isEmpty == "true"){
+                        defaultProfilePic.classList.remove('d-none')
+                        navbarProfilePic.classList.add('d-none')
+                    }
+                    else{
+                        defaultProfilePic.classList.add('d-none')
+                        navbarProfilePic.classList.remove('d-none')
+                        navbarProfilePic.style.background = "url('data:image/jpg;base64,"+ updatedImage +"') center center"
+                        navbarProfilePic.style.backgroundSize = "cover"
+                    }
                     const alert = document.getElementById("successImage");
                     alert.classList.add('show');
                     alert.classList.remove('d-none')
                     setTimeout(() => {
                         alert.classList.remove('show');
+                        alert.classList.add('d-none')
                     }, 2000)
                 },
                 error: function (e) {
                     console.log("Error")
                 }
             });
+            
+            e.target.parentNode.parentNode.reset()
         }
         
         updatePic.addEventListener('click', sendImageForm)
         passSubmit.addEventListener('click', sendPasswordForm)
         updatesNamesBtn.addEventListener('click', sendNamesForm)
+        bannerUpdate.addEventListener('click', sendImageForm)
+//        navbarUsername('change', changeNavbarUsername)
         
         function enableSubmit(){
             if(userUnique || uname.value == '<%=uname%>'){

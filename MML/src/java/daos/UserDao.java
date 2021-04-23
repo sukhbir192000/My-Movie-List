@@ -173,25 +173,6 @@ public class UserDao implements Dao {
         }
     } 
     
-//    public void insertPicture(int uid, InputStream image, String type){
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//            PreparedStatement ps = con.prepareStatement("UPDATE user SET "+type+" = ? WHERE user_id = ?");
-//            
-//            ps.setBlob(1, (InputStream) image);
-//            ps.setInt(2, uid);
-//            
-//            
-//            ps.executeUpdate();
-//            if(updated>0){
-//                System.out.println("Updated details successfully");
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
     public void updatePicture(int uid, InputStream image, String type){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -200,31 +181,19 @@ public class UserDao implements Dao {
             
             ps.setBlob(1, image);
             ps.setInt(2, uid);
-            
             int updated = ps.executeUpdate();
             if(updated>0){
                 System.out.println("Updated details successfully");
+            }
+            else{
+                System.out.println("FAILED");
             }
         } catch (Exception ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void userImages(int uid, InputStream bannerStream, FileInputStream profileStream){
-        try {
-            
-            User currentUser = findByUserId(uid);
-            Blob blobBanner = currentUser.getBannerPic();
-            Blob blobProfile = currentUser.getProfilePic();
-            System.out.println("this is bannerstream: " + bannerStream);
-            updatePicture(uid, bannerStream, "banner_pic");
-
-        } catch (Exception ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public Blob retrieveImages(int uid){
+    public Blob retrieveImage(int uid, String type){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -234,7 +203,7 @@ public class UserDao implements Dao {
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                return rs.getBlob("banner_pic");
+                return rs.getBlob(type);
             }
         } catch (Exception ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);

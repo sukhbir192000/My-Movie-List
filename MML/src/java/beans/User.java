@@ -1,6 +1,7 @@
 
 package beans;
 
+import daos.imageDao;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.ResultSet;
@@ -10,37 +11,38 @@ public class User implements Serializable {
     private String firstName,
             lastName,
             username,
-            email;
+            email,
+            bannerPic,
+            profilePic;
     private int userId,
                 role;
-    
-    private Blob bannerPic,
-                 profilePic;
 
-    public Blob getBannerPic() {
+    public String getBannerPic() {
         return bannerPic;
     }
 
-    public void setBannerPic(Blob bannerPic) {
+    public void setBannerPic(String bannerPic) {
         this.bannerPic = bannerPic;
     }
 
-    public Blob getProfilePic() {
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Blob profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String email) {
+    public User(String firstName, String lastName, String username, String email, String bannerPic, String profilePic) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
+        this.bannerPic = bannerPic;
+        this.profilePic = profilePic;
     }
     
     public User(ResultSet rs) {
@@ -51,6 +53,10 @@ public class User implements Serializable {
             this.email = rs.getString("email");
             this.userId = rs.getInt("user_id");
             this.role = rs.getString("role").equals("user") ? 0 : 1;
+            
+            imageDao im = new imageDao();
+            this.bannerPic = im.convertToBase64(rs.getBlob("banner_pic"));
+            this.profilePic = im.convertToBase64(rs.getBlob("profile_pic"));
         } catch (Exception e) {
             e.printStackTrace();
         }

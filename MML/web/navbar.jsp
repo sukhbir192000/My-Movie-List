@@ -81,15 +81,25 @@
                         data-mdb-toggle="dropdown"
                         aria-expanded="false"
                         >
-                        <i class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <!-- <img
-                            src=""
-                            class="rounded-circle"
-                            height="35"
-                            alt=""
-                            loading="lazy"
-                        />-->
-                        <span class="navbar-username ps-1 text-white"> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
+                        
+                        <% 
+                            User user = ((User)(request.getSession()).getAttribute("loggedUser"));
+                            String profilePic = user.getProfilePic();
+                            if(profilePic.isEmpty()){
+                        %>
+                        
+                        <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        </div>
+                        
+                        <% } else { %>
+                        
+                        <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        </div>
+                        <% } %>
+                        
+                        <span class="navbar-username ps-1 text-white" id='username-change-navbar'> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
                         <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
