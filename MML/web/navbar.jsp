@@ -95,7 +95,7 @@
                         <% } else { %>
                         
                         <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
                         </div>
                         <% } %>
                         
