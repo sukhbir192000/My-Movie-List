@@ -12,9 +12,10 @@ import java.util.logging.Logger;
 public class imageDao implements Dao{
     
     public String convertToBase64(Blob image){
-        
+        if(image == null) return "";
         InputStream inputStream = null;
         try {
+            
             inputStream = image.getBinaryStream();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
@@ -33,6 +34,6 @@ public class imageDao implements Dao{
             ex.printStackTrace();
         } 
         
-        return null;
+        return "";
     }
 }
