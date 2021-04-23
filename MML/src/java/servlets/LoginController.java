@@ -5,6 +5,7 @@ import beans.UserAuthToken;
 import daos.UserDao;
 import daos.UserAuthDao;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,12 +18,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import utils.HashGeneratorUtils;
 
 public class LoginController extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
         rd.forward(request, response);
     }
@@ -34,7 +35,9 @@ public class LoginController extends HttpServlet {
         String uname = request.getParameter("uname"),
                 pass = HashGeneratorUtils.generateSHA256(request.getParameter("pass"));
         boolean rememberMe = "true".equals(request.getParameter("remember"));
-
+        
+        String redirect = request.getParameter("redirect");
+        
         UserDao dao = new UserDao();
 
         User user = dao.validate(uname, pass);
@@ -76,7 +79,14 @@ public class LoginController extends HttpServlet {
                 response.addCookie(cookieSelector);
                 response.addCookie(cookieValidator);
             }
-            response.sendRedirect("/MML/home");
+            
+            System.out.println(redirect);
+            if(redirect != null && !redirect.equals("null")) {
+                response.sendRedirect(redirect);
+            }
+            else {
+                response.sendRedirect("/MML/home");
+            }
 
         } else {
             request.setAttribute("invalid", true);

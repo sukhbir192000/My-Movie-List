@@ -105,17 +105,29 @@
 
                                     <!-- <button class="btn btn-yellow fs-5 mx-auto">+ Add to WatchList</button> -->
                                     <!--to do-->
-                                    <div class="dropdown mx-auto" id="watchListButton">
-                                        <button class="btn btn-yellow fs-5 dropdown-toggle" type="button" id="watchlist-btn"
-                                                data-mdb-toggle="dropdown" aria-expanded="false" style="min-width:20vw !important;"><%=request.getAttribute("status")%></button>
-                                        <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark" aria-labelledby="watchlist-btn" >
-                                            <li><span class="dropdown-item" href="#">Watching</span></li>
-                                            <li><span class="dropdown-item" href="#">Completed</span></li>
-                                            <li><span class="dropdown-item" href="#">On hold</span></li>
-                                            <li><span class="dropdown-item" href="#">Dropped</span></li>
-                                            <li><span class="dropdown-item" href="#">Plan to watch</span></li>
-                                        </ul>
-                                    </div>
+                                    <%
+                                        if(request.getAttribute("status")!=null) {
+                                    %>
+                                            <div class="dropdown mx-auto" id="watchListButton">
+                                                <button class="btn btn-yellow fs-5 dropdown-toggle" type="button" id="watchlist-btn"
+                                                        data-mdb-toggle="dropdown" aria-expanded="false" style="min-width:20vw !important;"><%=request.getAttribute("status")%></button>
+                                                <ul class="dropdown-menu dropdown-menu-dark fs-5 w-100 text-center bg-dark" aria-labelledby="watchlist-btn" >
+                                                    <li><span class="dropdown-item" href="#">Watching</span></li>
+                                                    <li><span class="dropdown-item" href="#">Completed</span></li>
+                                                    <li><span class="dropdown-item" href="#">On hold</span></li>
+                                                    <li><span class="dropdown-item" href="#">Dropped</span></li>
+                                                    <li><span class="dropdown-item" href="#">Plan to watch</span></li>
+                                                </ul>
+                                            </div>
+                                    <%
+                                        } else {
+                                    %>
+                                            <div class="mx-auto">
+                                                <a class="btn btn-yellow fs-5" href="/MML/login?redirect=/MML/movie?id=<%= request.getParameter("id") %>" style="min-width:20vw !important;">Add to watchlist</a>
+                                            </div>
+                                    <%
+                                        }
+                                    %>
 
 
                                 </div>
@@ -212,9 +224,16 @@
                     <div class="heading-container mt-5 d-block d-sm-flex flex-row justify-content-start align-items-baseline">
                         <div class="d-flex flex-row justify-content-between">
                             <h2 class="text-yellow fw-bold px-2 py-0 d-inline-block d-sm-block">Social</h2>
-                            <button class="btn btn-yellow d-inline-block d-sm-none" type="button" data-mdb-toggle="collapse"
+                            
+                            <% if(session.getAttribute("loggedUser") != null) { %>
+                                <button class="btn btn-yellow d-inline-block d-sm-none" type="button" data-mdb-toggle="collapse"
                                     data-mdb-target="#postReview" aria-expanded="false" aria-controls="postReview"><i
                                     class="fas fa-pencil-alt fs-6"></i></button>
+                            <% } else { %>
+                                <a href="/MML/login?redirect=/MML/movie?id=<%= request.getParameter("id") %>" class="btn btn-yellow d-inline-block d-sm-none">
+                                    <i class="fas fa-pencil-alt fs-6"></i>
+                                </a>
+                            <% } %>
                         </div>
                         <!-- Tabs navs -->
                         <ul class="nav nav-pills nav-justified mb-3 ps-2 ps-sm-4" id="social-nav" role="tablist">
@@ -230,10 +249,16 @@
                             </li>
                         </ul>
                         <!-- Tabs navs -->
-                        <button class="btn btn-yellow ms-auto d-none d-sm-inline-block fs-6" type="button" data-mdb-toggle="collapse"
-                                data-mdb-target="#postReview" aria-expanded="false" aria-controls="postReview">
-                            <i class="fas fa-pencil-alt"></i><span class="d-none d-md-inline px-1">Write a review</span>
-                        </button>
+                        <% if(session.getAttribute("loggedUser") != null) { %>
+                            <button class="btn btn-yellow ms-auto d-none d-sm-inline-block fs-6" type="button" data-mdb-toggle="collapse"
+                                    data-mdb-target="#postReview" aria-expanded="false" aria-controls="postReview">
+                                <i class="fas fa-pencil-alt"></i><span class="d-none d-md-inline px-1">Write a review</span>
+                            </button>
+                        <% } else { %>
+                            <a href="/MML/login?redirect=/MML/movie?id=<%= request.getParameter("id") %>" class="btn btn-yellow ms-auto d-none d-sm-inline-block fs-6">
+                                <i class="fas fa-pencil-alt"></i><span class="d-none d-md-inline px-1">Write a review</span>
+                            </a>
+                        <% } %>
                     </div>
 
                     <!-- Tabs content -->
@@ -281,12 +306,88 @@
                                 <%
                                     JSONArray allReviews = (JSONArray) request.getAttribute("allReviews");
                                     JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
-                                    if (allReviews.size() == 0 && myReviews.size()== 0) {%>
-                                <p class="text-white">No reviews yet!</p>
+                                    if (allReviews.size() == 0 && (myReviews==null || myReviews.size()== 0)) {%>
+                                <h4 class="text-white text-center">No reviews yet!</h4>
                                 <%} else {
+                                    if(myReviews!=null) {
+                                        for (int i = 0; i < myReviews.size(); i++) {
+                                            JSONObject myReview = (JSONObject) myReviews.get(i);
 
-                                    for (int i = 0; i < myReviews.size(); i++) {
-                                        JSONObject myReview = (JSONObject) myReviews.get(i);
+                                %>
+                                <li class="mb-4">
+                                    <div class="card bg-dark text-white" id="<%=myReview.get("id")%>">
+                                        <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                                            <div class="row gx-2 flex-grow-1 w-auto">
+                                                <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
+                                                    <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
+                                                         alt="" class="w-100 rounded-circle">
+                                                </div>
+                                                <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
+                                                    <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
+                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
+                                                        <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
+                                                    </div>
+                                                    <div>
+                                                        <%
+                                                            float j = Float.parseFloat((String) myReview.get("rating"));
+                                                            while (j >= 1) {
+
+                                                        %>       
+
+                                                        <i class="fas fa-star text-yellow"></i>
+                                                        <%
+                                                                j--;
+                                                            }
+                                                            if (j == 0.5) {
+                                                        %>
+                                                        <i class="fas fa-star-half-alt text-yellow"></i>
+                                                        <%
+                                                        } else {%>
+                                                        <i class="far fa-star text-yellow"></i>
+
+                                                        <%}
+                                                            j = Float.parseFloat((String) myReview.get("rating"));
+                                                            int emptyStars = 4 - ((int) j);
+                                                            while (emptyStars > 0) {
+                                                        %>
+                                                        <i class="far fa-star text-yellow"></i>
+                                                        <%
+                                                                emptyStars--;
+                                                            }
+
+                                                        %>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fs-5 d-flex flex-column flex-sm-row">
+                                                <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
+                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==1){%> fas <%} %> fa-thumbs-up"></i></span>
+                                                </div>
+                                                <span class="d-none d-sm-inline px-1 text-muted">|</span>
+                                                <div
+                                                    class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
+                                                    <span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==0){%>fas<%} %> fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%=myReview.get("heading")%>
+                                            </h5>
+                                            <p class="card-text">
+                                                <%=myReview.get("content")%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <%
+                                        }
+                                    }
+
+                                    for (int i = 0; i < allReviews.size(); i++) {
+                                        JSONObject myReview = (JSONObject) allReviews.get(i);
 
                                 %>
                                 <li class="mb-4">
@@ -356,82 +457,10 @@
                                         </div>
                                     </div>
                                 </li>
-                                <%}%>
                                 <%
-
-                                    for (int i = 0; i < allReviews.size(); i++) {
-                                        JSONObject myReview = (JSONObject) allReviews.get(i);
-
+                                    }
+                                }
                                 %>
-                                <li class="mb-4">
-                                    <div class="card bg-dark text-white" id="<%=myReview.get("id")%>">
-                                        <div class="card-header d-flex flex-row justify-content-between align-items-center">
-                                            <div class="row gx-2 flex-grow-1 w-auto">
-                                                <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
-                                                    <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
-                                                         alt="" class="w-100 rounded-circle">
-                                                </div>
-                                                <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
-                                                    <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
-                                                        <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
-                                                    </div>
-                                                    <div>
-                                                        <%
-                                                            float j = Float.parseFloat((String) myReview.get("rating"));
-                                                            while (j >= 1) {
-
-                                                        %>       
-
-                                                        <i class="fas fa-star text-yellow"></i>
-                                                        <%                                                                j--;
-                                                            }
-                                                            if (j == 0.5) {
-                                                        %>
-                                                        <i class="fas fa-star-half-alt text-yellow"></i>
-                                                        <%
-                                                        } else {%>
-                                                        <i class="far fa-star text-yellow"></i>
-
-                                                        <%}
-                                                            j = Float.parseFloat((String) myReview.get("rating"));
-                                                            int emptyStars = 4 - ((int) j);
-                                                            while (emptyStars > 0) {
-                                                        %>
-                                                        <i class="far fa-star text-yellow"></i>
-                                                        <%
-                                                                emptyStars--;
-                                                            }
-
-                                                        %>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fs-5 d-flex flex-column flex-sm-row">
-                                                <div class="likes cursor-pointer d-flex flex-row justify-content-end text-success">
-                                                    <span class="px-1"><%=myReview.get("upvote")%></span><span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==1){%>fas<%} %>fa-thumbs-up"></i></span>
-                                                </div>
-                                                <span class="d-none d-sm-inline px-1 text-muted">|</span>
-                                                <div
-                                                    class="dislikes cursor-pointer d-flex flex-row-reverse justify-content-start flex-sm-row text-danger">
-                                                    <span><i class="far <%if(myReview.get("liked")!=null&&Integer.parseInt((String)myReview.get("liked"))==0){%>fas<%} %> fa-thumbs-down"></i></span><span class="px-1"><%=myReview.get("downvote")%></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <%=myReview.get("heading")%>
-                                            </h5>
-                                            <p class="card-text">
-                                                <%=myReview.get("content")%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <%}
-                                    }%>
 
                             </ul>
                         </div>
@@ -451,26 +480,34 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
-        <script>
-            let optionsList = document.querySelectorAll("#watchListButton ul li");
-            optionsList.forEach((optionItem) => {
-                optionItem.addEventListener('click', watchListHandler);
-            })
-            function watchListHandler(event) {
-                console.log("clicked", event.target.innerText);
-                postData('/MML/watchlist', {
-                    listStatus: event.target.innerText,
-                    movieId:<%=request.getParameter("id")%>
+        <%
+            if(request.getAttribute("status")!=null) {
+        %>
+            <script>
+                let optionsList = document.querySelectorAll("#watchListButton ul li");
+                optionsList.forEach((optionItem) => {
+                    optionItem.addEventListener('click', watchListHandler);
                 })
-                        .then(data => {
-                            console.log(data); // JSON data parsed by `data.json()` call
-                            if (data.success) {
-                                let watchListButton = document.querySelector("#watchListButton button");
-                                watchListButton.innerText = event.target.innerText;
-                            }
-                        });
+                function watchListHandler(event) {
+                    console.log("clicked", event.target.innerText);
+                    postData('/MML/watchlist', {
+                        listStatus: event.target.innerText,
+                        movieId:<%=request.getParameter("id")%>
+                    })
+                            .then(data => {
+                                console.log(data); // JSON data parsed by `data.json()` call
+                                if (data.success) {
+                                    let watchListButton = document.querySelector("#watchListButton button");
+                                    watchListButton.innerText = event.target.innerText;
+                                }
+                            });
 
+                }
+            </script>
+        <%
             }
+        %>
+        <script>
             async function postData(url = '', data = {}) {
                 // Default options are marked with *
                 const response = await fetch(url, {
@@ -531,7 +568,8 @@
 
         <script src="scripts/custom-carousel.js"></script>
         <script src="scripts/rating.js"></script>
-
+        
+        <% if(session.getAttribute("loggedUser") != null) { %>
         <script>
 
             async function addLike(likeDiv, dislikeDiv) {
@@ -650,7 +688,8 @@
             dislikeBtns.forEach(btn => btn.addEventListener('click', dislikeHandler));
 
         </script>
-
+        <% } %>
+        
         <script src="scripts/disqus.js"></script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
             Disqus.</a></noscript>

@@ -32,10 +32,10 @@
                     </a>
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/MML/movies?q=tr">Top Rated</a></li>
                         <li><a class="dropdown-item" href="/MML/movies">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="/MML/movies">In Theaters</a></li>
-                        <li><a class="dropdown-item" href="/MML/movies">Coming Soon</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies/tr">Top Rated</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies/np">In Theaters</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies/cs">Coming Soon</a></li>
                     </ul>
                 </li>
                 <!-- Navbar dropdown -->
@@ -46,10 +46,10 @@
                     </a>
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/MML/shows">Top Rated</a></li>
                         <li><a class="dropdown-item" href="/MML/shows">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="/MML/shows">Airing today</a></li>
-                        <li><a class="dropdown-item" href="/MML/shows">On TV</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows/tr">Top Rated</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows/at">Airing today</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows/ot">On TV</a></li>
                     </ul>
                 </li>
             </ul>

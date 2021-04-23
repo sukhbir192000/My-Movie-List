@@ -47,6 +47,7 @@
                                   <div class="fw-bold">Sign in with Google</div>
                                 </div> -->
                                 <form method="POST" action="/MML/login">
+                                    <input type="hidden" name="redirect" value="<%= request.getParameter("redirect") %>" />
                                     <!-- Username input -->
                                     <div class="input-group form-outline form-white mb-4">
                                         <span class="input-group-text bg-yellow border border-yellow"> <i class="fas fa-user text-dark"></i> </span>

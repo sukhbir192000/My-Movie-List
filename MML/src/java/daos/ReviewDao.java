@@ -55,7 +55,7 @@ import org.json.simple.JSONObject;
             ps.setInt(1,userId);
             ps.setInt(2, contentId);
             ps.setInt(3,userId);
-            System.out.println("I'm here");
+            
             ResultSet rs = ps.executeQuery();
             JSONArray reviewList=new JSONArray();
             while (rs.next()) {
