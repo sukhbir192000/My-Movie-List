@@ -80,6 +80,10 @@
         <servlet-name>UpdatePictures</servlet-name>
         <servlet-class>servlets.UpdatePictures</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DiscoverController</servlet-name>
+        <servlet-class>servlets.DiscoverController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -155,6 +159,11 @@
     <servlet-mapping>
         <servlet-name>UpdatePictures</servlet-name>
         <url-pattern>/picturesUpdated</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DiscoverController</servlet-name>
+        <url-pattern>/movies</url-pattern>
+        <url-pattern>/shows</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
