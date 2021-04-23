@@ -283,9 +283,7 @@
                                     JSONArray myReviews = (JSONArray) request.getAttribute("myReviews");
                                     if (allReviews.size() == 0 && myReviews.size()== 0) {%>
                                 <p class="text-white">No reviews yet!</p>
-                                <%} else {%>
-                                <h3 class="h3-responsive text-white">My Reviews</h3>
-                                <%
+                                <%} else {
 
                                     for (int i = 0; i < myReviews.size(); i++) {
                                         JSONObject myReview = (JSONObject) myReviews.get(i);
@@ -359,7 +357,6 @@
                                     </div>
                                 </li>
                                 <%}%>
-                                <h3 class="h3-responsive text-white">All Reviews</h3>
                                 <%
 
                                     for (int i = 0; i < allReviews.size(); i++) {
