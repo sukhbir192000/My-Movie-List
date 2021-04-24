@@ -44,7 +44,7 @@ public class ContentDao implements Dao {
 
     }
 
-    public boolean setMovieStatus(int userId, long contentId, String status) {
+    public boolean setMovieStatus(int userId, long contentId, String status,long watchTime) {
         try {
             System.out.println("entered content dao, updating");
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -63,6 +63,12 @@ public class ContentDao implements Dao {
 
             }
             ps.setString(1, status);
+            if (status.equals("Completed")) {
+                System.out.println("status" + status);
+
+                WatchTimeDao watchTimeDao = new WatchTimeDao();
+                watchTimeDao.setWatchTime(userId, contentId,watchTime);
+            }
             ps.setInt(2, userId);
             ps.setLong(3, contentId);
             int rs = ps.executeUpdate();
