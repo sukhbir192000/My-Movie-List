@@ -1,3 +1,12 @@
+<%-- 
+    Document   : superAdmin
+    Created on : Apr 24, 2021, 6:08:00 PM
+    Author     : Ishjot Singh
+--%>
+
+<%@page import="servlets.MovieController"%>
+<%@page import="daos.CarouselDao"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -139,13 +148,13 @@
                                             </tr>
                                         
                                         </thead>
-                                        <tbody class="border">
-                                            <tr>
+                                        <tbody id="inCarousel" class="border">
+<!--                                            <tr>
                                                 <th scope="row" class="text-center">1</th>
                                                 <td class="text-center">Test</td>
                                                 <td class="text-center">date</td>
                                                 <td class="text-center"><i class="fa fa-trash" /></td>
-                                            </tr>
+                                            </tr>-->
                                         </tbody>
                                     </table>
 
@@ -191,9 +200,7 @@
 
 
 
-                        <div class="d-flex flex-row justify-content-center w-100 mt-3" *ngIf="schoolList.length>0">
-                            <angular-paginator (pageChange)="currentPage = $event"></angular-paginator>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -221,7 +228,10 @@
 
         
         const tBody = document.getElementById('tableMovies')
+        const tBodyEdit = document.getElementById('inCarousel')
         const search = document.getElementById('searchMovie')
+        
+        let removeBtnEdit = document.querySelectorAll('.removeCurrent');
         let addBtn = document.querySelectorAll('.addBtn');
         
         
@@ -233,11 +243,13 @@
                         btn.classList.add('btn-danger')
                         btn.classList.remove('btn-dark')
                         btn.innerText = "- Remove"
+                        
                         $.ajax({
                             method: 'POST',
                             url: '/MML/carouselUpdate',
                             data: {'content_id': btn.id},
                             success: function(data){
+                                getCarouselList();
                                 const alert = document.getElementById("successCarousel");
                                 alert.classList.add('show');
                                 alert.classList.remove('d-none')
@@ -245,8 +257,10 @@
                                     alert.classList.remove('show');
                                     alert.classList.add('d-none')
                                 }, 2000)
+                                updateEditCarousel('added', e.target.parentNode.parentNode)
                             }
                         })
+                        
                     }
                     else{
                         btn.classList.remove('btn-success')
@@ -256,6 +270,7 @@
                             url: '/MML/carouselDrop',
                             data: {'content_id': btn.id},
                             success: function(data){
+                                getCarouselList();
                                 const alert = document.getElementById("successCarousel");
                                 alert.classList.add('show');
                                 alert.classList.remove('d-none')
@@ -271,8 +286,74 @@
             })
         }
         
-
+        function updateRemoveBtnEdit(){
+            removeBtnEdit = document.querySelectorAll('.removeCurrent');
+            removeBtnEdit.forEach(btn => {
+                btn.addEventListener('click', (e)=>{
+                    console.log((btn.id).split('-')[0])
+                    $.ajax({
+                        url: '/MML/carouselDrop',
+                        data: {'content_id': (btn.id).split('-')[0]},
+                        success: function(data){
+                            e.target.parentNode.parentNode.remove()
+                            getCarouselList();
+                            const alert = document.getElementById("successCarousel");
+                            alert.classList.add('show');
+                            alert.classList.remove('d-none')
+                            setTimeout(() => {
+                                alert.classList.remove('show');
+                                alert.classList.add('d-none')
+                            }, 2000)
+                        }
+                    })
+                });
+            })
+        }
+        
+        let movieDetails = []
+        let removeCurrentBtn = []
         let movieList = []
+        let carouselList = []
+        fetch('/MML/getCarouselList')
+                .then(response => response.json())
+                .then(data => {
+                    carouselList = data
+                    currentCarouselTable()
+        })
+        
+        async function currentCarouselTable(){
+            await fetch('/MML/getMovieDetails?array=' + carouselList)
+                    .then(response => response.json())
+                    .then(data => {
+                        movieDetails.push(...data)
+                        console.log(movieDetails)
+                    })
+            const html = movieDetails.map(movie => {
+                return `
+                    <tr>
+                        <th scope="row" class="text-center">${movie.id}</th>
+                        <td class="text-center">${movie.title}</td>
+                        <td class="text-center">${movie.release_date}</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger py-1 px-2 removeCurrent" id = "${movie.id}-edit"> - Remove</button>
+                        </td>
+                    </tr>
+                `
+            }) 
+            tBodyEdit.innerHTML = html.join(" ")      
+            updateRemoveBtnEdit()
+            
+        }
+        
+        function getCarouselList(){
+            fetch('/MML/getCarouselList')
+                    .then(response => response.json())
+                    .then(data => {
+                        carouselList = data
+            })
+        }
+        
+        
         
         function displayMatches(){
             fetch('/MML/search?search=' + this.value)
@@ -282,34 +363,37 @@
                     if(data) movieList.push(...data.results)
             });
             
-        const html = movieList.map(movie => {
-            return `
-                <tr>
-                    <th scope="row" class="text-center">${movie.id}</th>
-                    <td class="text-center name">${movie.title}</td>
-                    <td class="text-center name">${movie.release_date}</td>
-                    <td class="text-center">
-                        <button class="btn btn-dark py-1 px-2 addBtn " id = "${movie.id}">
-                            <% 
-                                CarouselDao cDao = new CarouselDao;
-                                if(cDao.isMovieInCarousel(${movie.id})){
-                             %>
-                                + Add
-                             <% } else { %>
-                                - Remove
-                             <% } %>
-                        </button>
-                    </td>
-                </tr>
-        
-            `});
-            tBody.innerHTML = html
-            
-            updateAddBtn();
-            
-        }
+            const html = movieList.map(movie => {
+                let contains = carouselList.includes(movie.id.toString())
+                if(!contains){
+                return `
+                    <tr>
+                        <th scope="row" class="text-center">${movie.id}</th>
+                        <td class="text-center name">${movie.title}</td>
+                        <td class="text-center name">${movie.release_date}</td>
+                        <td class="text-center">
+                            <button class="btn btn-dark py-1 px-2 addBtn " id = "${movie.id}"> + Add</button>
+                        </td>
+                    </tr>
+                    `}
+                else{
+                    return `
+                    <tr>
+                        <th scope="row" class="text-center">${movie.id}</th>
+                        <td class="text-center name">${movie.title}</td>
+                        <td class="text-center name">${movie.release_date}</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger py-1 px-2 addBtn " id = "${movie.id}"> - Remove</button>
+                        </td>
+                    </tr>
+                    `}
 
-        search.addEventListener('change', displayMatches)
+                });
+
+                tBody.innerHTML = html.join(" ")
+                updateAddBtn();
+            }
+
         search.addEventListener('keyup', displayMatches)
 
 

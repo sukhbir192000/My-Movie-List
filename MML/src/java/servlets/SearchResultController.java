@@ -1,42 +1,27 @@
 package servlets;
 
-import beans.User;
-import daos.FriendDao;
-import daos.StatusDao;
-import daos.UserDao;
-import daos.WatchTimeDao;
+import daos.ApiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class MyProfileController extends HttpServlet {
+public class SearchResultController extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDao userDao=new UserDao();
-        StatusDao statusDao=new StatusDao();
-        FriendDao friendDao=new FriendDao();
-        WatchTimeDao watchTimeDao=new WatchTimeDao();
-        int userId=Integer.parseInt(request.getParameter("id"));
-        JSONObject movieStatus=new JSONObject(statusDao.getMoviesStatus(userId));
-        JSONObject showStatus=new JSONObject(statusDao.getShowStatus(userId));
-        JSONArray watchTimeDetails=(JSONArray)watchTimeDao.getWatchTimeArray(userId);
-        request.setAttribute("movieStatus", movieStatus);
-        request.setAttribute("showStatus", showStatus);
-        request.setAttribute("watchTimeDetails", watchTimeDetails);
-        ArrayList<User> friendList=friendDao.getFriendList(userId);
-        request.setAttribute("friendList", friendList);
-        User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("currentUser", currentUser);
-        RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");  
-        rd.forward(request, response);
+        String query = request.getParameter("search");
+        ApiDao apiDao = new ApiDao();
+        JSONObject obj = apiDao.getSearchResults(query);
+        
+        PrintWriter out = response.getWriter();
+        out.print(obj);
+        out.close();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

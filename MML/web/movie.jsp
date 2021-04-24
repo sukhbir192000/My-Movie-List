@@ -509,7 +509,8 @@
                 console.log("clicked", event.target.innerText);
                 postData('/MML/watchlist', {
                     listStatus: event.target.innerText,
-                    movieId:<%=request.getParameter("id")%>
+                    movieId:<%=request.getParameter("id")%>,
+                    runtime:<%=details.get("runtime")%>
                 })
                         .then(data => {
                             console.log(data); // JSON data parsed by `data.json()` call
