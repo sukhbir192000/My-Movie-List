@@ -13,10 +13,10 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
 
-    <!-- <link rel="stylesheet" href="color.css"> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <link rel="stylesheet" href="superadminStyle.css">
-    <title>Document</title>
+    <!-- <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="css/superadminStyle.css">
+    <title>Manage movies - Admin</title>
 </head>
 
 <body>
@@ -107,6 +107,7 @@
                                         <th scope="col" class="text-center">Movie Name</th>
                                         <th scope="col" class="text-center">Genre</th>
                                         <th scope="col" class="text-center">Release</th>
+                                        <th scope="col" class="text-center">Desc</th>
                                       </tr>
                                   
                                 </thead>
@@ -116,6 +117,7 @@
                                         <td class="text-center">Test</td>
                                         <td class="text-center">Test</td>
                                         <td class="text-center">date</td>
+                                        <td class="text-center">This is a movie ...</td>
                                       </tr>
                                 </tbody>
                               </table>
@@ -137,9 +139,7 @@
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
-    <script type="text/javascript" src="./custom-carousel.js">
 
-    </script>
     <script>
         let showSidebar = function (event) {
             console.log("clicked!");
@@ -148,9 +148,6 @@
             document.getElementById("sidebarToggler").classList.toggle("offset-8");
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-270");
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-90");
-
-
-
         }
     </script>
 </body>

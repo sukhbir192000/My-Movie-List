@@ -97,6 +97,7 @@
                 String fname = user.getFirstName();
                 String lname = user.getLastName();
                 String uname = user.getUsername();
+                String about = user.getAbout();
 
             %>
 
@@ -108,21 +109,28 @@
                         <h3 class="h3 mb-4 text-yellow"><i class="fas fa-house-user"></i> General</h3>
                         <div class="col-12 col-md-6 px-3">
                             <div class=" form-outline form-white mb-4">
-                                <input type="text" id="fname" name="fname" class="form-control" value=<%=fname%> />
+                                <input type="text" id="fname" name="fname" class="form-control" value="<%=fname%>" />
                                 <label class="form-label" for="fname">First name</label>
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6 px-3">
                             <div class=" form-outline form-white mb-4">
-                                <input type="text" id="lname" name="lname" class="form-control" value=<%=lname%> />
+                                <input type="text" id="lname" name="lname" class="form-control" value="<%=lname%>" />
                                 <label class="form-label" for="lname">Last name</label>
                             </div>
                         </div>
                         <div class="col-12 px-3 mb-4">
                             <div class=" form-outline form-white ">
-                                <input type="text" id="uname" name="uname" class="form-control" value=<%=uname%> />
+                                <input type="text" id="uname" name="uname" class="form-control" value="<%=uname%>" />
                                 <label class="form-label" for="uname">Username</label>
+                            </div>
+                            <div id="incorrect-username-error" class="overflow-hidden h-0 text-danger text-start transition"><small>Username already taken!</small></div>
+                        </div>
+                        <div class="col-12 px-3 mb-4">
+                            <div class=" form-outline form-white ">
+                                <input type="textarea" id="about" name="about" class="form-control" value="<%=about%>" />
+                                <label class="form-label" for="about">About</label>
                             </div>
                             <div id="incorrect-username-error" class="overflow-hidden h-0 text-danger text-start transition"><small>Username already taken!</small></div>
                         </div>

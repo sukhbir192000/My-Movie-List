@@ -13,7 +13,16 @@ public class User implements Serializable {
             username,
             email,
             bannerPic,
-            profilePic;
+            profilePic,
+            about;
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
     private int userId,
                 role;
 
@@ -36,13 +45,14 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String email, String bannerPic, String profilePic) {
+    public User(String firstName, String lastName, String username, String email, String bannerPic, String profilePic, String about) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.bannerPic = bannerPic;
         this.profilePic = profilePic;
+        this.about = about;
     }
     
     public User(ResultSet rs) {
@@ -53,6 +63,7 @@ public class User implements Serializable {
             this.email = rs.getString("email");
             this.userId = rs.getInt("user_id");
             this.role = rs.getString("role").equals("user") ? 0 : 1;
+            this.about = rs.getString("about");
             
             imageDao im = new imageDao();
             this.bannerPic = im.convertToBase64(rs.getBlob("banner_pic"));

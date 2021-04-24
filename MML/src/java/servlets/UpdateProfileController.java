@@ -22,16 +22,19 @@ public class UpdateProfileController extends HttpServlet {
         String username = request.getParameter("uname");
         String firstName = request.getParameter("fname");
         String lastName = request.getParameter("lname");
+        String about = request.getParameter("about");
         
         // Updating database 
         int uid = user.getUserId();
         UserDao udao = new UserDao();
-        udao.UpdateDetails(uid, firstName, lastName, username);
+        udao.UpdateDetails(uid, firstName, lastName, username, about);
         
         // Updating session cookie
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUsername(username); 
+        System.out.println("blah" + about + "aboutset");
+        user.setAbout(about);
         
         // Sending response
         HashMap<String, String> responseMap = new HashMap<String, String>();

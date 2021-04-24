@@ -151,16 +151,17 @@ public class UserDao implements Dao {
         }
     }
     
-    public void UpdateDetails(int uid, String fname, String lname, String uname){
+    public void UpdateDetails(int uid, String fname, String lname, String uname, String about){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            PreparedStatement ps = con.prepareStatement("UPDATE user SET first_name = ?, last_name = ?, username = ? WHERE user_id = ?");
+            PreparedStatement ps = con.prepareStatement("UPDATE user SET first_name = ?, last_name = ?, username = ?, about = ? WHERE user_id = ?");
             
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, uname);
-            ps.setInt(4, uid);
+            ps.setString(4, about);
+            ps.setInt(5, uid);
             
             int updated = ps.executeUpdate();
             if(updated>0){
