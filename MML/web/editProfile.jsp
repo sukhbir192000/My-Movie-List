@@ -135,7 +135,7 @@
                             <div id="incorrect-username-error" class="overflow-hidden h-0 text-danger text-start transition"><small>Username already taken!</small></div>
                         </div>
                         <div class="d-flex flex-row justify-content-end mt-4">
-                            <button type="submit" id="updateNames" class="btn btn-yellow disabled ">Update Names</button>
+                            <button type="submit" id="updateNames" class="btn btn-yellow disabled ">Update Information</button>
                         </div>
                     </form>
                     
