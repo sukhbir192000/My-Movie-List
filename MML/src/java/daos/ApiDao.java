@@ -1,8 +1,13 @@
 package daos;
 
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +16,49 @@ public class ApiDao {
     private final String BASE_URL = "https://api.themoviedb.org/3",
                          KEY = "192b40bd150b4abb8cc7b490dd6dc075";
 
+    
+    public JSONObject getSearchResults(String query){
+        
+        try {
+            query = URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
+            URL url = new URL(BASE_URL + "/search/movie?api_key=" + KEY + "&query=" + query);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            
+            // Getting the response code
+            int responseCode = conn.getResponseCode();
+            
+            if(responseCode != 200) throw new RuntimeException("HttpResponseCode: " + responseCode);
+            else{
+                String inline = "";
+                Scanner scanner = new Scanner(url.openStream(),"UTF-8");
+
+                //Write all the JSON data into a string using a scanner
+                while (scanner.hasNext()) {
+                    inline += scanner.nextLine();
+                }
+
+                scanner.close();
+                
+                //Using the JSON simple library parse the string into a json object
+                JSONParser parse = new JSONParser();
+                Object data_obj = parse.parse(inline);
+                
+                JSONObject obj = (JSONObject) data_obj;
+                
+                return obj;
+            }
+            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    
     public JSONArray getRequestArray(String url_string,String jsonKey) {
         try {
             URL url = new URL(BASE_URL + url_string + "?api_key=" + KEY);
