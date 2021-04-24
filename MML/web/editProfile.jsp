@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-12 px-3 mb-4">
                             <div class=" form-outline form-white ">
-                                <input type="textarea" id="about" name="about" class="form-control" value="<%=about%>" />
+                                <textarea id="about" name="about" rows="4" class="form-control"><%=about.trim()%></textarea>
                                 <label class="form-label" for="about">About</label>
                             </div>
                             <div id="incorrect-username-error" class="overflow-hidden h-0 text-danger text-start transition"><small>Username already taken!</small></div>

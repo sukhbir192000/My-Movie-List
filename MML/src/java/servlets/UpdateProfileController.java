@@ -33,7 +33,6 @@ public class UpdateProfileController extends HttpServlet {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUsername(username); 
-        System.out.println("blah" + about + "aboutset");
         user.setAbout(about);
         
         // Sending response
