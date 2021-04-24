@@ -1,10 +1,12 @@
 package servlets;
 
 import beans.User;
+import daos.FriendDao;
 import daos.StatusDao;
 import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +20,14 @@ public class MyProfileController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         UserDao userDao=new UserDao();
         StatusDao statusDao=new StatusDao();
+        FriendDao friendDao=new FriendDao();
         int userId=Integer.parseInt(request.getParameter("id"));
         JSONObject movieStatus=new JSONObject(statusDao.getMoviesStatus(userId));
         JSONObject showStatus=new JSONObject(statusDao.getShowStatus(userId));
         request.setAttribute("movieStatus", movieStatus);
         request.setAttribute("showStatus", showStatus);
-        
+        ArrayList<User> friendList=friendDao.getFriendList(userId);
+        request.setAttribute("friendList", friendList);
         User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("currentUser", currentUser);
         RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");  

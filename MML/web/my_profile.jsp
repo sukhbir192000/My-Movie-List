@@ -4,6 +4,7 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -86,7 +87,7 @@
                             <div
                                 class="col offset-0 offset-md-4 offset-xl-3 d-flex flex-column justify-content-end align-items-center align-items-md-start  justify-content-md-center justify-content-lg-end">
                                 <!--hi-->
-                                <%                                    User user =(User) (request.getAttribute("currentUser"));
+                                <%                                    User user = (User) (request.getAttribute("currentUser"));
                                     String profilePic = user.getProfilePic();
                                     if (profilePic.isEmpty()) {
                                 %>
@@ -134,8 +135,7 @@
                             <img src="images/in.jpg" class="col-6 col-md-12 ">
                             <% } else {%>
 
-                            <div style="height:0px;padding-top:150%;width:100%; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;;"
-                              >
+                            <div style="height:0px;padding-top:150%;width:100%; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;;"    >
                             </div>
 
 
@@ -147,11 +147,8 @@
                         </div>
                         <div class="bg-dark text-white px-3 pb-3 mb-4 custom-font">
                             <p class="h5 pt-4">About</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique perferendis</p>
-                            <div class="d-flex flex-column align-items-end pe-3">
-                                <p>FRIENDS: 10</p>
-                                <p>REVIEWS: 10</p>
-                            </div>
+                            <p><%=currentUser.getAbout()%></p>
+
 
 
                         </div>
@@ -177,7 +174,7 @@
                                     <a class="nav-link bg-black text-white fs-6 px-1" id="friendlist-button"
                                        data-mdb-toggle="pill" href="#friendlist-content" role="tab"
                                        aria-controls="friendlist-content" aria-selected="false"
-                                       style="white-space: nowrap;"><span>Friend List</span></a>
+                                       style="white-space: nowrap;"><span>Friend List (<%=((ArrayList<User>) request.getAttribute("friendList")).size()%>)</span></a>
                                 </li>
                             </ul>
                             <!-- Tabs navs -->
@@ -322,40 +319,52 @@
                                     <thead>
                                         <tr class="bg-yellow text-dark">
                                             <th scope="col" class="text-center"></th>
-                                            <th scope="col" class="text-center">Name</th>
+                                            <th scope="col" class="text-center">Namechange</th>
                                             <th scope="col" class="text-center">About</th>
                                             <th scope="col" class="text-center">Options</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row" class="align-middle"><img class="table-img" src="images/in.jpg">
-                                            </th>
-                                            <td class="align-middle text-center">Content</td>
-                                            <td class="align-middle text-center">Yo me chill</td>
+                                        <% ArrayList<User> friendList = ((ArrayList<User>) request.getAttribute("friendList"));
+                                            for (int i = 0; i < friendList.size(); i++) {
+
+                                                User myFriend = (User) friendList.get(i);
+                                        %>
+                                 
+                                        <tr >
+
+                                            <td  class="align-middle p-0 py-2 ps-3 " >
+
+                                                <%
+                                                    String friendPic = myFriend.getProfilePic();
+                                              
+                                                    if (friendPic.isEmpty() || profilePic.equals("")) {
+
+
+                                                %>
+                                                <div style="padding-top:160%;width:100%;background-image:url('images/in.jpg');background-size: cover;"
+                                                     class="   ">
+
+                                                </div>
+
+                                                <% } else {
+                                                %>
+                                                <div style="padding-top:160%;width:100%; background: url('data:image/jpg;base64, <%=friendPic%>') center center; background-size: cover;"
+                                                     class=" ">
+
+                                                </div>
+
+                                                <% }%>
+
+                                            </td>
+                                            <td class="align-middle text-center "><a class="text-yellow" href="/MML/profile?id=<%=myFriend.getUserId()%>"><%=myFriend.getUsername()%></a></td>
+                                            <td class="align-middle text-center"><%=myFriend.getAbout()%></td>
                                             <td class="align-middle text-center"><button
                                                     class="btn btn-small btn-yellow ">Remove Friend</button></td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row" class="align-middle"><img class="table-img" src="images/in.jpg">
-                                            </th>
-
-                                            <td class="align-middle text-center">Justice League</td>
-                                            <td class="align-middle text-center">Yo me chill too</td>
-
-                                            <td class="align-middle text-center"><button
-                                                    class="btn btn-small btn-yellow">Remove Friend</button></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img class="table-img" src="images/in.jpg"></th>
-
-                                            <td class="align-middle text-center">Iron Man</th>
-                                            <td class="align-middle text-center">Yo me chill three</td>
-
-                                            <td class="align-middle text-center"><button
-                                                    class="btn btn-small btn-yellow">Remove Friend</button></td>
-                                        </tr>
+                                
+                                    <%}%>
                                     </tbody>
                                 </table>
                             </div>
@@ -380,9 +389,9 @@
                 integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
         crossorigin="anonymous"></script>
         <script>
-            let movieStats=<%=request.getAttribute("movieStatus")%>;
-            let showStats=<%=request.getAttribute("showStatus")%>;
-        
+            let movieStats =<%=request.getAttribute("movieStatus")%>;
+            let showStats =<%=request.getAttribute("showStatus")%>;
+
             console.log("chart:", Chart.Legend)
             Chart.Legend.afterEvent = function () {
                 this.width = this.width + 50;
@@ -392,13 +401,33 @@
 
                 plugins: {legend: {display: false, position: 'right', padding: 20, labels: {pointStyle: 'circle', usePointStyle: true, padding: 20, offset: 20}}}
             };
+            let movieArrayData = [], movieArrayKeys = [];
+            for (let keys in movieStats) {
+                movieArrayKeys.push(keys);
+                movieArrayData.push(movieStats[keys])
+            }
+            let showArrayData = [], showArrayKeys = [];
+            for (let keys in showStats) {
+                showArrayKeys.push(keys);
+                showArrayData.push(showStats[keys])
+            }
             var chDonutData1 = {
-                labels: ['Bootstrap', 'Popper', 'Other'],
+                labels: movieArrayKeys,
                 datasets: [
                     {
                         backgroundColor: colors.slice(0, 3),
                         borderWidth: 0,
-                        data: [74, 11, 40]
+                        data: movieArrayData
+                    }
+                ]
+            };
+            var chDonutData2 = {
+                labels: showArrayKeys,
+                datasets: [
+                    {
+                        backgroundColor: colors.slice(0, 3),
+                        borderWidth: 0,
+                        data: showArrayData
                     }
                 ]
             };
@@ -416,7 +445,7 @@
             if (chDonut2) {
                 new Chart(chDonut2, {
                     type: 'doughnut',
-                    data: chDonutData1,
+                    data: chDonutData2,
                     options: donutOptions
                 });
             }
