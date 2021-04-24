@@ -1,6 +1,7 @@
 package servlets;
 
 import beans.User;
+import daos.StatusDao;
 import daos.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,15 +10,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 public class MyProfileController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         UserDao userDao=new UserDao();
+        StatusDao statusDao=new StatusDao();
+        int userId=Integer.parseInt(request.getParameter("id"));
+        JSONObject movieStatus=new JSONObject(statusDao.getMoviesStatus(userId));
+        JSONObject showStatus=new JSONObject(statusDao.getShowStatus(userId));
+        request.setAttribute("movieStatus", movieStatus);
+        request.setAttribute("showStatus", showStatus);
+        
         User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("currentUser", currentUser);
-        RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");  
         rd.forward(request, response);
     }
 
