@@ -4,6 +4,7 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.sql.Date"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="java.util.ArrayList"%>
@@ -240,27 +241,79 @@
                                 <ul class="nav nav-pills mb-4 d-block d-sm-flex flex-row justify-content-center px-0 ps-2 "
                                     id="ex1" role="tablist">
                                     <li class="nav-item mx-0" role="presentation">
-                                        <a class="nav-link straight-corner fw-bold  active m-0 text-center" id="ex1-tab-1"
+                                        <a class="nav-link straight-corner fw-bold active m-0 text-center" id="ex1-tab-1"
                                            data-mdb-toggle="pill" href="#ex1-pills-1" role="tab"
                                            aria-controls="ex1-pills-1" aria-selected="true">All</a>
                                     </li>
+                                    <%
+                                        JSONArray watchList = (JSONArray) (request.getAttribute("watchList"));
+                                        for (int i = 0; i < watchList.size(); i++) {
+                                            JSONObject watchListItem = (JSONObject) watchList.get(i);
+                                    %>
+
                                     <li class="nav-item mx-0" role="presentation">
-                                        <a class="nav-link straight-corner m-0 fw-bold text-center" id="ex1-tab-2"
-                                           data-mdb-toggle="pill" href="#ex1-pills-2" role="tab"
-                                           aria-controls="ex1-pills-2" aria-selected="false">Completed</a>
+                                        <a class="nav-link straight-corner fw-bold m-0 text-center" id="ex1-tab-<%=i + 2%>"
+                                           data-mdb-toggle="pill" href="#ex1-pills-<%=i + 2%>" role="tab"
+                                           aria-controls="ex1-pills-<%=i + 2%>" aria-selected="true"><%=watchListItem.get("watchListType")%></a>
                                     </li>
-                                    <li class="nav-item mx-0" role="presentation">
-                                        <a class="nav-link straight-corner m-0 fw-bold text-center" id="ex1-tab-3"
-                                           data-mdb-toggle="pill" href="#ex1-pills-3" role="tab"
-                                           aria-controls="ex1-pills-3" aria-selected="false">Watching Now</a>
-                                    </li>
+                                    <%}%>
+
                                 </ul>
                                 <!-- Pills navs -->
 
                                 <!-- Pills content -->
+
                                 <div class="tab-content" id="ex1-content">
-                                    <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel"
-                                         aria-labelledby="ex1-tab-1">
+                                    <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                                        <!--all-->
+                                        <table class="table table-hover table-dark">
+                                                <thead>
+                                                    <tr class="bg-yellow text-dark">
+                                                        <th scope="col" class="text-center"></th>
+                                                        <th scope="col" class="text-center">Name</th>
+                                                        <th scope="col" class="text-center">Desc</th>
+                                                        <th scope="col" class="text-center">Rating</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        <%
+                                            watchList = (JSONArray) (request.getAttribute("watchList"));
+                                            for (int i = 0; i < watchList.size(); i++) {
+                                                JSONObject watchListItem = (JSONObject) watchList.get(i);
+                                                System.out.println("obj:" + watchListItem.get("details"));
+                                                JSONArray finalList = (JSONArray) (watchListItem.get("details"));
+
+                                                            System.out.println("item" + finalList);
+                                                            for (int j = 0; j < finalList.size(); j++) {
+                                                                JSONObject listItem = (JSONObject) finalList.get(j);%>
+
+                                                        <tr>
+                                                            <th scope="row" class="align-middle"><img class="table-img"
+                                                                                                      src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
+                                                            <td class="align-middle text-yellow"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
+                                                            <td class="align-middle "><%=listItem.get("tagline")%></td>
+                                                            <td class="align-middle"><%=listItem.get("vote_average")%>/10</td>
+                                                        </tr>
+
+                                                        <% } 
+                                        }%>
+                                                </tbody>
+                                        </table>
+                                                   
+
+                                       
+                                        <!--all end-->
+                                    </div>
+                                    <%
+                                        watchList = (JSONArray) (request.getAttribute("watchList"));
+                                        for (int i = 0; i < watchList.size(); i++) {
+                                            JSONObject watchListItem = (JSONObject) watchList.get(i);
+                                            System.out.println("obj:" + watchListItem.get("details"));
+                                            JSONArray finalList = (JSONArray) (watchListItem.get("details"));
+
+                                    %>
+                                    <div class="tab-pane fade" id="ex1-pills-<%=i + 2%>" role="tabpanel"
+                                         aria-labelledby="ex1-tab-<%=i + 2%>">
                                         <div class="table-responsive">
                                             <table class="table table-hover table-dark">
                                                 <thead>
@@ -272,47 +325,28 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <%
+                                                        System.out.println("item" + finalList);
+                                                        for (int j = 0; j < finalList.size(); j++) {
+                                                            JSONObject listItem = (JSONObject) finalList.get(j);%>
+
                                                     <tr>
                                                         <th scope="row" class="align-middle"><img class="table-img"
-                                                                                                  src="images/in.jpg"></th>
-                                                        <td class="align-middle">Content</td>
-                                                        <td class="align-middle ">extremely long content i want to test
-                                                            outextremely long content i
-                                                            want to test outextremely long content i want to test
-                                                            outextremely
-                                                            long content i want to test outextremely long content i want to
-                                                            test
-                                                            outextremely long content i want to test outextremely long
-                                                            content i
-                                                            want to test out</td>
-                                                        <td class="align-middle">5.0</td>
+                                                                                                  src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
+                                                        <td class="align-middle text-yellow"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
+                                                        <td class="align-middle "><%=listItem.get("tagline")%></td>
+                                                        <td class="align-middle"><%=listItem.get("vote_average")%>/10</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row" class="align-middle"><img class="table-img"
-                                                                                                  src="images/in.jpg"></th>
 
-                                                        <td class="align-middle">Justice League</td>
-                                                        <td class="align-middle">this is the description</td>
-                                                        <td class="align-middle">4.9</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"><img class="table-img" src="images/in.jpg"></th>
-
-                                                        <td class="align-middle">Iron Man</th>
-                                                        <td class="align-middle">I am iron man.</td>
-                                                        <td class="align-middle">3.7</td>
-                                                    </tr>
+                                                    <% } %>
                                                 </tbody>
                                             </table>
                                         </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                                        Tab 2 content
-                                    </div>
-                                    <div class="tab-pane fade" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
-                                        Tab 3 content
-                                    </div>
+
+                                    <%
+                                        }%>
                                 </div>
                                 <!-- Pills content -->
                             </div>
@@ -321,7 +355,7 @@
                                     <thead>
                                         <tr class="bg-yellow text-dark">
                                             <th scope="col" class="text-center"></th>
-                                            <th scope="col" class="text-center">Namechange</th>
+                                            <th scope="col" class="text-center">Name</th>
                                             <th scope="col" class="text-center">About</th>
                                             <th scope="col" class="text-center">Options</th>
 
@@ -391,6 +425,7 @@
                 integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
         crossorigin="anonymous"></script>
         <script>
+            console.log("watchlist:",<%=request.getAttribute("watchList")%>)
             let movieStats =<%=request.getAttribute("movieStatus")%>;
             let showStats =<%=request.getAttribute("showStatus")%>;
 
@@ -455,17 +490,16 @@
             let myDate1;
             let myDate2;
             let watchTimeDetails =<%=(JSONArray) request.getAttribute("watchTimeDetails")%>
-            
-            let j=0;
-            let watchTimeFiltered=[];
-            for(let i=1;i<(new Date(Date.now())).getDate();i++){  
-                let month=new Date(watchTimeDetails[j].date).getMonth()+1;
-                if(new Date(watchTimeDetails[j].date).getDate()>i){
-                    watchTimeFiltered.push({date:i+'-'+month,watch_time:0});
+
+            let j = 0;
+            let watchTimeFiltered = [];
+            for (let i = 1; i < (new Date(Date.now())).getDate(); i++) {
+                let month = new Date(watchTimeDetails[j].date).getMonth() + 1;
+                if (new Date(watchTimeDetails[j].date).getDate() > i) {
+                    watchTimeFiltered.push({date: i + '-' + month, watch_time: 0});
                     continue;
-                }
-                else{
-                    watchTimeFiltered.push({date:i+'-'+month,watch_time:watchTimeDetails[j].watch_time});
+                } else {
+                    watchTimeFiltered.push({date: i + '-' + month, watch_time: watchTimeDetails[j].watch_time});
                     j++;
                 }
             }
