@@ -437,6 +437,9 @@
             })
             
             userTable.innerHTML = html
+            document.querySelectorAll('.form-outline').forEach((formOutline) => {
+                new mdb.Input(formOutline).init();
+            });
         }
         
         const search = document.getElementById("searchMovie")
