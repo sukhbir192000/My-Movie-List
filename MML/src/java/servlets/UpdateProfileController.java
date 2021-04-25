@@ -23,24 +23,44 @@ public class UpdateProfileController extends HttpServlet {
         String firstName = request.getParameter("fname");
         String lastName = request.getParameter("lname");
         String about = request.getParameter("about");
+        String superAdmin = request.getParameter("isSA");
         
-        // Updating database 
-        int uid = user.getUserId();
-        UserDao udao = new UserDao();
-        udao.UpdateDetails(uid, firstName, lastName, username, about);
+        int uid = -1;
         
-        // Updating session cookie
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setUsername(username); 
-        user.setAbout(about);
         
-        // Sending response
-        HashMap<String, String> responseMap = new HashMap<String, String>();
-        responseMap.put("changeName", user.getUsername());
-        JSONObject responseObject = new JSONObject(responseMap);
-        PrintWriter out = response.getWriter();
-        out.print(responseObject);
+        if(superAdmin != null){
+            uid = Integer.parseInt(request.getParameter("uid"));
+            UserDao udao = new UserDao();
+            udao.UpdateDetails(uid, firstName, lastName, username, about);
+            User userChange = udao.findByUserId(uid);
+            userChange.setFirstName(firstName);
+            userChange.setLastName(lastName);
+            userChange.setUsername(username); 
+            userChange.setAbout(about);
+        }
+        else{
+            
+            uid = user.getUserId();
+            // Updating database 
+        
+            UserDao udao = new UserDao();
+            udao.UpdateDetails(uid, firstName, lastName, username, about);
+
+            // Updating session cookie
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setUsername(username); 
+            user.setAbout(about);
+
+            // Sending response
+            HashMap<String, String> responseMap = new HashMap<String, String>();
+            responseMap.put("changeName", user.getUsername());
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -108,6 +108,38 @@
         <servlet-name>GetMovieDetails</servlet-name>
         <servlet-class>servlets.GetMovieDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageUsers</servlet-name>
+        <servlet-class>servlets.manageUsers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageCarousel</servlet-name>
+        <servlet-class>servlets.manageCarousel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageReviews</servlet-name>
+        <servlet-class>servlets.manageReviews</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageStats</servlet-name>
+        <servlet-class>servlets.manageStats</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetDetailsController</servlet-name>
+        <servlet-class>servlets.GetDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>servlets.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAllReviewsController</servlet-name>
+        <servlet-class>servlets.GetAllReviewsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <servlet-class>servlets.DeleteReviewController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -216,6 +248,39 @@
     <servlet-mapping>
         <servlet-name>GetMovieDetails</servlet-name>
         <url-pattern>/getMovieDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageUsers</servlet-name>
+        <url-pattern>/superAdmin/manageUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageCarousel</servlet-name>
+        <url-pattern>/superAdmin/manageCarousel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageReviews</servlet-name>
+        <url-pattern>/superAdmin/manageReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageStats</servlet-name>
+        <url-pattern>/superAdmin/stats</url-pattern>
+        <url-pattern>/superAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDetailsController</servlet-name>
+        <url-pattern>/getDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllReviewsController</servlet-name>
+        <url-pattern>/getReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <url-pattern>/deleteReview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

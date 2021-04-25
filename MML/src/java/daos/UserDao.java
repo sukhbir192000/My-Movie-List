@@ -97,6 +97,43 @@ public class UserDao implements Dao {
         return false;
     }
     
+    public void deleteUser(int uid){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            
+            PreparedStatement ps = con.prepareStatement("DELETE FROM user WHERE user_id = ?");
+            
+            ps.setInt(1, uid);
+            int deleted = ps.executeUpdate();
+            if(deleted>0){
+                System.out.println("User successfully deleted!");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ResultSet getAllUsers(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM user");
+            
+            ResultSet rs = ps.executeQuery();
+            
+            return rs;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public boolean checkEmail(String email){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

@@ -132,7 +132,7 @@ public class ApiDao {
     public JSONObject getRequestObject(String url_string) {
         try {
             URL url = new URL(BASE_URL + url_string + "?api_key=" + KEY);
-
+            System.out.println("hitting url,"+url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -162,10 +162,10 @@ public class ApiDao {
 //                JSONArray array = new JSONArray();
 //                array.add(data_obj);
 //                System.out.println(array.get(0));
-
+    
                 //Get the required object from the above created object
                 JSONObject obj = (JSONObject) data_obj;
-              
+//                System.out.println("api reeturned,"+obj);
                 
                 return obj;
 //

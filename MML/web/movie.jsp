@@ -334,7 +334,9 @@
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
+                                                        <a href="/MML/profile?id=<%=myReview.get("user_id")%>">
+                                                            <h4 class="my-0 d-inline-block text-white"><%=myReview.get("username")%></h4>
+                                                        </a><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
