@@ -52,7 +52,7 @@ public class WatchListController extends HttpServlet {
 
             ContentDao statusDao = new ContentDao();
             int userId = ((User) (request.getSession().getAttribute("loggedUser"))).getUserId();
-            statusDao.setMovieStatus(userId, (long)statusToUpdate.get("movieId"), (String) statusToUpdate.get("listStatus"));
+            statusDao.setMovieStatus(userId, (long)statusToUpdate.get("movieId"), (String) statusToUpdate.get("listStatus"),(long)statusToUpdate.get("runtime"));
 
             HashMap<String, Boolean> responseMap = new HashMap<String, Boolean>();
             responseMap.put("success", true);

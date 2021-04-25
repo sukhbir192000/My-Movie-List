@@ -23,3 +23,9 @@
 .min-vh-50{
     min-height: 25vh;
 }
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .navbar-username {
+        max-width: 4rem !important;
+    }
+}

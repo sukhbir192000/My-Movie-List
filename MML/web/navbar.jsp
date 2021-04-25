@@ -6,16 +6,59 @@
 <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
     <!-- Container wrapper -->
     <div class="container-lg">
-        <!-- Navbar brand -->
-        <a class="navbar-brand" href="/MML/home"><img src="images/logo3.jpg" alt="MML" class="logo"></a>
-
-        <a class="btn btn-outline-white d-inline d-lg-none me-3 ms-auto" href="#">Login</a>
+        
         <!-- Toggle button -->
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                 data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
+        
+        <!-- Navbar brand -->
+        <a class="navbar-brand mx-auto" href="/MML/home"><img src="images/logo3.jpg" alt="MML" class="logo"></a>
+        
+        <% if (session.getAttribute("loggedUser") == null) { %>
+            <a class="btn btn-outline-white d-inline d-lg-none" href="#">Login</a>
+        <% } else {%>
+            <ul class="navbar-nav ps-2 d-inline d-lg-none">
+                <!-- Avatar -->
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle d-flex align-items-center"
+                        href="#"
+                        id="user-dropdown"
+                        role="button"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                        >
+
+                        <% 
+                            User user = ((User)(request.getSession()).getAttribute("loggedUser"));
+                            String profilePic = user.getProfilePic();
+                            if(profilePic.isEmpty()){
+                        %>
+
+                        <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        </div>
+
+                        <% } else { %>
+
+                        <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
+                        </div>
+                        <% } %>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                        <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
+                        <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        <% }%>
+        
+        
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,9 +76,9 @@
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/MML/movies">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="/MML/movies/tr">Top Rated</a></li>
-                        <li><a class="dropdown-item" href="/MML/movies/np">In Theaters</a></li>
-                        <li><a class="dropdown-item" href="/MML/movies/cs">Coming Soon</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies?q=tr">Top Rated</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies?q=np">In Theaters</a></li>
+                        <li><a class="dropdown-item" href="/MML/movies?q=cs">Coming Soon</a></li>
                     </ul>
                 </li>
                 <!-- Navbar dropdown -->
@@ -47,9 +90,9 @@
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/MML/shows">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="/MML/shows/tr">Top Rated</a></li>
-                        <li><a class="dropdown-item" href="/MML/shows/at">Airing today</a></li>
-                        <li><a class="dropdown-item" href="/MML/shows/ot">On TV</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows?q=tr">Top Rated</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows?q=at">Airing today</a></li>
+                        <li><a class="dropdown-item" href="/MML/shows?q=ot">On TV</a></li>
                     </ul>
                 </li>
             </ul>
@@ -68,46 +111,46 @@
                 </button>
             </form>
             <% if (session.getAttribute("loggedUser") == null) { %>
-            <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="/MML/login">Login</a>
+                <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="/MML/login">Login</a>
             <% } else {%>
-            <ul class="navbar-nav ps-2">
-                <!-- Avatar -->
-                <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle d-flex align-items-center"
-                        href="#"
-                        id="user-dropdown"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                        >
-                        
-                        <% 
-                            User user = ((User)(request.getSession()).getAttribute("loggedUser"));
-                            String profilePic = user.getProfilePic();
-                            if(profilePic.isEmpty()){
-                        %>
-                        
-                        <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
-                        </div>
-                        
-                        <% } else { %>
-                        
-                        <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
-                        </div>
-                        <% } %>
-                        
-                        <span class="navbar-username ps-1 text-white" id='username-change-navbar'> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                        <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
-                        <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+                <ul class="navbar-nav ps-2 d-lg-inline d-none">
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a
+                            class="nav-link dropdown-toggle d-flex align-items-center"
+                            href="#"
+                            id="user-dropdown"
+                            role="button"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                            >
+
+                            <% 
+                                User user = ((User)(request.getSession()).getAttribute("loggedUser"));
+                                String profilePic = user.getProfilePic();
+                                if(profilePic.isEmpty()){
+                            %>
+
+                            <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                            <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                            </div>
+
+                            <% } else { %>
+
+                            <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                            <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
+                            </div>
+                            <% } %>
+
+                            <span class="navbar-username ps-1 text-white" id='username-change-navbar'> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                            <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
+                            <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             <% }%>
         </div>
         <!-- Collapsible wrapper -->

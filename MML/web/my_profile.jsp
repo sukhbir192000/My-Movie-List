@@ -4,6 +4,8 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="org.json.simple.JSONArray"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -226,7 +228,7 @@
                                         <h3 class="h2 text-white pt-3">Watch Time</h3>
                                         <canvas id="myChart"></canvas>
 
-
+                                        <!--<h4 class="text-white"></h4>-->
                                     </div>
 
 
@@ -331,14 +333,14 @@
 
                                                 User myFriend = (User) friendList.get(i);
                                         %>
-                                 
+
                                         <tr >
 
                                             <td  class="align-middle p-0 py-2 ps-3 " >
 
                                                 <%
                                                     String friendPic = myFriend.getProfilePic();
-                                              
+
                                                     if (friendPic.isEmpty() || profilePic.equals("")) {
 
 
@@ -363,8 +365,8 @@
                                             <td class="align-middle text-center"><button
                                                     class="btn btn-small btn-yellow ">Remove Friend</button></td>
                                         </tr>
-                                
-                                    <%}%>
+
+                                        <%}%>
                                     </tbody>
                                 </table>
                             </div>
@@ -381,7 +383,7 @@
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
-        <script type="text/javascript" src="./custom-carousel.js"></script>
+        <!--<script type="text/javascript" src="./custom-carousel.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
 
@@ -450,15 +452,31 @@
                 });
             }
             var ctx = document.getElementById("myChart").getContext('2d');
-
+            let myDate1;
+            let myDate2;
+            let watchTimeDetails =<%=(JSONArray) request.getAttribute("watchTimeDetails")%>
+            
+            let j=0;
+            let watchTimeFiltered=[];
+            for(let i=1;i<(new Date(Date.now())).getDate();i++){  
+                let month=new Date(watchTimeDetails[j].date).getMonth()+1;
+                if(new Date(watchTimeDetails[j].date).getDate()>i){
+                    watchTimeFiltered.push({date:i+'-'+month,watch_time:0});
+                    continue;
+                }
+                else{
+                    watchTimeFiltered.push({date:i+'-'+month,watch_time:watchTimeDetails[j].watch_time});
+                    j++;
+                }
+            }
 
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    labels: watchTimeFiltered.map((elm) => elm.date),
                     datasets: [{
-                            label: 'Watch Time(s)', // Name the series
-                            data: [500, 50, 2424, 14040, 14141, 4111, 4544, 47, 5555, 6811], // Specify the data values array
+                            label: 'Watch Time(min)', // Name the series
+                            data: watchTimeFiltered.map((elm) => elm.watch_time), // Specify the data values array
                             fill: false,
                             borderColor: 'yellow', // Add custom color border (Line)
                             backgroundColor: 'white', // Add custom color background (Points and Fill)

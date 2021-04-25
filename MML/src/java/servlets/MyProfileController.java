@@ -4,6 +4,7 @@ import beans.User;
 import daos.FriendDao;
 import daos.StatusDao;
 import daos.UserDao;
+import daos.WatchTimeDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class MyProfileController extends HttpServlet {
@@ -21,11 +23,14 @@ public class MyProfileController extends HttpServlet {
         UserDao userDao=new UserDao();
         StatusDao statusDao=new StatusDao();
         FriendDao friendDao=new FriendDao();
+        WatchTimeDao watchTimeDao=new WatchTimeDao();
         int userId=Integer.parseInt(request.getParameter("id"));
         JSONObject movieStatus=new JSONObject(statusDao.getMoviesStatus(userId));
         JSONObject showStatus=new JSONObject(statusDao.getShowStatus(userId));
+        JSONArray watchTimeDetails=(JSONArray)watchTimeDao.getWatchTimeArray(userId);
         request.setAttribute("movieStatus", movieStatus);
         request.setAttribute("showStatus", showStatus);
+        request.setAttribute("watchTimeDetails", watchTimeDetails);
         ArrayList<User> friendList=friendDao.getFriendList(userId);
         request.setAttribute("friendList", friendList);
         User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
