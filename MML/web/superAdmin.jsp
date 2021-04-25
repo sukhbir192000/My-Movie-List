@@ -314,19 +314,24 @@
         let removeCurrentBtn = []
         let movieList = []
         let carouselList = []
-        fetch('/MML/getCarouselList')
+        async function onWindowLoad(e){
+            await fetch('/MML/getCarouselList')
                 .then(response => response.json())
                 .then(data => {
-                    carouselList = data
+                    if(data) carouselList = data
                     currentCarouselTable()
-        })
+            })
+        }
+        
+        
+        window.addEventListener('load', onWindowLoad)
         
         async function currentCarouselTable(){
             await fetch('/MML/getMovieDetails?array=' + carouselList)
                     .then(response => response.json())
                     .then(data => {
-                        movieDetails.push(...data)
-                        console.log(movieDetails)
+                        if(data) movieDetails.push(...data)
+                        
                     })
             const html = movieDetails.map(movie => {
                 return `
@@ -345,18 +350,18 @@
             
         }
         
-        function getCarouselList(){
-            fetch('/MML/getCarouselList')
+        async function getCarouselList(){
+            await fetch('/MML/getCarouselList')
                     .then(response => response.json())
                     .then(data => {
-                        carouselList = data
+                        if(data) carouselList = data
             })
         }
         
         
         
-        function displayMatches(){
-            fetch('/MML/search?search=' + this.value)
+        async function displayMatches(){
+            await fetch('/MML/search?search=' + this.value)
                 .then(response => response.json())
                 .then(data => {
                     movieList = []

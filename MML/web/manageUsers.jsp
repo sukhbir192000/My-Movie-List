@@ -67,8 +67,8 @@
                 <div
                     class="w-100 bg-white text-left mt-0 shadow pe-4 d-flex flex-row py-2 justify-content-end sticky-top">
                     <div class="d-flex flex-column me-3 justify-content-center align-items-end">
-                        <small class="p-0 m-0 font-weight-bold">Puneet</small>
-                        <small class="p-0 m-0">puneetkalsi99@gmail.com</small>
+                        <small class="p-0 m-0 font-weight-bold">Ishjot</small>
+                        <small class="p-0 m-0">ishjot12@gmail.com</small>
                     </div>
                     <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0 "
                         alt="avatar image" height="55" />
@@ -79,15 +79,22 @@
                     <div class="min-vh-100 d-flex flex-column px-1 px-md-3 ">
                         <div class="p-0">
                             <div class="row p-0 text-dark">
-                                <div class="col-12 pb-3 pt-4 ps-1 ps-md-4">
+                                <div class="col-12 pb-3 pt-4  ps-md-4">
                                     <h1 class="h1-responsive">Manage Users</h1>
+                                    
                                 </div>
                             </div>
                             <!-- Tabs navs -->
 
 
                         </div>
-                        <table class="table-responsive mt-3 mb-5 table table-hover">
+                        <div class="bg-white">
+                            <div class="form-outline form-outline-dark">
+                                <input type="text" id="searchMovie" name="search" class="form-control" />
+                                <label class="form-label" for="searchMovie">Search</label>
+                            </div>
+                        </div>
+                        <table class="table-responsive mt-3 mb-5 table table-hover bg-white">
                             <thead class="table-dark border">
                                 <tr>
                                     <th scope="col" class="text-center">User ID</th>
@@ -102,90 +109,7 @@
                             </tbody>
                         </table>
 
-                        <!-- Tabs navs -->
-<!--                        <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
-                            <li class="nav-item" role="presentation">
-                            <a
-                                class="nav-link active"
-                                id="ex1-tab-1"
-                                data-mdb-toggle="tab"
-                                href="#ex1-tabs-1"
-                                role="tab"
-                                aria-controls="ex1-tabs-1"
-                                aria-selected="true"
-                                >Currently in Carousel</a
-                            >
-                            </li>
-                            <li class="nav-item" role="presentation">
-                            <a
-                                class="nav-link"
-                                id="ex1-tab-2"
-                                data-mdb-toggle="tab"
-                                href="#ex1-tabs-2"
-                                role="tab"
-                                aria-controls="ex1-tabs-2"
-                                aria-selected="false"
-                                >Add to Carousel</a
-                            >
-                            </li>
-                           
-                        </ul>-->
-                        <!-- Tabs navs -->
                         
-                        <!-- Tabs content -->
-<!--                        <div class="tab-content" id="ex1-content">
-                            <div
-                            class="tab-pane fade show active"
-                            id="ex1-tabs-1"
-                            role="tabpanel"
-                            aria-labelledby="ex1-tab-1"
-                            >
-                                <div class="row text-dark border round px-3 bg-white ">
-
-                                    <div class="col-12 col-md-6 mb-4 ps-0 pt-3 ">
-                                        <h3 class="h3-responsive m-0">Edit Carousel</h3>
-                                    </div>
-                                    
-                                    
-
-                                </div>
-                            </div>
-
-
-                            <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                                <div class="row text-dark border round px-3 bg-white ">
-                                    <div class="col-12  mb-4 ps-0 pt-3 ">
-                                        <h3 class="h3-responsive mb-4">Search Movie</h3>
-                                        <div class="">
-                                            <div class="form-outline">
-                                                <input type="text" id="searchMovie" name="search" class="form-control" />
-                                                <label class="form-label" for="searchMovie">Search</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                   
-                                    
-                                    <table class="table-responsive mt-3 mb-5 table table-hover">
-                                        <thead class="table-dark border">
-                                            <tr>
-                                                <th scope="col" class="text-center">Movie ID</th>
-                                                <th scope="col" class="text-center">Movie Name</th>
-                                                <th scope="col" class="text-center">Release</th>
-                                                <th scope="col" class="text-center">Add</th>
-                                            </tr>
-                                        
-                                        </thead>
-                                        <tbody id="tableMovies" class="border ">
-
-                                        </tbody>
-                                    </table>
-        
-                                </div>
-                                
-                            </div>
-                        </div>-->
-                        <!-- Tabs content -->
 
                     </div>
                 </div>
@@ -399,8 +323,126 @@
             })
         }
         
+        function filterData(toMatch, users){
+            return users.filter(user => {
+                const regex = new RegExp(toMatch, 'gi')
+                return user[1].match(regex)
+            })
+        }
         
+        function displayMatches(e){
+            const matchArray = filterData(this.value, users)
+            const html = matchArray.map(user => {
+                return `
+                    <tr>
+                        <th scope="row" class="text-center">${user[0]}</th>
+                        <td class="text-center">${user[1]}</td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-primary py-1 px-2 showDets" 
+                                id = "${user[0]}" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#${user[1]}-modal"> 
+                            Details</button>
+                            <div
+                                class="modal fade"
+                                id="${user[1]}-modal"
+                                tabindex="-1"
+                                aria-labelledby="${user[0]}-label"
+                                aria-hidden="true"
+                              >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="${user[0]}-label">User Information</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                      <form id = "changes-${user[0]}">
+                                        <!-- 2 column grid layout with text inputs for the first and last names -->
+                                        <div class="row mb-4">
+                                          <div class="col">
+                                            <div class="form-outline">
+                                              <input value="${user[2]}" type="text" id="fname-${user[0]}" name="fname" class="form-control" />
+                                              <label for="fname-${user[0]}" class="form-label"> First Name </label>  
+                                            </div>
+                                          </div>
+                                          <div class="col">
+                                            <div class="form-outline">
+                                              <input value="${user[3]}" type="text" id="lname-${user[0]}" name="lname" class="form-control" />
+                                              <label for="lname-${user[0]}" class="form-label"> Last Name </label>  
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- Username input -->
+                                        <div class="form-outline mb-4">
+                                          <input disabled value="${user[1]}" type="text" id="uname-${user[0]}" name="uname" class="form-control" />
+                                          <label for="uname-${user[0]}" class="form-label change-username"> Username </label>  
+                                        </div>
+
+                                        <!-- Email input -->
+                                        <div class="form-outline mb-4">
+                                          <input disabled value="${user[4]}" type="email" id="email-${user[0]}" name="email" class="form-control" />
+                                          <label for="email-${user[0]}" class="form-label"> Email </label>  
+                                        </div>
+
+                                        <!-- Password input -->
+                                        <div class="form-outline mb-4">
+                                          <textarea id="about-${user[0]}" name="about" class="form-control">${user[5]}</textarea>
+                                          <label for="about-${user[0]}" class="form-label"> About </label>  
+                                        </div>
+
+                                      </form>  
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" form="changes-${user[0]}" class="btn btn-primary saveChanges">Save changes</button>
+                                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                        Close
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-danger py-1 px-2" 
+                                id = "${user[0]}-user" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#${user[1]}-modal-remove"> 
+                            - Remove</button>
+
+                            <div class="modal fade" id="${user[1]}-modal-remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <h5 class="modal-header">
+                                            Confirm delete
+                                        </h5>
+                                        <div class="modal-body">
+                                            Are you sure you want to remove the user: <i><strong>${user[1]}</strong></i>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger btn-ok removeUser" data-mdb-dismiss="modal">Delete</a>
+                                            <button type="button" class="btn btn-default" data-mdb-dismiss="modal">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </td>
+                    </tr>
+
+            `
+            })
+            
+            userTable.innerHTML = html
+        }
         
+        const search = document.getElementById("searchMovie")
+        
+        search.addEventListener('change', displayMatches)
+        search.addEventListener('keyup', displayMatches)
         window.addEventListener('load', fetchData)
 
     </script>
