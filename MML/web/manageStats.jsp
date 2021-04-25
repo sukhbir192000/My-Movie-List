@@ -1,4 +1,10 @@
 <%-- 
+    Document   : manageUsers
+    Created on : Apr 24, 2021, 10:24:37 PM
+    Author     : Ishjot Singh
+--%>
+
+<%-- 
     Document   : superAdmin
     Created on : Apr 24, 2021, 6:08:00 PM
     Author     : Ishjot Singh
@@ -25,7 +31,7 @@
     <!-- <link rel="stylesheet" href="color.css">
     <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="../css/superadminStyle.css">
-    <title>Manage Carousel — Admin</title>
+    <title>Manage Stats — Admin</title>
 </head>
 
 <body>
@@ -44,7 +50,7 @@
                             MML
                         </div>
                         <a href="/MML/superAdmin/manageCarousel"
-                            class="list-group-item content_color mt-3 ps-4 border border-dark active_color">
+                            class="list-group-item content_color mt-3 ps-4 border border-dark">
                             Manage Carousel
                         </a>
                         <a href="/MML/superAdmin/manageUsers" class="list-group-item content_color ps-4 border border-dark">
@@ -53,7 +59,7 @@
                         <a href="/MML/superAdmin/manageReviews" class="list-group-item content_color ps-4 border border-dark">
                             Manage Reviews
                         </a>
-                        <a href="/MML/superAdmin/stats" class="list-group-item content_color ps-4 border border-dark">
+                        <a href="/MML/superAdmin/stats" class="list-group-item content_color ps-4 border border-dark active_color">
                             Stats
                         </a>
 
@@ -86,7 +92,7 @@
                         <div class="p-0">
                             <div class="row p-0 text-dark">
                                 <div class="col-12 pb-3 pt-4 ps-1 ps-md-4">
-                                    <h1 class="h1-responsive">Manage Carousel</h1>
+                                    <h1 class="h1-responsive">Manage Stats</h1>
                                 </div>
                             </div>
                             <!-- Tabs navs -->
@@ -149,12 +155,7 @@
                                         
                                         </thead>
                                         <tbody id="inCarousel" class="border">
-<!--                                            <tr>
-                                                <th scope="row" class="text-center">1</th>
-                                                <td class="text-center">Test</td>
-                                                <td class="text-center">date</td>
-                                                <td class="text-center"><i class="fa fa-trash" /></td>
-                                            </tr>-->
+
                                         </tbody>
                                     </table>
 
@@ -197,10 +198,6 @@
                         </div>
                         <!-- Tabs content -->
 
-
-
-
-                        
                     </div>
                 </div>
             </div>
@@ -224,177 +221,6 @@
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-270");
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-90");
         }
-
-
-        
-        const tBody = document.getElementById('tableMovies')
-        const tBodyEdit = document.getElementById('inCarousel')
-        const search = document.getElementById('searchMovie')
-        
-        let removeBtnEdit = document.querySelectorAll('.removeCurrent');
-        let addBtn = document.querySelectorAll('.addBtn');
-        
-        
-        function updateAddBtn(){
-            addBtn = document.querySelectorAll('.addBtn');
-            addBtn.forEach(btn => {
-                btn.addEventListener('click', (e)=>{
-                    if(btn.classList.contains('btn-dark')){
-                        btn.classList.add('btn-danger')
-                        btn.classList.remove('btn-dark')
-                        btn.innerText = "- Remove"
-                        
-                        $.ajax({
-                            method: 'POST',
-                            url: '/MML/carouselUpdate',
-                            data: {'content_id': btn.id},
-                            success: function(data){
-                                getCarouselList();
-                                const alert = document.getElementById("successCarousel");
-                                alert.classList.add('show');
-                                alert.classList.remove('d-none')
-                                setTimeout(() => {
-                                    alert.classList.remove('show');
-                                    alert.classList.add('d-none')
-                                }, 2000)
-                                updateEditCarousel('added', e.target.parentNode.parentNode)
-                            }
-                        })
-                        
-                    }
-                    else{
-                        btn.classList.remove('btn-success')
-                        btn.classList.add('btn-dark')
-                        btn.innerText = "+ Add"
-                        $.ajax({
-                            url: '/MML/carouselDrop',
-                            data: {'content_id': btn.id},
-                            success: function(data){
-                                getCarouselList();
-                                const alert = document.getElementById("successCarousel");
-                                alert.classList.add('show');
-                                alert.classList.remove('d-none')
-                                setTimeout(() => {
-                                    alert.classList.remove('show');
-                                    alert.classList.add('d-none')
-                                }, 2000)
-                            }
-                        })
-                    }
-                    
-                });
-            })
-        }
-        
-        function updateRemoveBtnEdit(){
-            removeBtnEdit = document.querySelectorAll('.removeCurrent');
-            removeBtnEdit.forEach(btn => {
-                btn.addEventListener('click', (e)=>{
-                    console.log((btn.id).split('-')[0])
-                    $.ajax({
-                        url: '/MML/carouselDrop',
-                        data: {'content_id': (btn.id).split('-')[0]},
-                        success: function(data){
-                            e.target.parentNode.parentNode.remove()
-                            getCarouselList();
-                            const alert = document.getElementById("successCarousel");
-                            alert.classList.add('show');
-                            alert.classList.remove('d-none')
-                            setTimeout(() => {
-                                alert.classList.remove('show');
-                                alert.classList.add('d-none')
-                            }, 2000)
-                        }
-                    })
-                });
-            })
-        }
-        
-        let movieDetails = []
-        let removeCurrentBtn = []
-        let movieList = []
-        let carouselList = []
-        fetch('/MML/getCarouselList')
-                .then(response => response.json())
-                .then(data => {
-                    carouselList = data
-                    currentCarouselTable()
-        })
-        
-        async function currentCarouselTable(){
-            await fetch('/MML/getMovieDetails?array=' + carouselList)
-                    .then(response => response.json())
-                    .then(data => {
-                        movieDetails.push(...data)
-                        console.log(movieDetails)
-                    })
-            const html = movieDetails.map(movie => {
-                return `
-                    <tr>
-                        <th scope="row" class="text-center">${movie.id}</th>
-                        <td class="text-center">${movie.title}</td>
-                        <td class="text-center">${movie.release_date}</td>
-                        <td class="text-center">
-                            <button class="btn btn-danger py-1 px-2 removeCurrent" id = "${movie.id}-edit"> - Remove</button>
-                        </td>
-                    </tr>
-                `
-            }) 
-            tBodyEdit.innerHTML = html.join(" ")      
-            updateRemoveBtnEdit()
-            
-        }
-        
-        function getCarouselList(){
-            fetch('/MML/getCarouselList')
-                    .then(response => response.json())
-                    .then(data => {
-                        carouselList = data
-            })
-        }
-        
-        
-        
-        function displayMatches(){
-            fetch('/MML/search?search=' + this.value)
-                .then(response => response.json())
-                .then(data => {
-                    movieList = []
-                    if(data) movieList.push(...data.results)
-            });
-            
-            const html = movieList.map(movie => {
-                let contains = carouselList.includes(movie.id.toString())
-                if(!contains){
-                return `
-                    <tr>
-                        <th scope="row" class="text-center">${movie.id}</th>
-                        <td class="text-center name">${movie.title}</td>
-                        <td class="text-center name">${movie.release_date}</td>
-                        <td class="text-center">
-                            <button class="btn btn-dark py-1 px-2 addBtn " id = "${movie.id}"> + Add</button>
-                        </td>
-                    </tr>
-                    `}
-                else{
-                    return `
-                    <tr>
-                        <th scope="row" class="text-center">${movie.id}</th>
-                        <td class="text-center name">${movie.title}</td>
-                        <td class="text-center name">${movie.release_date}</td>
-                        <td class="text-center">
-                            <button class="btn btn-danger py-1 px-2 addBtn " id = "${movie.id}"> - Remove</button>
-                        </td>
-                    </tr>
-                    `}
-
-                });
-
-                tBody.innerHTML = html.join(" ")
-                updateAddBtn();
-            }
-
-        search.addEventListener('keyup', displayMatches)
 
 
     </script>

@@ -85,7 +85,11 @@ public class LoginController extends HttpServlet {
                 response.sendRedirect(redirect);
             }
             else {
-                response.sendRedirect("/MML/home");
+                if(user.getRole() == 0)
+                    response.sendRedirect("/MML/home");
+                else{
+                    response.sendRedirect("/MML/superAdmin");
+                }
             }
 
         } else {
