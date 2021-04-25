@@ -34,9 +34,12 @@ import static daos.Dao.PASSWORD;
 import static daos.Dao.URL;
 import static daos.Dao.USERNAME;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +47,72 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
  public class ReviewDao  implements Dao {
+     
+     public JSONArray allReviews(int content_type){
+         try{
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM review WHERE content_type = ?");
+             
+             ps.setInt(1, content_type);
+             ResultSet rs = ps.executeQuery();
+             
+             JSONArray allReviews = new JSONArray();
+             
+             while(rs.next()){
+                JSONObject obj = new JSONObject();
+                obj.put("id", rs.getInt("id"));
+                obj.put("user_id", rs.getInt("user_id"));
+                
+                UserDao udao = new UserDao();
+                String username = udao.findByUserId(rs.getInt("user_id")).getUsername();
+                
+                obj.put("username", username);
+                obj.put("content_id", rs.getInt("content_id"));
+                obj.put("content_type", rs.getInt("content_type"));
+                obj.put("review_heading", rs.getString("review_heading"));
+                obj.put("review_content", rs.getString("review_content"));
+                obj.put("review_up", rs.getInt("review_up"));
+                obj.put("review_down", rs.getInt("review_down"));
+
+                // Convert timestamp object to Datetime
+                Timestamp ts = rs.getTimestamp("review_date");
+                Date date = new Date(ts.getTime());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+                
+                obj.put("review_date", simpleDateFormat.format(date));
+                obj.put("review_rating", rs.getFloat("review_rating"));
+
+                allReviews.add(obj);
+             }
+             return allReviews;
+         }
+         catch (Exception e) {
+            e.printStackTrace();
+
+        }
+         return null;
+     }
+     
+     public void deleteReview(int id){
+         try{
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             PreparedStatement ps = con.prepareStatement("DELETE FROM review WHERE id = ?");
+             
+             ps.setInt(1, id);
+             int deleted = ps.executeUpdate();
+             
+             if(deleted>0){
+                 System.out.println("Review deleted successfully!");
+             }
+             
+         }
+         catch (Exception e) {
+            e.printStackTrace();
+
+        }
+     }
 
     public JSONArray getAllMovieReviews(int userId,int contentId) {
 //                doesnt give users reviews though

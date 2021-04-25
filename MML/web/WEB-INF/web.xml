@@ -132,6 +132,14 @@
         <servlet-name>DeleteUserController</servlet-name>
         <servlet-class>servlets.DeleteUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetAllReviewsController</servlet-name>
+        <servlet-class>servlets.GetAllReviewsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <servlet-class>servlets.DeleteReviewController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -265,6 +273,14 @@
     <servlet-mapping>
         <servlet-name>DeleteUserController</servlet-name>
         <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllReviewsController</servlet-name>
+        <url-pattern>/getReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <url-pattern>/deleteReview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
