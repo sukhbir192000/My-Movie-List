@@ -275,7 +275,7 @@
                                                         <th scope="col" class="text-center">Rating</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="fs-5">
                                         <%
                                             watchList = (JSONArray) (request.getAttribute("watchList"));
                                             for (int i = 0; i < watchList.size(); i++) {
@@ -288,11 +288,11 @@
                                                                 JSONObject listItem = (JSONObject) finalList.get(j);%>
 
                                                         <tr>
-                                                            <th scope="row" class="align-middle"><img class="table-img"
+                                                            <th scope="row" class="align-middle text-center"><img class="table-img"
                                                                                                       src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
-                                                            <td class="align-middle text-yellow"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
-                                                            <td class="align-middle "><%=listItem.get("tagline")%></td>
-                                                            <td class="align-middle"><%=listItem.get("vote_average")%>/10</td>
+                                                            <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
+                                                            <td class="align-middle text-center"><%=listItem.get("tagline")%></td>
+                                                            <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>
                                                         </tr>
 
                                                         <% } 
@@ -324,7 +324,7 @@
                                                         <th scope="col" class="text-center">Rating</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="fs-5">
                                                     <%
                                                         System.out.println("item" + finalList);
                                                         for (int j = 0; j < finalList.size(); j++) {
@@ -333,9 +333,9 @@
                                                     <tr>
                                                         <th scope="row" class="align-middle"><img class="table-img"
                                                                                                   src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
-                                                        <td class="align-middle text-yellow"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
-                                                        <td class="align-middle "><%=listItem.get("tagline")%></td>
-                                                        <td class="align-middle"><%=listItem.get("vote_average")%>/10</td>
+                                                        <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
+                                                        <td class="align-middle text-center "><%=listItem.get("tagline")%></td>
+                                                        <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>
                                                     </tr>
 
                                                     <% } %>
