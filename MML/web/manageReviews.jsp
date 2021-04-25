@@ -4,14 +4,6 @@
     Author     : Ishjot Singh
 --%>
 
-<%-- 
-    Document   : superAdmin
-    Created on : Apr 24, 2021, 6:08:00 PM
-    Author     : Ishjot Singh
---%>
-
-<%@page import="servlets.MovieController"%>
-<%@page import="daos.CarouselDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,9 +27,9 @@
 </head>
 
 <body>
-    <div class="alert alert-success mb-0 mt-5 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px; top: 2em;" id="successCarousel" role="alert" data-mdb-color="secondary">
+    <div class="alert alert-success mb-0 mt-5 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px; top: 2em;" id="successReview" role="alert" data-mdb-color="secondary">
         <i class="fas fa-check me-2"></i>
-        Carousel updated successfully!
+        Reviews updated successfully!
     </div>
     <div class="container-fluid">
         <div class="row p-0">
@@ -111,7 +103,7 @@
                                 role="tab"
                                 aria-controls="ex1-tabs-1"
                                 aria-selected="true"
-                                >Currently in Carousel</a
+                                >Movie Reviews</a
                             >
                             </li>
                             <li class="nav-item" role="presentation">
@@ -123,7 +115,7 @@
                                 role="tab"
                                 aria-controls="ex1-tabs-2"
                                 aria-selected="false"
-                                >Add to Carousel</a
+                                >TV Show reviews</a
                             >
                             </li>
                            
@@ -140,21 +132,22 @@
                             >
                                 <div class="row text-dark border round px-3 bg-white ">
 
-                                    <div class="col-12 col-md-6 mb-4 ps-0 pt-3 ">
-                                        <h3 class="h3-responsive m-0">Edit Carousel</h3>
+                                    <div class="col-12 mb-0 ps-0 pt-3 ">
+                                        <h3 class="h3-responsive mb-4">Movie Reviews</h3>
                                     </div>
                                     
                                     <table class="table-responsive mt-3 mb-5 table table-hover">
                                         <thead class="table-dark border">
                                             <tr>
+                                                <th scope="col" class="text-center">User ID</th>
                                                 <th scope="col" class="text-center">Movie ID</th>
-                                                <th scope="col" class="text-center">Movie Name</th>
-                                                <th scope="col" class="text-center">Release</th>
+                                                <th scope="col" class="text-center">Heading</th>
+                                                <th scope="col" class="text-center">Details</th>
                                                 <th scope="col" class="text-center">Remove</th>
                                             </tr>
                                         
                                         </thead>
-                                        <tbody id="inCarousel" class="border">
+                                        <tbody id="movieReviews" class="border">
 
                                         </tbody>
                                     </table>
@@ -165,14 +158,8 @@
 
                             <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                                 <div class="row text-dark border round px-3 bg-white ">
-                                    <div class="col-12  mb-4 ps-0 pt-3 ">
-                                        <h3 class="h3-responsive mb-4">Search Movie</h3>
-                                        <div class="">
-                                            <div class="form-outline">
-                                                <input type="text" id="searchMovie" name="search" class="form-control" />
-                                                <label class="form-label" for="searchMovie">Search</label>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 mb-0 ps-0 pt-3 ">
+                                        <h3 class="h3-responsive mb-4">TV Show Reviews</h3>
                                     </div>
 
                                    
@@ -180,14 +167,15 @@
                                     <table class="table-responsive mt-3 mb-5 table table-hover">
                                         <thead class="table-dark border">
                                             <tr>
-                                                <th scope="col" class="text-center">Movie ID</th>
-                                                <th scope="col" class="text-center">Movie Name</th>
-                                                <th scope="col" class="text-center">Release</th>
-                                                <th scope="col" class="text-center">Add</th>
+                                                <th scope="col" class="text-center">User ID</th>
+                                                <th scope="col" class="text-center">Show ID</th>
+                                                <th scope="col" class="text-center">Heading</th>
+                                                <th scope="col" class="text-center">Details</th>
+                                                <th scope="col" class="text-center">Remove</th>
                                             </tr>
                                         
                                         </thead>
-                                        <tbody id="tableMovies" class="border ">
+                                        <tbody id="showReviews" class="border ">
 
                                         </tbody>
                                     </table>
@@ -221,7 +209,283 @@
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-270");
             document.querySelector("#sidebarToggler i").classList.toggle("fa-rotate-90");
         }
+        
+        const movieTable = document.getElementById('movieReviews')
+        const showTable = document.getElementById('showReviews')
+        let allShowReviews = []
+        let allMovieReviews = []
+        let delBtns = document.querySelectorAll('.removeReview')
+         async function getMovieReviews(e){
+             await fetch('/MML/getReviews?type=movie')
+                    .then(response => response.json())
+                    .then(data => allMovieReviews = data)
+            
+            await fetch('/MML/getReviews?type=shows')
+                    .then(response => response.json())
+                    .then(data => allShowReviews = data)
+            
+            const htmlMovies = allMovieReviews.map(review => {
+                return `
+                    <tr>
+                        <th scope="row" class="text-center">${review.user_id}</th>
+                        <td class="text-center">${review.content_id}</td>
+                        <td class="text-center">${review.review_heading}</td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-primary py-1 px-2 showDets" 
+                                id = "${review.id}" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#modal-${review.id}"> 
+                            Details</button>
+                            <div
+                                class="modal fade"
+                                id="modal-${review.id}"
+                                tabindex="-1"
+                                aria-labelledby="label-${review.id}"
+                                aria-hidden="true"
+                              >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="${review.id}-label">Posted by: ${review.username}</h5>
 
+                                    </div>
+                                    <div class="modal-body">
+                                      <form id = "changes-${review.id}">
+                                        <!-- 2 column grid layout with text inputs for the first and last names -->
+                                        
+                                          
+                                            <div class="form-outline mb-4">
+                                              <input disabled value="${review.review_heading}" type="text" id="heading-${review.id}" name="reviewHeading" class="form-control" />
+                                              <label for="heading-${review.id}" class="form-label"> Review Heading </label>  
+                                            </div>
+                                            
+                                            <div class="form-outline mb-4">
+                                              <textarea disabled rows="2" type="text" id="content-${review.id}" name="reviewContent" class="form-control">${review.review_content}</textarea>
+                                              <label for="content-${review.id}" class="form-label"> Review Content </label>  
+                                            </div>
+                                            
+                                            <div class="d-flex flex-row justify-content-between px-4 fs-6 mb-4">
+                                                <div class="">
+                                                    <strong>Upvotes: ${review.review_up}</strong>
+                                                </div>
+                                                <div class="">
+                                                    <strong>Rating: ${review.review_rating}</strong>
+                                                </div>
+                                            </div>
+            
+                                            <div class="d-flex flex-row justify-content-between px-4 fs-6 mb-2">
+                                                <div class="">
+                                                    <strong>Downvotes: ${review.review_down}</strong>
+                                                </div>
+                                                <div>
+                                                    <strong>Posted on:<i> ${review.review_date} </i></strong>
+                                                </div>
+                                            </div>
+                                            
+            
+                                        
+                                        
+                                      </form>  
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                        Close
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-danger py-1 px-2" 
+                                id = "user-${review.id}" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#modal-${review.id}-remove"> 
+                            - Remove</button>
+
+                            <div class="modal fade" id="modal-${review.id}-remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <h5 class="modal-header">
+                                            Confirm delete
+                                        </h5>
+                                        <div class="modal-body fs-6 fw-bold">
+                                            <strong> Are you sure you want to delete this review? </strong>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger btn-ok removeReview" data-mdb-dismiss="modal">Delete</a>
+                                            <button type="button" class="btn btn-default" data-mdb-dismiss="modal">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </td>
+                    </tr>
+
+                `
+            })
+            
+            const htmlShows = allShowReviews.map(review => {
+                return `
+                    <tr>
+                        <th scope="row" class="text-center">${review.user_id}</th>
+                        <td class="text-center">${review.content_id}</td>
+                        <td class="text-center">${review.review_heading}</td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-primary py-1 px-2 showDets" 
+                                id = "show-${review.id}" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#modal-${review.id}-show"> 
+                            Details</button>
+                            <div
+                                class="modal fade"
+                                id="modal-${review.id}-show"
+                                tabindex="-1"
+                                aria-labelledby="label-${review.id}"
+                                aria-hidden="true"
+                              >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="show-${review.id}-label">Posted by: ${review.username}</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                      <form id = "changes-${review.id}-show">
+                                        <!-- 2 column grid layout with text inputs for the first and last names -->
+                                        
+                                          
+                                            <div class="form-outline mb-4">
+                                              <input disabled value="${review.review_heading}" type="text" id="heading-${review.id}-show" name="reviewHeading" class="form-control" />
+                                              <label for="heading-${review.id}-show" class="form-label"> Review Heading </label>  
+                                            </div>
+                                            
+                                            <div class="form-outline mb-4">
+                                              <textarea disabled rows="2" type="text" id="content-${review.id}-show" name="reviewContent" class="form-control">${review.review_content}</textarea>
+                                              <label for="content-${review.id}-show" class="form-label"> Review Content </label>  
+                                            </div>
+                                            
+                                            <div class="d-flex flex-row justify-content-between px-4 fs-6 mb-4">
+                                                <div class="">
+                                                    <strong>Upvotes: ${review.review_up}</strong>
+                                                </div>
+                                                <div class="">
+                                                    <strong>Rating: ${review.review_rating}</strong>
+                                                </div>
+                                            </div>
+            
+                                            <div class="d-flex flex-row justify-content-between px-4 fs-6 mb-2">
+                                                <div class="">
+                                                    <strong>Downvotes: ${review.review_down}</strong>
+                                                </div>
+                                                <div>
+                                                    <strong>Posted on:<i> ${review.review_date} </i></strong>
+                                                </div>
+                                            </div>
+                                            
+                                      </form>  
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" form="changes-${review.id}-show" class="btn btn-primary saveChanges">Save changes</button>
+                                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                        Close
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <button 
+                                class="btn btn-danger py-1 px-2" 
+                                id = "user-${review.id}" 
+                                data-mdb-toggle="modal"
+                                data-mdb-target="#modal-${review.id}-remove"> 
+                            - Remove</button>
+
+                            <div class="modal fade" id="modal-${review.id}-remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <h5 class="modal-header">
+                                            Confirm delete
+                                        </h5>
+                                        <div class="modal-body">
+                                            <i><strong> Are you sure you want to delete this review? </strong></i>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger btn-ok removeReview" data-mdb-dismiss="modal">Delete</a>
+                                            <button type="button" class="btn btn-default" data-mdb-dismiss="modal">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </td>
+                    </tr>
+
+                `
+            })
+            
+            showTable.innerHTML = htmlShows.join(" ")
+            movieTable.innerHTML = htmlMovies.join(" ")
+            
+            // Initialize form-outline for dynamically added inputs
+            document.querySelectorAll('.form-outline').forEach((formOutline) => {
+                new mdb.Input(formOutline).init();
+            });
+            
+            delBtns = document.querySelectorAll('.removeReview')
+            delBtns.forEach(button => {
+                button.addEventListener('click', deleteReview)
+            })
+        }
+        
+        function deleteReview(e){
+            index = [].indexOf.call(delBtns, e.target)
+            let check = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].children[0]
+            if(check.innerText == 'Movie Reviews'){
+                $.ajax({
+                    method: 'POST',
+                    url: `/MML/deleteReview?review_id=${allMovieReviews[index].id}`,
+                    data: {},
+                    success: function(data){
+                        const alert = document.getElementById("successReview");
+                        alert.classList.add('show');
+                        alert.classList.remove('d-none')
+                        setTimeout(() => {
+                            alert.classList.remove('show');
+                            alert.classList.add('d-none')
+                        }, 2000)
+                        e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+                    }
+                })
+            }
+            
+            else{
+                $.ajax({
+                    method: 'POST',
+                    url: `/MML/deleteReview?review_id=${allShowReviews[index].id}`,
+                    data: {},
+                    success: function(data){
+                        const alert = document.getElementById("successReview");
+                        alert.classList.add('show');
+                        alert.classList.remove('d-none')
+                        setTimeout(() => {
+                            alert.classList.remove('show');
+                            alert.classList.add('d-none')
+                        }, 2000)
+                        e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+                    }
+                })
+            }
+            
+        }
+        
+        window.addEventListener('load', getMovieReviews)
 
     </script>
 </body>
