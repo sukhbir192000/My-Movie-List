@@ -4,6 +4,7 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="daos.UserDao"%>
 <%@page import="beans.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -82,7 +83,7 @@
     
     <div class="d-none alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successName" role="alert" data-mdb-color="secondary">
         <i class="fas fa-check me-2"></i>
-        Names successfully updated!
+        Information successfully updated!
     </div>
     
     <div class="d-none alert alert-success mb-0 alert-fixed end-0 mt-3 me-3 pe-5 fade" style="z-index:1000; width: 400px;" id="successPassword" role="alert" data-mdb-color="secondary">
@@ -94,10 +95,11 @@
             <% 
                 HttpSession ses = request.getSession();
                 User user = (User) ses.getAttribute("loggedUser");
-                String fname = user.getFirstName();
-                String lname = user.getLastName();
-                String uname = user.getUsername();
-                String about = user.getAbout();
+                User currentUser = new UserDao().findByUserId(user.getUserId());
+                String fname = currentUser.getFirstName();
+                String lname = currentUser.getLastName();
+                String uname = currentUser.getUsername();
+                String about = currentUser.getAbout();
 
             %>
 
