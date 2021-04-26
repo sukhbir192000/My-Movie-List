@@ -178,7 +178,7 @@
 
                             <%} else {%>
                             <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5 addFriendButton" >Add Friend</button>
-                            
+
                             <%}%>
                             <%}%>
                         </div>
@@ -431,7 +431,7 @@
                                             <td class="align-middle text-center "><a class="text-yellow" href="/MML/profile?id=<%=myFriend.getUserId()%>"><%=myFriend.getUsername()%></a></td>
                                             <td class="align-middle text-center"><%=myFriend.getAbout()%></td>
                                             <td class="align-middle text-center"><button
-                                                    class="btn btn-small btn-yellow ">Remove Friend</button></td>
+                                                    class="btn btn-small btn-yellow removeFriendButton" id="remove_<%=myFriend.getUserId()%>">Remove Friend</button></td>
                                         </tr>
 
                                         <%}%>
@@ -612,6 +612,41 @@
                     }
                 }
             });
+        </script>
+        <script>
+            let removeFriendsButton = document.querySelectorAll(".removeFriendButton");
+            console.log("adding event listener", removeFriendsButton);
+
+            if (removeFriendsButton.length > 0) {
+                removeFriendsButton.forEach((elm) => {
+                    elm.addEventListener('click', removeFriend);
+                    console.log("adding event listener loop")
+                })
+            }
+
+
+            function removeFriend(e) {
+                let currentTarget = e.currentTarget;
+                let friendRemoveId = currentTarget.id;
+                friendRemoveId = friendRemoveId.split('_');
+                friendRemoveId = friendRemoveId[1];
+                console.log("target value for remove", friendRemoveId);
+
+                fetch("/MML/RemoveFriendController", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        userId: <%=loggedUser.getUserId()%>,
+                        visitorId: parseInt(friendRemoveId),
+
+                    })
+                }).then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            currentTarget.parentNode.parentNode.remove();
+                        })
+
+            }
+
         </script>
 
     </body>
