@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import utils.HashGeneratorUtils;
 
 
@@ -247,6 +249,32 @@ public class UserDao implements Dao {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public JSONArray searchbyUsername(String query) {
+        JSONArray result = new JSONArray();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE username LIKE ? AND role = \"user\"");
+            
+            ps.setString(1, "%"+query+"%");
+            
+            imageDao im = new imageDao();
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                JSONObject userItem = new JSONObject();
+                userItem.put("username", rs.getString("username"));
+                userItem.put("user_id", rs.getString("user_id"));
+                userItem.put("about", rs.getString("about"));
+                userItem.put("profile_pic", im.convertToBase64(rs.getBlob("profile_pic")));
+                result.add(userItem);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

@@ -27,10 +27,9 @@
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custom-carousel.css">
+    <link rel="stylesheet" href="css/template.css">
     
 
-    <link rel="stylesheet" href="css/template.css">
-    <link rel="stylesheet" href="css/rating.css">
     <title><%= request.getAttribute("title") %></title>
 </head>
 
@@ -188,13 +187,11 @@
 
         <jsp:include page="footer.jsp" />
     </div>
-    </div>
 
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
-    <script src="./scripts/rating.js"></script>
     
     <% if(showBar) { %>
         <script>
@@ -229,7 +226,7 @@
                 data.forEach(item => {
                     cardContainer.innerHTML += `
                         <div class="<%= showBar ? "col-lg-3 col-sm-4 col-12" : "col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" %> content">
-                            <a href="/MML/movie?id=${item.id}" class="text-white">
+                            <a href="/MML/`+'<%= isMovie ? "movie" : "show" %>'+`?id=${item.id}" class="text-white">
                                 <div class="card h-100 bg-dark text-white">
                                     <div class="row g-0">
                                         <div class="img-container col-4 col-sm-12">
@@ -250,7 +247,7 @@
                 })
                 
 
-                loadBtn.classList.remove('d-none')
+                if(data.length > 0) loadBtn.classList.remove('d-none')
                 spinner.classList.add('d-none')
             })
         }

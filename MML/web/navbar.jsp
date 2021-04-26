@@ -105,15 +105,15 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <form class="d-flex input-group w-auto form-white" id="searchForm" action="/search">
+            <form class="d-flex input-group w-auto form-white" id="searchForm" action="/MML/search">
                 <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
                     <option value="all">All</option>
                     <option value="movies">Movies</option>
-                    <option value="tv">Shows</option>
-                    <option value="tv">Users</option>
+                    <option value="shows">Shows</option>
+                    <option value="users">Users</option>
                 </select>
-                <input type="search" class="form-control bg-black border-2 border-dark border-start-0" placeholder="Search..." aria-label="Search" name="query"/>
-                <button class="btn btn-outline-dark text-white" type="button" data-mdb-ripple-color="dark">
+                <input type="search" class="form-control bg-black border-2 border-dark border-start-0 text-white" placeholder="Search..." aria-label="Search" name="query" required />
+                <button class="btn btn-outline-dark text-white" type="submit" data-mdb-ripple-color="dark">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
@@ -195,7 +195,6 @@
         if (addFriendButtonsNavbar.length > 0) {
             addFriendButtonsNavbar.forEach((elm) => {
                 elm.addEventListener('click', addFriendNavBar);
-                console.log("adding event listener loop")
             })
         }
         function addFriendNavBar(e) {
