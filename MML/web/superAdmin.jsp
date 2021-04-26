@@ -361,7 +361,7 @@
         
         
         async function displayMatches(){
-            await fetch('/MML/search?search=' + this.value)
+            await fetch('/MML/superadmin_search?search=' + this.value)
                 .then(response => response.json())
                 .then(data => {
                     movieList = []

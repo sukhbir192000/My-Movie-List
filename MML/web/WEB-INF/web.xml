@@ -152,6 +152,10 @@
         <servlet-name>EmailRecievedController</servlet-name>
         <servlet-class>servlets.EmailRecievedController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>servlets.SearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -242,10 +246,6 @@
         <url-pattern>/LikeDislikeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchResultController</servlet-name>
-        <url-pattern>/search</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>updateCarouselSuperAdministratorController</servlet-name>
         <url-pattern>/carouselUpdate</url-pattern>
     </servlet-mapping>
@@ -305,6 +305,14 @@
     <servlet-mapping>
         <servlet-name>EmailRecievedController</servlet-name>
         <url-pattern>/emailRecieved</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchResultController</servlet-name>
+        <url-pattern>/superadmin_search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -105,14 +105,14 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <form class="d-flex input-group w-auto form-white" id="searchForm" action="#">
+            <form class="d-flex input-group w-auto form-white" id="searchForm" action="/search">
                 <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
                     <option value="all">All</option>
                     <option value="movies">Movies</option>
                     <option value="tv">Shows</option>
                     <option value="tv">Users</option>
                 </select>
-                <input type="search" class="form-control bg-black border-2 border-dark border-start-0" placeholder="Search..." aria-label="Search" />
+                <input type="search" class="form-control bg-black border-2 border-dark border-start-0" placeholder="Search..." aria-label="Search" name="query"/>
                 <button class="btn btn-outline-dark text-white" type="button" data-mdb-ripple-color="dark">
                     <i class="fas fa-search"></i>
                 </button>
@@ -188,34 +188,35 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<script>
-    let addFriendButtonsNavbar = document.querySelectorAll(".confirmFriend");
-    console.log("adding event listerner to add", addFriendButtonsNavbar);
-    if (addFriendButtonsNavbar.length > 0) {
-        addFriendButtonsNavbar.forEach((elm) => {
-            elm.addEventListener('click', addFriendNavBar);
-            console.log("adding event listener loop")
-        })
-    }
-    function addFriendNavBar(e) {
-        let currentTarget = e.currentTarget;
-        console.log("hi", currentTarget.id);
-        let friendNavId = currentTarget.id;
-        friendNavId = friendNavId.split('_');
-        friendNavId = friendNavId[1];
-//        console.log("id", friendNavId);
-        fetch("/MML/AddFriendController", {
-            method: "POST",
-            body: JSON.stringify({
-                userId: <%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>,
-                visitorId: parseInt(friendNavId),
-
+<% if (session.getAttribute("loggedUser") != null) { %>
+    <script>
+        let addFriendButtonsNavbar = document.querySelectorAll(".confirmFriend");
+        console.log("adding event listerner to add", addFriendButtonsNavbar);
+        if (addFriendButtonsNavbar.length > 0) {
+            addFriendButtonsNavbar.forEach((elm) => {
+                elm.addEventListener('click', addFriendNavBar);
+                console.log("adding event listener loop")
             })
-        }).then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    currentTarget.parentNode.remove();
+        }
+        function addFriendNavBar(e) {
+            let currentTarget = e.currentTarget;
+            console.log("hi", currentTarget.id);
+            let friendNavId = currentTarget.id;
+            friendNavId = friendNavId.split('_');
+            friendNavId = friendNavId[1];
+    //        console.log("id", friendNavId);
+            fetch("/MML/AddFriendController", {
+                method: "POST",
+                body: JSON.stringify({
+                    userId: <%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>,
+                    visitorId: parseInt(friendNavId),
+
                 })
-    }
-</script>
-<!-- Navbar -->
+            }).then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        currentTarget.parentNode.remove();
+                    })
+        }
+    </script>
+<% }%>
