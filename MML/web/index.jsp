@@ -34,110 +34,70 @@
                 <jsp:include page="navbar.jsp" />
 
                 <!-- Carousel wrapper -->
-                <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+                <div id="homeCarousel" class="carousel slide carousel-fade" data-mdb-ride="carousel">
                     <!-- Inner -->
                     <div class="carousel-inner">
-                        <!-- Single item -->
-                        <div class="carousel-item active">
-                            <div class="backdrop">
-                                <img src="images/jl-back.jpg" class="w-100 mt-n5" alt="..." />
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
-                                    <img src="images/jl.jpg" class="w-100 ps-3">
-                                </div>
-                                <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
-                                    <div class="row">
-                                        <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
-                                            <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Zack Snyder's Justice League</h2>
-                                            <p class="pt-3 mb-5 text-crop-3 text-muted">Determined to ensure Superman's
-                                                ultimate sacrifice was not in
-                                                vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to
-                                                protect the
-                                                world from an approaching threat of catastrophic proportions.
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita facilis reprehenderit
-                                                excepturi
-                                                deleniti consequatur magni assumenda, nihil quos dolore unde.
-                                            </p>
+                        <%
+                            JSONArray carouselArray = (JSONArray) request.getAttribute("carouselArray");
+                            for (int i = 0; i < carouselArray.size(); i++) {
+                                JSONObject contentItem = (JSONObject) carouselArray.get(i);
+                        %>
+                                <div class="carousel-item <%= i==0 ? "active" : "" %>">
+                                    <a href="/MML/movie?id=<%=contentItem.get("id")%>">
+                                        <div class="backdrop">
+                                            <img src="https://image.tmdb.org/t/p/original/<%=contentItem.get("backdrop_path")%>" class="w-100 mt-n5" />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single item -->
-                        <div class="carousel-item">
-                            <div class="backdrop">
-                                <img src="images/in-back.jpg" class="w-100 mt-n5" alt="..." />
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
-                                    <img src="images/in.jpg" class="w-100 ps-3">
-                                </div>
-                                <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
-                                    <div class="row">
-                                        <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
-                                            <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Inception</h2>
-                                            <p class="pt-3 mb-5 text-crop-3 text-muted">Cobb, a skilled thief who commits corporate espionage
-                                                by
-                                                infiltrating
-                                                the subconscious of his targets is offered a chance to regain his old life as payment for a task
-                                                considered to be
-                                                impossible: "inception", the implantation of another person's idea into a target's subconscious.
-                                            </p>
+                                        <div class="row">
+                                            <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
+                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="w-100 ps-3">
+                                            </div>
+                                            <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
+                                                <div class="row">
+                                                    <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
+                                                        <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block"><%= contentItem.get("title") %></h2>
+                                                        <p class="pt-3 mb-5 text-crop-3 text-muted">
+                                                            <%= contentItem.get("overview") %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Single item -->
-                        <div class="carousel-item">
-                            <div class="backdrop">
-                                <img src="images/gvk-back.jpg" class="w-100 mt-n5" alt="..." />
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
-                                    <img src="images/gvk.jpg" class="w-100 ps-3">
-                                </div>
-                                <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
-                                    <div class="row">
-                                        <div class="col-xl-7 offset-xl-3 col-md-7 offset-md-4 col-12 text-center-custom px-4 px-md-3">
-                                            <h2 class="h2 text-white fw-bold mx-auto mx-md-0 d-inline-block">Godzilla vs. Kong</h2>
-                                            <p class="pt-3 mb-5 text-crop-3 text-muted">In a time when monsters walk the Earth, humanity’s
-                                                fight
-                                                for its
-                                                future sets Godzilla and Kong on a collision course that will see the two most powerful forces
-                                                of
-                                                nature on
-                                                the planet collide in a spectacular battle for the ages.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <%
+                            }
+                        %>
                     </div>
                     <!-- Inner -->
 
                     <!-- Indicators -->
                     <div class="row">
                         <div class="carousel-indicators m-0">
-                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
-                                    aria-label="Slide 3"></button>
+                            <%
+                                for (int i = 0; i < carouselArray.size(); i++) {
+                                    JSONObject contentItem = (JSONObject) carouselArray.get(i);
+                                    if(i==0) {
+                            %>
+                                <button type="button" data-mdb-target="#homeCarousel" data-mdb-slide-to="<%=i%>" class="active"
+                                        aria-current="true" aria-label="Slide <%=i+1%>"></button>
+                            <%
+                                    } else {
+                            %>
+                                <button type="button" data-mdb-target="#homeCarousel" data-mdb-slide-to="<%=i%>"
+                                        aria-label="Slide <%=i+1%>"></button>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
                     <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+                    <button class="carousel-control-prev" type="button" data-mdb-target="#homeCarousel"
                             data-mdb-slide="prev">
                         <span class="carousel-control-prev-icon mt-n10" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+                    <button class="carousel-control-next" type="button" data-mdb-target="#homeCarousel"
                             data-mdb-slide="next">
                         <span class="carousel-control-next-icon mt-n10" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>

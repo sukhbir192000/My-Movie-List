@@ -99,11 +99,12 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <form class="d-flex input-group w-auto form-white">
+            <form class="d-flex input-group w-auto form-white" id="searchForm" action="#">
                 <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
                     <option value="all">All</option>
                     <option value="movies">Movies</option>
-                    <option value="tv">TV</option>
+                    <option value="tv">Shows</option>
+                    <option value="tv">Users</option>
                 </select>
                 <input type="search" class="form-control bg-black border-2 border-dark border-start-0" placeholder="Search..." aria-label="Search" />
                 <button class="btn btn-outline-dark text-white" type="button" data-mdb-ripple-color="dark">

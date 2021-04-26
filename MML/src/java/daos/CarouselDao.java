@@ -90,4 +90,28 @@ public class CarouselDao implements Dao {
         }
         return null;
     }
+    
+    public JSONArray getCarouselData(){
+        try {
+            JSONArray array = new JSONArray();
+            ApiDao apiDao = new ApiDao();
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT content_id FROM carousel_data");
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                JSONObject movieObject = apiDao.getRequestObject("/movie/"+rs.getString("content_id"));
+                array.add(movieObject);
+            }
+            
+            return array;
+            
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

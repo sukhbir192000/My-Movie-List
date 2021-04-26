@@ -1,6 +1,7 @@
 package servlets;
 
 import daos.ApiDao;
+import daos.CarouselDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -31,13 +32,17 @@ public class HomeController extends HttpServlet {
         
         ApiDao dao = new ApiDao();
         
-        // GET TRENDING
+        CarouselDao carouselDao = new CarouselDao();
+        JSONArray carouselArray = carouselDao.getCarouselData();
+        
+        // GET MOVIE LISTS
         JSONArray trendingMovieArray = dao.getRequestArray("/trending/movie/week","results");
         JSONArray trendingShowArray = dao.getRequestArray("/trending/tv/week","results");
         JSONArray popularMovieArray = dao.getRequestArray("/movie/popular","results");
         JSONArray popularShowArray = dao.getRequestArray("/tv/popular","results");
         JSONArray upcomingMovieArray= dao.getRequestArray("/movie/upcoming","results");
  
+        request.setAttribute("carouselArray", carouselArray);
         request.setAttribute("trendingMovies", trendingMovieArray);
         request.setAttribute("trendingShows", trendingShowArray);
         request.setAttribute("popularMovies", popularMovieArray);
