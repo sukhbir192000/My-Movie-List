@@ -1,64 +1,70 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<style>
+    .dropstart:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+</style>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
     <!-- Container wrapper -->
     <div class="container-lg">
-        
+
         <!-- Toggle button -->
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                 data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
-        
+
         <!-- Navbar brand -->
         <a class="navbar-brand mx-auto" href="/MML/home"><img src="images/logo3.jpg" alt="MML" class="logo"></a>
-        
+
         <% if (session.getAttribute("loggedUser") == null) { %>
-            <a class="btn btn-outline-white d-inline d-lg-none" href="#">Login</a>
+        <a class="btn btn-outline-white d-inline d-lg-none" href="#">Login</a>
         <% } else {%>
-            <ul class="navbar-nav ps-2 d-inline d-lg-none">
-                <!-- Avatar -->
-                <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle d-flex align-items-center"
-                        href="#"
-                        id="user-dropdown"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                        >
+        <ul class="navbar-nav ps-2 d-inline d-lg-none">
+            <!-- Avatar -->
+            <li class="nav-item dropdown">
+                <a
+                    class="nav-link dropdown-toggle d-flex align-items-center"
+                    href="#"
+                    id="user-dropdown"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                    >
 
-                        <% 
-                            User user = ((User)(request.getSession()).getAttribute("loggedUser"));
-                            String profilePic = user.getProfilePic();
-                            if(profilePic.isEmpty()){
-                        %>
+                    <%
+                        User user = ((User) (request.getSession()).getAttribute("loggedUser"));
+                        String profilePic = user.getProfilePic();
+                        if (profilePic.isEmpty()) {
+                    %>
 
-                        <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
-                        </div>
+                    <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                    <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                    </div>
 
-                        <% } else { %>
+                    <% } else {%>
 
-                        <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
-                        </div>
-                        <% } %>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                        <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
-                        <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                    <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
+                    </div>
+                    <% }%>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                    <li><a class="dropdown-item" href="/MML/profile?id=<%=((User) (request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
+                    <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
         <% }%>
-        
-        
+
+
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -111,50 +117,104 @@
                 </button>
             </form>
             <% if (session.getAttribute("loggedUser") == null) { %>
-                <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="/MML/login">Login</a>
+            <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="/MML/login">Login</a>
             <% } else {%>
-                <ul class="navbar-nav ps-2 d-lg-inline d-none">
-                    <!-- Avatar -->
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle d-flex align-items-center"
-                            href="#"
-                            id="user-dropdown"
-                            role="button"
-                            data-mdb-toggle="dropdown"
-                            aria-expanded="false"
-                            >
+            <ul class="navbar-nav ps-2 d-lg-inline d-none">
+                <!-- Avatar -->
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle d-flex align-items-center"
+                        href="#"
+                        id="user-dropdown"
+                        role="button"
+                        data-mdb-toggle="dropdown"
+                        aria-expanded="false"
+                        >
 
-                            <% 
-                                User user = ((User)(request.getSession()).getAttribute("loggedUser"));
-                                String profilePic = user.getProfilePic();
-                                if(profilePic.isEmpty()){
-                            %>
+                        <%
+                            User user = ((User) (request.getSession()).getAttribute("loggedUser"));
+                            String profilePic = user.getProfilePic();
+                            if (profilePic.isEmpty()) {
+                        %>
 
-                            <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                            <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                        </div>
+
+                        <% } else {%>
+
+                        <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                        <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
+                        </div>
+                        <% }%>
+
+                        <span class="navbar-username ps-1 text-white" id='username-change-navbar'> <%= ((User) (request.getSession()).getAttribute("loggedUser")).getUsername()%> </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                        <li><a class="dropdown-item" href="/MML/profile?id=<%=((User) (request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
+                        <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
+                        <li>
+                            <div class="dropdown-item dropstart">
+                                <div
+
+                                    class="ps-1 dropdown-toggle"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false"
+                                    >
+                                    Request
+                                </div>
+                                <ul class="dropdown-menu me-0">
+                                    <%
+                                        ArrayList<User> pendingList = ((User) (request.getSession()).getAttribute("loggedUser")).getPendingList();
+                                        for (int i = 0; i < pendingList.size(); i++) {
+                                            User pendingUser = (User) pendingList.get(i);
+                                    %>
+                                    <li><span class="dropdown-item d-flex flex-row align-items-center" href="#"><a class="text-dark" href="/MML/profile?id=<%=pendingUser.getUserId()%>"><%=pendingUser.getUsername()%></a> <span id="user_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark confirmFriend  ms-3 p-0"><i class="fas fa-check m-0 p-0 px-3 py-1 "></i></span>
+                                        </span></li>
+
+                                    <%}%>
+
+                                </ul>
                             </div>
-
-                            <% } else { %>
-
-                            <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                            <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
-                            </div>
-                            <% } %>
-
-                            <span class="navbar-username ps-1 text-white" id='username-change-navbar'> <%= ((User)(request.getSession()).getAttribute("loggedUser")).getUsername() %> </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                            <li><a class="dropdown-item" href="/MML/profile?id=<%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>">My profile</a></li>
-                            <li><a class="dropdown-item" href="/MML/editProfile">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                        </li>
+                        <li><a class="dropdown-item" href="/MML/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
             <% }%>
         </div>
         <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->
 </nav>
+<script>
+    let addFriendButtonsNavbar = document.querySelectorAll(".confirmFriend");
+    console.log("adding event listerner to add", addFriendButtonsNavbar);
+    if (addFriendButtonsNavbar.length > 0) {
+        addFriendButtonsNavbar.forEach((elm) => {
+            elm.addEventListener('click', addFriendNavBar);
+            console.log("adding event listener loop")
+        })
+    }
+    function addFriendNavBar(e) {
+        let currentTarget = e.currentTarget;
+        console.log("hi", currentTarget.id);
+        let friendNavId = currentTarget.id;
+        friendNavId = friendNavId.split('_');
+        friendNavId = friendNavId[1];
+//        console.log("id", friendNavId);
+        fetch("/MML/AddFriendController", {
+            method: "POST",
+            body: JSON.stringify({
+                userId: <%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>,
+                visitorId: parseInt(friendNavId),
+
+            })
+        }).then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    currentTarget.parentNode.remove();
+                })
+    }
+</script>
 <!-- Navbar -->

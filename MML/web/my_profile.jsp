@@ -121,9 +121,27 @@
                                 <div><a href="/MML/editProfile" class="btn btn-light ps-2 pe-3 px-md-3" style="white-space: nowrap;"><i class="fas fa-user-edit me-2"></i>Edit <span class="d-none d-md-inline">Profile</span>  </a></div>
 
                             </div>
+                            <%}
+                                userId = Integer.parseInt(request.getParameter("id"));
+                                if (loggedUser.getUserId() != userId) {
+                                    JSONObject friendStatus = (JSONObject) request.getAttribute("friendStatus");
+                                    Integer outGoing = (Integer) friendStatus.get("friendRequestOutgoingStatus");
+                                    Integer inComing = (Integer) friendStatus.get("friendRequestIncoming");
+                                    System.out.println("status friend" + outGoing);
+                                    if (outGoing != null && outGoing == 1) {
+                            %>
+                            <button class="btn  btn-yellow d-block d-md-none" >In Friends!</button>
+
+                            <%} else if (outGoing != null && outGoing == 0) {%>
+                            <button class="btn  btn-yellow d-block d-md-none" >Friend Request Sent</button>
+                            <%} else if (inComing == 1) {%>
+                            <button class="btn  btn-yellow d-block d-md-none confirmFriendButton" >Confirm Friend Request</button>
+
+                            <%} else {%>
+                            <button class="btn  btn-yellow d-block d-md-none addFriendButton" >Add Friend</button>
+
                             <%}%>
-                            <button class="btn  btn-yellow d-block d-md-none">Add
-                                Friend</button>
+                            <%}%>
                         </div>
                     </div>
 
@@ -142,11 +160,27 @@
                             </div>
 
 
-                            <% }%>
-                            <!--hi-->
+                            <% }
+                                userId = Integer.parseInt(request.getParameter("id"));
+                                if (loggedUser.getUserId() != userId) {
+                                    JSONObject friendStatus = (JSONObject) request.getAttribute("friendStatus");
+                                    Integer outGoing = (Integer) friendStatus.get("friendRequestOutgoingStatus");
+                                    Integer inComing = (Integer) friendStatus.get("friendRequestIncoming");
+                                    System.out.println("status friend" + outGoing);
+                                    if (outGoing != null && outGoing == 1) {
+                            %>
+                            <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5" >In Friends!</button>
 
-                            <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5">Add
-                                Friend</button>
+                            <%} else if (outGoing != null && outGoing == 0) {%>
+                            <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5" >Friend Request Sent</button>
+                            <%} else if (inComing == 1) {%>
+                            <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5 confirmFriendButton" >Confirm Friend Request</button>
+
+                            <%} else {%>
+                            <button class="position-absolute  bottom-0 mb-3 btn  btn-yellow btn-rounded px-5 addFriendButton" >Add Friend</button>
+                            
+                            <%}%>
+                            <%}%>
                         </div>
                         <div class="bg-dark text-white px-3 pb-3 mb-4 custom-font">
                             <p class="h5 pt-4">About</p>
@@ -267,41 +301,41 @@
                                     <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
                                         <!--all-->
                                         <table class="table table-hover table-dark">
-                                                <thead>
-                                                    <tr class="bg-yellow text-dark">
-                                                        <th scope="col" class="text-center"></th>
-                                                        <th scope="col" class="text-center">Name</th>
-                                                        <th scope="col" class="text-center">Desc</th>
-                                                        <th scope="col" class="text-center">Rating</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="fs-5">
-                                        <%
-                                            watchList = (JSONArray) (request.getAttribute("watchList"));
-                                            for (int i = 0; i < watchList.size(); i++) {
-                                                JSONObject watchListItem = (JSONObject) watchList.get(i);
-                                                System.out.println("obj:" + watchListItem.get("details"));
-                                                JSONArray finalList = (JSONArray) (watchListItem.get("details"));
+                                            <thead>
+                                                <tr class="bg-yellow text-dark">
+                                                    <th scope="col" class="text-center"></th>
+                                                    <th scope="col" class="text-center">Name</th>
+                                                    <th scope="col" class="text-center">Desc</th>
+                                                    <th scope="col" class="text-center">Rating</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fs-5">
+                                                <%
+                                                    watchList = (JSONArray) (request.getAttribute("watchList"));
+                                                    for (int i = 0; i < watchList.size(); i++) {
+                                                        JSONObject watchListItem = (JSONObject) watchList.get(i);
+                                                        System.out.println("obj:" + watchListItem.get("details"));
+                                                        JSONArray finalList = (JSONArray) (watchListItem.get("details"));
 
-                                                            System.out.println("item" + finalList);
-                                                            for (int j = 0; j < finalList.size(); j++) {
-                                                                JSONObject listItem = (JSONObject) finalList.get(j);%>
+                                                        System.out.println("item" + finalList);
+                                                        for (int j = 0; j < finalList.size(); j++) {
+                                                            JSONObject listItem = (JSONObject) finalList.get(j);%>
 
-                                                        <tr>
-                                                            <th scope="row" class="align-middle text-center"><img class="table-img"
-                                                                                                      src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
-                                                            <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
-                                                            <td class="align-middle text-center"><%=listItem.get("tagline")%></td>
-                                                            <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>
-                                                        </tr>
+                                                <tr>
+                                                    <th scope="row" class="align-middle text-center"><img class="table-img"
+                                                                                                          src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
+                                                    <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
+                                                    <td class="align-middle text-center"><%=listItem.get("tagline")%></td>
+                                                    <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>
+                                                </tr>
 
-                                                        <% } 
-                                        }%>
-                                                </tbody>
+                                                <% }
+                                                    }%>
+                                            </tbody>
                                         </table>
-                                                   
 
-                                       
+
+
                                         <!--all end-->
                                     </div>
                                     <%
@@ -415,7 +449,58 @@
             <jsp:include page="footer.jsp" />
 
         </div>
+        <script>
 
+            let confirmButtons = document.querySelectorAll(".confirmFriendButton");
+            console.log("adding event listener", confirmButtons);
+
+            if (confirmButtons.length > 0) {
+                confirmButtons.forEach((elm) => {
+                    elm.addEventListener('click', addFriend);
+                    console.log("adding event listener loop")
+                })
+            }
+
+            let addFriendButtons = document.querySelectorAll(".addFriendButton");
+            console.log("adding event listerner to add", addFriendButtons);
+            if (addFriendButtons.length > 0) {
+                addFriendButtons.forEach((elm) => {
+                    elm.addEventListener('click', sendFriendRequest);
+                    console.log("adding event listener loop")
+                })
+            }
+            function sendFriendRequest(e) {
+                fetch("/MML/SendFriendRequestController", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        userId: <%=loggedUser.getUserId()%>,
+                        visitorId: <%=currentUser.getUserId()%>,
+
+                    })
+                }).then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            e.target.innerText = "Friend Request Sent";
+                        })
+
+            }
+            function addFriend(e) {
+                fetch("/MML/AddFriendController", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        userId: <%=loggedUser.getUserId()%>,
+                        visitorId: <%=currentUser.getUserId()%>,
+
+                    })
+                }).then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            e.target.innerText = "In Friends!";
+                        })
+
+            }
+
+        </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
         <!--<script type="text/javascript" src="./custom-carousel.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -425,10 +510,9 @@
                 integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
         crossorigin="anonymous"></script>
         <script>
-            console.log("watchlist:",<%=request.getAttribute("watchList")%>)
+            console.log("friendStatus",<%=request.getAttribute("friendStatus")%>)
             let movieStats =<%=request.getAttribute("movieStatus")%>;
             let showStats =<%=request.getAttribute("showStatus")%>;
-
             console.log("chart:", Chart.Legend)
             Chart.Legend.afterEvent = function () {
                 this.width = this.width + 50;
@@ -528,8 +612,9 @@
                     }
                 }
             });
-
         </script>
+
     </body>
+
 
 </html>
