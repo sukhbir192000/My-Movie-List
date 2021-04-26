@@ -14,32 +14,37 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class MyProfileController extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDao userDao=new UserDao();
-        StatusDao statusDao=new StatusDao();
-        FriendDao friendDao=new FriendDao();
-        WatchTimeDao watchTimeDao=new WatchTimeDao();
-        int userId=Integer.parseInt(request.getParameter("id"));
-        JSONObject movieStatus=new JSONObject(statusDao.getMoviesStatus(userId));
-        JSONObject showStatus=new JSONObject(statusDao.getShowStatus(userId));
-        JSONArray watchTimeDetails=(JSONArray)watchTimeDao.getWatchTimeArray(userId);
-        WatchListDao watchListDao=new WatchListDao();
-        JSONArray watchList=(JSONArray)watchListDao.getWatchList(userId);
+        UserDao userDao = new UserDao();
+        StatusDao statusDao = new StatusDao();
+        FriendDao friendDao = new FriendDao();
+        WatchTimeDao watchTimeDao = new WatchTimeDao();
+        int userId = Integer.parseInt(request.getParameter("id"));
+        JSONObject movieStatus = new JSONObject(statusDao.getMoviesStatus(userId));
+        JSONObject showStatus = new JSONObject(statusDao.getShowStatus(userId));
+        JSONArray watchTimeDetails = (JSONArray) watchTimeDao.getWatchTimeArray(userId);
+        WatchListDao watchListDao = new WatchListDao();
+        JSONArray watchList = (JSONArray) watchListDao.getWatchList(userId);
         request.setAttribute("movieStatus", movieStatus);
         request.setAttribute("showStatus", showStatus);
         request.setAttribute("watchTimeDetails", watchTimeDetails);
         request.setAttribute("watchList", watchList);
-        ArrayList<User> friendList=friendDao.getFriendList(userId);
+        ArrayList<User> friendList = friendDao.getFriendList(userId);
         request.setAttribute("friendList", friendList);
-        User currentUser=userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
+        HttpSession session = request.getSession();
+        User loggedUser = ((User) session.getAttribute("loggedUser"));
+        request.setAttribute("friendStatus", friendDao.getFriendShipStatus(loggedUser.getUserId(), userId));
+        User currentUser = userDao.findByUserId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("currentUser", currentUser);
-        RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");  
+        RequestDispatcher rd = request.getRequestDispatcher("my_profile.jsp");
         rd.forward(request, response);
     }
 

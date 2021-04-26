@@ -1,10 +1,13 @@
 
 package beans;
 
+import daos.FriendDao;
 import daos.imageDao;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import org.json.simple.JSONArray;
 
 
 public class User implements Serializable {
@@ -119,6 +122,10 @@ public class User implements Serializable {
 
     public void setRole(int role) {
         this.role = role;
+    }
+    public ArrayList<User> getPendingList(){
+        FriendDao friendDao=new FriendDao();
+        return friendDao.getPendingList(this.userId);
     }
     
     

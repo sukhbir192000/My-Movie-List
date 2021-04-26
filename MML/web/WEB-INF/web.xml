@@ -141,6 +141,10 @@
         <servlet-class>servlets.DeleteReviewController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddFriendController</servlet-name>
+        <servlet-class>servlets.AddFriendController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ReachUsController</servlet-name>
         <servlet-class>servlets.ReachUsController</servlet-class>
     </servlet>
@@ -289,6 +293,10 @@
     <servlet-mapping>
         <servlet-name>DeleteReviewController</servlet-name>
         <url-pattern>/deleteReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFriendController</servlet-name>
+        <url-pattern>/AddFriendController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReachUsController</servlet-name>
