@@ -73,8 +73,8 @@
                 <div
                     class="w-100 bg-white text-left mt-0 shadow pe-4 d-flex flex-row py-2 justify-content-end sticky-top">
                     <div class="d-flex flex-column me-3 justify-content-center align-items-end">
-                        <small class="p-0 m-0 font-weight-bold">Puneet</small>
-                        <small class="p-0 m-0">puneetkalsi99@gmail.com</small>
+                        <small class="p-0 m-0 font-weight-bold">Ishjot</small>
+                        <small class="p-0 m-0">ishjot12@gmail.com</small>
                     </div>
                     <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0 "
                         alt="avatar image" height="55" />
@@ -314,19 +314,24 @@
         let removeCurrentBtn = []
         let movieList = []
         let carouselList = []
-        fetch('/MML/getCarouselList')
+        async function onWindowLoad(e){
+            await fetch('/MML/getCarouselList')
                 .then(response => response.json())
                 .then(data => {
-                    carouselList = data
+                    if(data) carouselList = data
                     currentCarouselTable()
-        })
+            })
+        }
+        
+        
+        window.addEventListener('load', onWindowLoad)
         
         async function currentCarouselTable(){
             await fetch('/MML/getMovieDetails?array=' + carouselList)
                     .then(response => response.json())
                     .then(data => {
-                        movieDetails.push(...data)
-                        console.log(movieDetails)
+                        if(data) movieDetails.push(...data)
+                        
                     })
             const html = movieDetails.map(movie => {
                 return `
@@ -345,18 +350,18 @@
             
         }
         
-        function getCarouselList(){
-            fetch('/MML/getCarouselList')
+        async function getCarouselList(){
+            await fetch('/MML/getCarouselList')
                     .then(response => response.json())
                     .then(data => {
-                        carouselList = data
+                        if(data) carouselList = data
             })
         }
         
         
         
-        function displayMatches(){
-            fetch('/MML/search?search=' + this.value)
+        async function displayMatches(){
+            await fetch('/MML/search?search=' + this.value)
                 .then(response => response.json())
                 .then(data => {
                     movieList = []

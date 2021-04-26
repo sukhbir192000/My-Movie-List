@@ -2,6 +2,8 @@ package servlets;
 
 import daos.ApiDao;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +21,14 @@ public class DiscoverController extends HttpServlet {
         put("ot", "/on_the_air");
     }};
     
-    HashMap<String, String> titleString = new HashMap<String, String>() {{
+    HashMap<String, String> movieTitleString = new HashMap<String, String>() {{
         put("tr", "Top Rated Movies");
         put("np", "In Theaters");
         put("cs", "Coming Soon");
+    }};
+    
+    HashMap<String, String> showTitleString = new HashMap<String, String>() {{
+        put("tr", "Top Rated Shows");
         put("at", "Airing Today");
         put("ot", "On TV");
     }};
@@ -35,31 +41,71 @@ public class DiscoverController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ApiDao apidao = new ApiDao();
         
-        String url = "";
+        String url = "", query = "";
         String itemType = request.getRequestURI().substring(request.getContextPath().length()+1);
         if(request.getParameter("q") != null) {
             request.setAttribute("showBar", false);
             
             String itemQuery = request.getParameter("q");
-            request.setAttribute("title", titleString.get(itemQuery));
+            if(itemType.equals("movies")) {
+                request.setAttribute("title", movieTitleString.get(itemQuery));
+            }
+            else {
+                request.setAttribute("title", showTitleString.get(itemQuery));
+            }
             
             url += contentType.get(itemType) + APIroute.get(itemQuery);
             
         }
         else {
             request.setAttribute("showBar", true);
-            request.setAttribute("title", "Popular Movies");
+            if(itemType.equals("movies")) {
+                request.setAttribute("title", "Popular Movies");
+            }
+            else {
+                request.setAttribute("title", "Popular Shows");
+            }
+            
+            JSONArray genreList = apidao.getRequestArray("/genre" + contentType.get(itemType) + "/list", "genres");
+            request.setAttribute("genreList", genreList);
+            
             
             url += "/discover" + contentType.get(itemType);
             
+            
         }
-        ApiDao apidao = new ApiDao();
-        JSONArray resultArray = apidao.getRequestArray(url, "results");
+        Enumeration<String> params = request.getParameterNames();
+        while (params.hasMoreElements()) {
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            if(paramName.equals("with_genres")) {
+                String selectedGenres[] = request.getParameterValues(paramName);
+                paramValue = "";
+                for (String selectedGenre : selectedGenres) {
+                    paramValue += ","+selectedGenre;
+                }
+                paramValue = paramValue.substring(1);
+            }
+            if(!paramName.equals("view") && !paramValue.isEmpty()) {
+                query += "&" + paramName + "=" + paramValue;
+            }
+        }
+        
+        JSONArray resultArray = apidao.getRequestArray(url, "results", query);
         
         request.setAttribute("isMovie", itemType.equals("movies") ? true : false);
         request.setAttribute("resultArray", resultArray);
-        request.getRequestDispatcher("discover.jsp").forward(request, response);
+        
+        if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            PrintWriter out = response.getWriter();
+            out.print(resultArray);
+            out.close();
+        }
+        else {
+            request.getRequestDispatcher("discover.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

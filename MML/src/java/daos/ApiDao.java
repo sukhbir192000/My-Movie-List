@@ -58,10 +58,18 @@ public class ApiDao {
         return null;
     }
     
-    
     public JSONArray getRequestArray(String url_string,String jsonKey) {
+        return getRequestArray(url_string, jsonKey, "");
+    }
+    
+    
+    public JSONArray getRequestArray(String url_string,String jsonKey, String query) {
         try {
-            URL url = new URL(BASE_URL + url_string + "?api_key=" + KEY);
+            String tempURL = BASE_URL + url_string + "?api_key=" + KEY;
+            if(!query.isEmpty()) {
+                tempURL += query;
+            }
+            URL url = new URL(tempURL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
