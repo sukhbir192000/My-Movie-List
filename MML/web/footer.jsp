@@ -35,7 +35,7 @@
                         <a href="/MML/register" class="text-muted">Sign up</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-muted">Reach us</a>
+                        <a href="/MML/contact" class="text-muted">Reach us</a>
                     </li>
                 </ul>
             </div>

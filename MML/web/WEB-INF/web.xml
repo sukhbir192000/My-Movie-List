@@ -140,6 +140,14 @@
         <servlet-name>DeleteReviewController</servlet-name>
         <servlet-class>servlets.DeleteReviewController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReachUsController</servlet-name>
+        <servlet-class>servlets.ReachUsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailRecievedController</servlet-name>
+        <servlet-class>servlets.EmailRecievedController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -281,6 +289,14 @@
     <servlet-mapping>
         <servlet-name>DeleteReviewController</servlet-name>
         <url-pattern>/deleteReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReachUsController</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailRecievedController</servlet-name>
+        <url-pattern>/emailRecieved</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
