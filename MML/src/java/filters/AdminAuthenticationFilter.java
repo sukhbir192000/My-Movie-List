@@ -41,6 +41,7 @@ public class AdminAuthenticationFilter implements Filter {
         
         if(session != null && session.getAttribute("loggedUser") != null) {
             httpResponse.sendRedirect("/MML/home");
+            return;
         }
  
         boolean isLoggedIn = (session != null && session.getAttribute("adminUser") != null);
@@ -54,7 +55,7 @@ public class AdminAuthenticationFilter implements Filter {
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             // the admin is already logged in and he's trying to login again
             // then forwards to the admin's homepage
-            httpResponse.sendRedirect("/superAdmin/stats");
+            httpResponse.sendRedirect("/MML/superAdmin/stats");
  
         } else if (isLoggedIn || isLoginRequest) {
             // continues the filter chain

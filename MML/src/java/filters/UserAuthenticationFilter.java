@@ -115,6 +115,7 @@ public class UserAuthenticationFilter implements Filter {
         }
         if(isAdmin) {
             httpResponse.sendRedirect("/MML/superAdmin/stats");
+            return;
         }
         
         String loginURI = httpRequest.getContextPath() + "/login";
