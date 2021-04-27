@@ -4,6 +4,7 @@
     Author     : Ishjot Singh
 --%>
 
+<%@page import="org.json.simple.JSONObject"%>
 <%-- 
     Document   : superAdmin
     Created on : Apr 24, 2021, 6:08:00 PM
@@ -95,17 +96,56 @@
                                         <h1 class="h1-responsive">Stats</h1>
                                     </div>
                                     <div class="col-12 col-md-6 px-5">
-                                        <div class=" px-2 ">
-                                            <h3 class="h2 text-white pt-3">Users Registered Daily</h3>
+                                        <div class="px-4 py-3 content_color ">
+                                            <h3 class="h3 mb-4 text-white pt-3">Users Registered Daily</h3>
                                             <canvas id="usersDaily"></canvas>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 px-5 ">
-                                        <div class=" px-2">
+                                        <div class=" px-4 py-3 content_color">
 
-                                            <h3 class="h2 text-white pt-3">Users Registered Cumulative</h3>
+                                            <h3 class="h3 mb-4 text-white pt-3">Users Registered Cumulative</h3>
                                             <canvas id="usersTotal"></canvas>
                                         </div>
+                                    </div>
+                                    <%JSONObject stats = (JSONObject) request.getAttribute("stats");%>
+
+
+
+                                </div>
+                                <div class="row mt-5 pt-5">
+                                    <div class="col-12 col-md-6 col-lg-4 px-3">
+                                        <div class="content_color py-3 px-1 text-white fw-bold d-flex flex-row justify-content-around align-items-center">
+                                            <h4 class="h5 m-0 text-white">
+                                                Total Users: <%=stats.get("totalUsers")%>
+                                            </h4>
+                                            <i class="fas fa-users text-white fa-2x"></i>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4 px-3">
+                                        <div class="content_color py-3 px-1 text-white fw-bold d-flex flex-row justify-content-around align-items-center">
+                                            <h4 class="h5 m-0 text-white">
+                                                Total Reviews: <%=stats.get("totalReviews")%>
+
+                                            </h4>
+                                            <i class="fas fa-search text-white fa-2x"></i>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-md-6 col-lg-4 px-3">
+                                        <div class="content_color py-3 px-1 text-white fw-bold d-flex flex-row justify-content-around align-items-center">
+                                            <h4 class="h5 m-0 text-white">
+                                                Users Registered Today: <%=stats.get("usersToday")%>
+
+                                            </h4>
+                                            <i class="fas fa-user text-white fa-2x"></i>
+
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -116,6 +156,7 @@
 
 
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -150,15 +191,20 @@
         <script>
             var usersDaily = document.getElementById("usersDaily").getContext('2d');
             var usersTotal = document.getElementById("usersTotal").getContext('2d');
+            let stats =<%=(JSONObject) request.getAttribute("stats")%>
             var myChart = new Chart(usersDaily, {
                 type: 'line',
                 data: {
-                    labels: ['1', '2', '3'],
+                    labels: stats.usersDaily.map((elm) => {
+                        return elm.date
+                    }),
                     datasets: [{
-                            label: 'Watch Time(min)', // Name the series
-                            data: [1, 2, 3], // Specify the data values array
+                            label: 'Users', // Name the series
+                            data: stats.usersDaily.map((elm) => {
+                                return elm.userCount
+                            }), // Specify the data values array
                             fill: false,
-                            borderColor: 'yellow', // Add custom color border (Line)
+                            borderColor: 'white', // Add custom color border (Line)
                             backgroundColor: 'white', // Add custom color background (Points and Fill)
                             borderWidth: 2, // Specify bar border width
 
@@ -174,10 +220,15 @@
                     },
                     scales: {
                         xAxes: {
-                            grid: {display: false}
+                            grid: {display: false,
+                                borderColor: 'white',
+                                color: 'white'
+                            }
                         },
                         yAxes: {
-                            grid: {display: false}
+                            grid: {display: false,
+                                borderColor: 'white'},
+                            color: 'white'
                         }
                     }
                 }
@@ -185,10 +236,14 @@
             var myChart = new Chart(usersTotal, {
                 type: 'line',
                 data: {
-                    labels: ['1', '2', '3'],
+                    labels: stats.usersCumulative.map((elm) => {
+                        return elm.date
+                    }),
                     datasets: [{
-                            label: 'Watch Time(min)', // Name the series
-                            data: [1, 2, 3], // Specify the data values array
+                            label: 'Users', // Name the series
+                            data: stats.usersCumulative.map((elm) => {
+                                return elm.userCount
+                            }), // Specify the data values array
                             fill: false,
                             borderColor: 'white', // Add custom color border (Line)
                             backgroundColor: 'white', // Add custom color background (Points and Fill)
@@ -202,15 +257,24 @@
                     maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
                     plugins: {
                         legend: {
-                            display: false
+                            display: false,
+                            
                         }
                     },
                     scales: {
                         xAxes: {
-                            grid: {display: false}
+                            grid: {
+                                display: false,
+                                borderColor: 'white',
+                                color: 'white'
+                            }
+                          
+
                         },
                         yAxes: {
-                            grid: {display: false}
+                            grid: {display: false,
+                                borderColor: 'white'},
+                            color: 'white'
                         }
                     }
 
