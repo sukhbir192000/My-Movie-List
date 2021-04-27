@@ -1,11 +1,13 @@
 package servlets;
 
+import daos.SuperAdminStatusDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 public class manageStats extends HttpServlet {
 
@@ -13,10 +15,15 @@ public class manageStats extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         System.out.println("mamaging stats");
-        if(request.getRequestURI().substring(request.getContextPath().length()).equals("/superAdmin")){
+        if (request.getRequestURI().substring(request.getContextPath().length()).equals("/superAdmin")) {
             response.sendRedirect("/MML/superAdmin/stats");
+        } else {
+         
+            SuperAdminStatusDao superAdminDao=new SuperAdminStatusDao();
+            JSONObject statsObject=superAdminDao.getStats();
+            request.setAttribute("stats",statsObject );
+            request.getRequestDispatcher("/manageStats.jsp").forward(request, response);
         }
-        else request.getRequestDispatcher("/manageStats.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
