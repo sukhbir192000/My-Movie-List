@@ -391,8 +391,13 @@
                                             <th scope="col" class="text-center"></th>
                                             <th scope="col" class="text-center">Name</th>
                                             <th scope="col" class="text-center">About</th>
+                                            <%
+                                                if (currentUser.getUserId() == loggedUser.getUserId()){
+                                            %>
                                             <th scope="col" class="text-center">Options</th>
-
+                                            <%
+                                                }
+                                            %>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -409,11 +414,11 @@
                                                 <%
                                                     String friendPic = myFriend.getProfilePic();
 
-                                                    if (friendPic.isEmpty() || profilePic.equals("")) {
+                                                    if (friendPic.isEmpty() || friendPic.equals("")) {
 
 
                                                 %>
-                                                <div style="padding-top:160%;width:100%;background-image:url('images/in.jpg');background-size: cover;"
+                                                <div style="padding-top:160%;width:100%;background:url('images/def_user.svg') center center ;background-size: cover;"
                                                      class="   ">
 
                                                 </div>
@@ -430,8 +435,14 @@
                                             </td>
                                             <td class="align-middle text-center "><a class="text-yellow" href="/MML/profile?id=<%=myFriend.getUserId()%>"><%=myFriend.getUsername()%></a></td>
                                             <td class="align-middle text-center"><%=myFriend.getAbout()%></td>
+                                            <%
+                                                if (currentUser.getUserId() == loggedUser.getUserId()){
+                                            %>
                                             <td class="align-middle text-center"><button
                                                     class="btn btn-small btn-yellow removeFriendButton" id="remove_<%=myFriend.getUserId()%>">Remove Friend</button></td>
+                                            <%
+                                                }
+                                            %>
                                         </tr>
 
                                         <%}%>
@@ -574,10 +585,11 @@
             let myDate1;
             let myDate2;
             let watchTimeDetails =<%=(JSONArray) request.getAttribute("watchTimeDetails")%>
-
+            console.log('hello', watchTimeDetails)
             let j = 0;
             let watchTimeFiltered = [];
             for (let i = 1; i <= (new Date(Date.now())).getDate(); i++) {
+                
                 let month = new Date(watchTimeDetails[j].date).getMonth() + 1;
                 if (new Date(watchTimeDetails[j].date).getDate() > i) {
                     watchTimeFiltered.push({date: i + '-' + month, watch_time: 0});
@@ -585,6 +597,12 @@
                 } else {
                     watchTimeFiltered.push({date: i + '-' + month, watch_time: watchTimeDetails[j].watch_time});
                     j++;
+                    if(j >= watchTimeDetails.length){
+                        for(let k = i+1; k <= (new Date()).getDate(); k++){
+                            watchTimeFiltered.push({date: k + '-' + month, watch_time: 0});
+                        }
+                        break
+                    }
                 }
             }
             console.log(watchTimeFiltered, watchTimeDetails)

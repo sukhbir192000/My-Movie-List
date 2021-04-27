@@ -175,7 +175,7 @@
                                         for (int i = 0; i < pendingList.size(); i++) {
                                             User pendingUser = (User) pendingList.get(i);
                                     %>
-                                    <li><span class="dropdown-item d-flex flex-row align-items-center" href="#"><a class="text-dark" href="/MML/profile?id=<%=pendingUser.getUserId()%>"><%=pendingUser.getUsername()%></a> <span id="user_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark confirmFriend  ms-3 p-0"><i class="fas fa-check m-0 p-0 px-3 py-1 "></i></span>
+                                    <li><span class="dropdown-item d-flex flex-row justify-content-between align-items-center" href="#"><a class="text-dark" href="/MML/profile?id=<%=pendingUser.getUserId()%>"><%=pendingUser.getUsername()%></a> <span id="user_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark confirmFriend  ms-3 p-0"><i class="fas fa-check m-0 p-0 px-3 py-1 "></i></span>
                                         </span></li>
 
                                     <%}%>
