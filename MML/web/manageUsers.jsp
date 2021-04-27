@@ -100,7 +100,6 @@
                                     <th scope="col" class="text-center">User ID</th>
                                     <th scope="col" class="text-center">Username</th>
                                     <th scope="col" class="text-center">Details</th>
-                                    <th scope="col" class="text-center">Remove</th>
                                 </tr>
 
                             </thead>
@@ -147,7 +146,7 @@
         
         let users = []
         async function fetchData(){
-            await fetch('/MML/getDetails?return=users')
+            await fetch('/MML/superAdmin/getDetails?return=users')
                 .then(response => response.json())
                 .then(data => users = data)
             
@@ -216,7 +215,7 @@
                                   </form>  
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" form="changes-${user[0]}" class="btn btn-primary saveChanges">Save changes</button>
+                                  <button type="button" form="changes-${user[0]}" data-mdb-dismiss="modal" class="btn btn-primary saveChanges">Save changes</button>
                                   <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
                                     Close
                                   </button>
@@ -225,32 +224,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="text-center">
-                        <button 
-                            class="btn btn-danger py-1 px-2" 
-                            id = "${user[0]}-user" 
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#${user[1]}-modal-remove"> 
-                        - Remove</button>
-            
-                        <div class="modal fade" id="${user[1]}-modal-remove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <h5 class="modal-header">
-                                        Confirm delete
-                                    </h5>
-                                    <div class="modal-body">
-                                        Are you sure you want to remove the user: <i><strong>${user[1]}</strong></i>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a class="btn btn-danger btn-ok removeUser" data-mdb-dismiss="modal">Delete</a>
-                                        <button type="button" class="btn btn-default" data-mdb-dismiss="modal">Cancel</button>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>        
-                    </td>
+                    
                 </tr>
 
                 `
@@ -284,32 +258,32 @@
             
         }
         
-        function deleteUser(e){
-            index = [].indexOf.call(removeUser, e.target)
-            
-            $.ajax({
-                method: 'POST',
-                url: `/MML/deleteUser?uid=${uid[index]}`,
-                data: {},
-                success: function(data){
-                    const alert = document.getElementById("successUserTable");
-                    alert.classList.add('show');
-                    alert.classList.remove('d-none')
-                    setTimeout(() => {
-                        alert.classList.remove('show');
-                        alert.classList.add('d-none')
-                    }, 2000)
-                    e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
-                }
-            })
-            
-        }
+//        function deleteUser(e){
+//            index = [].indexOf.call(removeUser, e.target)
+//            
+//            $.ajax({
+//                method: 'POST',
+//                url: `/MML/superAdmin/deleteUser?uid=${uid[index]}`,
+//                data: {},
+//                success: function(data){
+//                    const alert = document.getElementById("successUserTable");
+//                    alert.classList.add('show');
+//                    alert.classList.remove('d-none')
+//                    setTimeout(() => {
+//                        alert.classList.remove('show');
+//                        alert.classList.add('d-none')
+//                    }, 2000)
+//                    e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+//                }
+//            })
+//            
+//        }
         
         function changeDetails(e){
             let index = [].indexOf.call(saveChanges, e.target)
             $.ajax({
                 method: 'POST',
-                url: `/MML/detailsUpdated?isSA=true&fname=${fname[index].value}&lname=${lname[index].value}&about=${about[index].value}&uid=${uid[index]}&uname=${uname[index].value}`,
+                url: `/MML/superAdmin/detailsUpdated?isSA=true&fname=${fname[index].value}&lname=${lname[index].value}&about=${about[index].value}&uid=${uid[index]}&uname=${uname[index].value}`,
                 data: {},
                 success: function(data){
                     const alert = document.getElementById("successUserTable");

@@ -216,11 +216,11 @@
         let allMovieReviews = []
         let delBtns = document.querySelectorAll('.removeReview')
          async function getMovieReviews(e){
-             await fetch('/MML/getReviews?type=movie')
+             await fetch('/MML/superAdmin/getReviews?type=movie')
                     .then(response => response.json())
                     .then(data => allMovieReviews = data)
             
-            await fetch('/MML/getReviews?type=shows')
+            await fetch('/MML/superAdmin/getReviews?type=shows')
                     .then(response => response.json())
                     .then(data => allShowReviews = data)
             
@@ -450,7 +450,7 @@
             if(check.innerText == 'Movie Reviews'){
                 $.ajax({
                     method: 'POST',
-                    url: `/MML/deleteReview?review_id=${allMovieReviews[index].id}`,
+                    url: `/MML/superAdmin/deleteReview?review_id=${allMovieReviews[index].id}`,
                     data: {},
                     success: function(data){
                         const alert = document.getElementById("successReview");
@@ -468,7 +468,7 @@
             else{
                 $.ajax({
                     method: 'POST',
-                    url: `/MML/deleteReview?review_id=${allShowReviews[index].id}`,
+                    url: `/MML/superAdmin/deleteReview?review_id=${allShowReviews[index].id}`,
                     data: {},
                     success: function(data){
                         const alert = document.getElementById("successReview");
