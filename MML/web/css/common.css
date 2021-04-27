@@ -11,6 +11,23 @@
     outline: none !important;
 }
 
+#searchResults {
+    z-index: 10;
+    max-height: 20rem;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
+}
+
+#searchResults::-webkit-scrollbar {
+    display: none;
+}
+
+.bg-image.lazy {
+    background-image: none;
+    background-color: #F1F1FA;
+ }
 
 .navbar-username {
     max-width: 7rem;

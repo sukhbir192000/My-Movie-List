@@ -1,7 +1,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="true" %>
 <style>
     .dropstart:hover .dropdown-menu {
         display: block;
@@ -105,18 +105,23 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <form class="d-flex input-group w-auto form-white" id="searchForm" action="/MML/search">
-                <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
-                    <option value="all">All</option>
-                    <option value="movies">Movies</option>
-                    <option value="shows">Shows</option>
-                    <option value="users">Users</option>
-                </select>
-                <input type="search" class="form-control bg-black border-2 border-dark border-start-0 text-white" placeholder="Search..." aria-label="Search" name="query" required />
-                <button class="btn btn-outline-dark text-white" type="submit" data-mdb-ripple-color="dark">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+            <div class="position-relative">
+                <form class="d-flex input-group w-auto form-white" id="searchForm" action="/MML/search">
+                    <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
+                        <option value="all">All</option>
+                        <option value="movies">Movies</option>
+                        <option value="shows">Shows</option>
+                        <option value="users">Users</option>
+                    </select>
+                    <input type="search" class="form-control bg-black border-2 border-dark border-start-0 text-white" placeholder="Search..." aria-label="Search" name="query" required />
+                    <button class="btn btn-outline-dark text-white" type="submit" data-mdb-ripple-color="dark">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div class="bg-white position-absolute top-100 bg-dark text-white d-none w-100" id="searchResults">
+                    <ul class="list-unstyled m-0 w-100"></ul>
+                </div>
+            </div>
             <% if (session.getAttribute("loggedUser") == null) { %>
             <a class="btn btn-outline-white d-lg-inline d-none ms-3" href="/MML/login">Login</a>
             <% } else {%>
@@ -219,3 +224,126 @@
         }
     </script>
 <% }%>
+<script>
+    function handleSearch() {
+        let type = searchType.value
+        let query = searchQuery.value
+        let isMovie = type=="movies" ? true : false
+
+        if(query == "") {
+            resultList.innerHTML = ""
+            return
+        }
+
+        fetch(`/MML/search?type=${type}&query=${query}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultListContainer.scrollTop = 0;
+            resultList.innerHTML = ""
+            data.forEach(item => {
+                if(type=="all") {
+                    let media_type = item.media_type
+                    if(media_type=="movie")
+                        isMovie = true
+                    else if(media_type=="tv") 
+                        isMovie = false
+                    else
+                        return
+                }
+                let hasImage = item.poster_path==null ? false : true
+                resultList.innerHTML += `
+                    <li>
+                        <a href="/MML/${ isMovie ? 'movie' : 'show' }?id=${item.id}" class="text-white">
+                            <div class="card bg-dark text-white" style="border-radius: 0;">
+                                <div class="row g-0">
+                                    <div class="col-md-2">
+                                        <div class="bg-image lazy" style="height:0; padding-top:160%; width:100%; background-image:url('${ hasImage ? 'https://image.tmdb.org/t/p/w92/'+item.poster_path : 'images/default.png'}'); background-size: cover; background-position:center center"></div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${ isMovie ? item.title : item.name }</h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">${ isMovie ? item.release_date : item.first_air_date }</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                `
+            })
+            
+            let lazyloadImages;    
+
+            if ("IntersectionObserver" in window) {
+                lazyloadImages = document.querySelectorAll(".lazy");
+                var imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                    var image = entry.target;
+                    image.src = image.dataset.src;
+                    image.classList.remove("lazy");
+                    imageObserver.unobserve(image);
+                    }
+                });
+                });
+
+                lazyloadImages.forEach(function(image) {
+                imageObserver.observe(image);
+                });
+            } else {  
+                var lazyloadThrottleTimeout;
+                lazyloadImages = document.querySelectorAll(".lazy");
+                
+                function lazyload () {
+                if(lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }    
+
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    var scrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function(img) {
+                        if(img.offsetTop < (window.innerHeight + scrollTop)) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        }
+                    });
+                    if(lazyloadImages.length == 0) { 
+                    document.removeEventListener("scroll", lazyload);
+                    window.removeEventListener("resize", lazyload);
+                    window.removeEventListener("orientationChange", lazyload);
+                    }
+                }, 20);
+                }
+
+                document.addEventListener("scroll", lazyload);
+                window.addEventListener("resize", lazyload);
+                window.addEventListener("orientationChange", lazyload);
+            }
+        })
+    }
+    
+    const searchForm = document.getElementById('searchForm')
+    const searchType = document.getElementById('searchType')
+    const searchQuery = document.querySelector('#searchForm input')
+    const resultListContainer = document.querySelector('#searchResults')
+    const resultList = document.querySelector('#searchResults ul')
+    
+    searchQuery.addEventListener('keyup', handleSearch)
+    searchQuery.addEventListener('change', handleSearch)
+    searchQuery.addEventListener('click', ()=> resultList.innerHTML = "")
+
+
+    searchQuery.addEventListener('focus', (event) => {
+        resultListContainer.classList.remove('d-none')
+    });
+
+    searchQuery.addEventListener('blur', (event) => {
+        resultListContainer.classList.add('d-none')
+    });
+</script>

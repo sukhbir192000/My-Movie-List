@@ -178,6 +178,9 @@
         function handleLoad() {
             loadBtn.classList.add('d-none')
             spinner.classList.remove('d-none')
+            let type = '<%=type%>'
+            let isMovie = type=="movies" ? true : false
+            
             
             fetch(window.location.pathname + (window.location.search!="" ? window.location.search+"&" : "?") + "page=" + ++page, {
                 headers: {
@@ -187,20 +190,29 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(item => {
+                    if(type=="all") {
+                        let media_type = item.media_type
+                        if(media_type=="movie")
+                            isMovie = true
+                        else if(media_type=="tv") 
+                            isMovie = false
+                        else
+                            return
+                    }
                     cardContainer.innerHTML += `
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 content">
-                            <a href="/MML/`+'<%= isMovie ? "movie" : "show" %>'+`?id=${item.id}" class="text-white">
+                            <a href="/MML/${ isMovie ? 'movie' : 'show' }?id=${item.id}" class="text-white">
                                 <div class="card h-100 bg-dark text-white">
                                     <div class="row g-0">
                                         <div class="img-container col-4 col-sm-12">
                                             <img src="https://image.tmdb.org/t/p/w342/${item.poster_path}" class="card-img-top" />
                                         </div>
                                         <div class="card-body bg-dark col-8 col-sm-12 d-flex flex-column justify-content-evenly">
-                                            <h5 class="card-title">`+ item.<%= isMovie ? "title" : "name" %> +`</h5>
+                                            <h5 class="card-title">${ isMovie ? item.title : item.name }</h5>
                                             <p class="card-text line-clamp d-sm-none my-1 card-desc">${item.overview}</p>
-                                            <p class="card-text m-0 text-muted">` +
-                                                item.<%= isMovie ? "release_date" : "first_air_date" %> +
-                                            `</p>
+                                            <p class="card-text m-0 text-muted">
+                                                ${ isMovie ? item.release_date : item.first_air_date }
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
