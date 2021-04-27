@@ -225,10 +225,6 @@
         <url-pattern>/editProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateProfileController</servlet-name>
-        <url-pattern>/detailsUpdated</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/passwordChanged</url-pattern>
     </servlet-mapping>
@@ -254,22 +250,6 @@
         <url-pattern>/LikeDislikeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>updateCarouselSuperAdministratorController</servlet-name>
-        <url-pattern>/carouselUpdate</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DropCarouselSuperAdministratorController</servlet-name>
-        <url-pattern>/carouselDrop</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CarouselListController</servlet-name>
-        <url-pattern>/getCarouselList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetMovieDetails</servlet-name>
-        <url-pattern>/getMovieDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>manageUsers</servlet-name>
         <url-pattern>/superAdmin/manageUsers</url-pattern>
     </servlet-mapping>
@@ -282,22 +262,6 @@
         <url-pattern>/superAdmin/manageReviews</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetDetailsController</servlet-name>
-        <url-pattern>/getDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteUserController</servlet-name>
-        <url-pattern>/deleteUser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetAllReviewsController</servlet-name>
-        <url-pattern>/getReviews</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteReviewController</servlet-name>
-        <url-pattern>/deleteReview</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddFriendController</servlet-name>
         <url-pattern>/AddFriendController</url-pattern>
     </servlet-mapping>
@@ -308,10 +272,6 @@
     <servlet-mapping>
         <servlet-name>EmailRecievedController</servlet-name>
         <url-pattern>/emailRecieved</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchResultController</servlet-name>
-        <url-pattern>/superadmin_search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchController</servlet-name>
@@ -330,6 +290,48 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
         <url-pattern>/superAdmin/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDetailsController</servlet-name>
+        <url-pattern>/superAdmin/getDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/superAdmin/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/detailsUpdated</url-pattern>
+        <url-pattern>/superAdmin/detailsUpdated</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllReviewsController</servlet-name>
+        <url-pattern>/superAdmin/getReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <url-pattern>/superAdmin/deleteReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateCarouselSuperAdministratorController</servlet-name>
+        <url-pattern>/superAdmin/carouselUpdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DropCarouselSuperAdministratorController</servlet-name>
+        <url-pattern>/superAdmin/carouselDrop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarouselListController</servlet-name>
+        <url-pattern>/superAdmin/getCarouselList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMovieDetails</servlet-name>
+        <url-pattern>/getMovieDetails</url-pattern>
+        <url-pattern>/superAdmin/getMovieDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchResultController</servlet-name>
+        <url-pattern>/superAdmin/superadmin_search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

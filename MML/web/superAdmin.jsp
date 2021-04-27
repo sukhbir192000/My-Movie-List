@@ -246,7 +246,7 @@
                         
                         $.ajax({
                             method: 'POST',
-                            url: '/MML/carouselUpdate',
+                            url: '/MML/superAdmin/carouselUpdate',
                             data: {'content_id': btn.id},
                             success: function(data){
                                 getCarouselList();
@@ -267,7 +267,7 @@
                         btn.classList.add('btn-dark')
                         btn.innerText = "+ Add"
                         $.ajax({
-                            url: '/MML/carouselDrop',
+                            url: '/MML/superAdmin/carouselDrop',
                             data: {'content_id': btn.id},
                             success: function(data){
                                 getCarouselList();
@@ -292,7 +292,7 @@
                 btn.addEventListener('click', (e)=>{
                     console.log((btn.id).split('-')[0])
                     $.ajax({
-                        url: '/MML/carouselDrop',
+                        url: '/MML/superAdmin/carouselDrop',
                         data: {'content_id': (btn.id).split('-')[0]},
                         success: function(data){
                             e.target.parentNode.parentNode.remove()
@@ -315,7 +315,7 @@
         let movieList = []
         let carouselList = []
         async function onWindowLoad(e){
-            await fetch('/MML/getCarouselList')
+            await fetch('/MML/superAdmin/getCarouselList')
                 .then(response => response.json())
                 .then(data => {
                     if(data) carouselList = data
@@ -327,7 +327,7 @@
         window.addEventListener('load', onWindowLoad)
         
         async function currentCarouselTable(){
-            await fetch('/MML/getMovieDetails?array=' + carouselList)
+            await fetch('/MML/superAdmin/getMovieDetails?array=' + carouselList)
                     .then(response => response.json())
                     .then(data => {
                         if(data) movieDetails.push(...data)
@@ -351,7 +351,7 @@
         }
         
         async function getCarouselList(){
-            await fetch('/MML/getCarouselList')
+            await fetch('/MML/superAdmin/getCarouselList')
                     .then(response => response.json())
                     .then(data => {
                         if(data) carouselList = data
@@ -361,7 +361,7 @@
         
         
         async function displayMatches(){
-            await fetch('/MML/superadmin_search?search=' + this.value)
+            await fetch('/MML/superAdmin/superadmin_search?search=' + this.value)
                 .then(response => response.json())
                 .then(data => {
                     movieList = []
