@@ -97,14 +97,14 @@
                                     </div>
                                     <div class="col-12 col-md-6 px-5">
                                         <div class="px-4 py-3 content_color ">
-                                            <h3 class="h2 mb-4 text-white pt-3">Users Registered Daily</h3>
+                                            <h3 class="h3 mb-4 text-white pt-3">Users Registered Daily</h3>
                                             <canvas id="usersDaily"></canvas>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 px-5 ">
                                         <div class=" px-4 py-3 content_color">
 
-                                            <h3 class="h2 mb-4 text-white pt-3">Users Registered Cumulative</h3>
+                                            <h3 class="h3 mb-4 text-white pt-3">Users Registered Cumulative</h3>
                                             <canvas id="usersTotal"></canvas>
                                         </div>
                                     </div>

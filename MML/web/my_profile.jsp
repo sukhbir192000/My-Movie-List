@@ -517,7 +517,7 @@
             Chart.Legend.afterEvent = function () {
                 this.width = this.width + 50;
             };
-            var colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
+            var colors = ['#f9c80e', '#f42c04', '#035e7b', '#e5e3e5', '#2e933c', '#6c757d'];
             var donutOptions = {
 
                 plugins: {legend: {display: false, position: 'right', padding: 20, labels: {pointStyle: 'circle', usePointStyle: true, padding: 20, offset: 20}}}
@@ -536,7 +536,7 @@
                 labels: movieArrayKeys,
                 datasets: [
                     {
-                        backgroundColor: colors.slice(0, 3),
+                        backgroundColor: colors.slice(0, 5),
                         borderWidth: 0,
                         data: movieArrayData
                     }
@@ -577,7 +577,7 @@
 
             let j = 0;
             let watchTimeFiltered = [];
-            for (let i = 1; i < (new Date(Date.now())).getDate(); i++) {
+            for (let i = 1; i <= (new Date(Date.now())).getDate(); i++) {
                 let month = new Date(watchTimeDetails[j].date).getMonth() + 1;
                 if (new Date(watchTimeDetails[j].date).getDate() > i) {
                     watchTimeFiltered.push({date: i + '-' + month, watch_time: 0});
@@ -587,7 +587,7 @@
                     j++;
                 }
             }
-
+            console.log(watchTimeFiltered, watchTimeDetails)
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
