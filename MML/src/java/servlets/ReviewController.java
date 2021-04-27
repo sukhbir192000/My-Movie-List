@@ -42,9 +42,12 @@ public class ReviewController extends HttpServlet {
         if(request.getParameter("input-1")!=null&&!request.getParameter("input-1").equals("")){
             rating=Float.parseFloat(request.getParameter("input-1"));
         }
-      
-        System.out.println("rating"+rating);
-        reviewDao.setMovieReview(userId, Long.parseLong(request.getParameter("contentId")), request.getParameter("description"), request.getParameter("title"),rating);
+        
+        if(!Boolean.parseBoolean(request.getParameter("isShow")))
+            reviewDao.setMovieReview(userId, Long.parseLong(request.getParameter("contentId")), request.getParameter("description"), request.getParameter("title"),rating);
+        else
+            reviewDao.setShowReview(userId, Long.parseLong(request.getParameter("contentId")), request.getParameter("description"), request.getParameter("title"),rating);
+
         response.sendRedirect(request.getHeader("referer"));
     }
 

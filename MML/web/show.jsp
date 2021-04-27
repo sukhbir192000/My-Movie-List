@@ -63,7 +63,7 @@
                                     class="col-12 col-sm-7 col-md-9 text-white d-flex flex-column justify-content-center align-items-start pt-3 pt-sm-0">
                                     <div class="row w-100">
                                         <div class="col-12 col-md-10">
-                                            <h3 class="display-5 fw-normal"><%=details.get("title")%></h3>
+                                            <h3 class="display-5 fw-normal"><%=details.get("name")%></h3>
                                             <p class="text-muted mb-0"><%=details.get("tagline")%></p>
                                         </div>
                                         <div class="d-none d-md-block col-md-2 pe-xl-5">
@@ -78,7 +78,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <p class=""><span class="d-block d-md-inline mb-3 mb-md-0"><%=details.get("release_date")%></span>
+                                    <p class=""><span class="d-block d-md-inline mb-3 mb-md-0"><%=details.get("first_air_date")%></span>
                                         <span class="d-block d-md-inline">&#x25CF;<%
                                             JSONArray genreArray = (JSONArray) details.get("genres");
                                             for (int i = 0; i < genreArray.size(); i++) {
@@ -95,6 +95,9 @@
                                                 }
                                             %>
                                         </span>
+                                        <%
+                                            details.put("runtime", (Long)((JSONArray)details.get("episode_run_time")).get(0) * (Long)details.get("number_of_episodes"));
+                                        %>
                                         <span class="d-block d-md-inline">&#x25CF; <%=details.get("runtime")%> minutes</span>
                                     </p>
 
@@ -197,16 +200,16 @@
                                     JSONObject contentItem = (JSONObject) similarMovieArray.get(i);
                             %>
                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 content">
-                                <a href="/MML/movie?id=<%=contentItem.get("id")%>" class="text-white">
+                                <a href="/MML/show?id=<%=contentItem.get("id")%>" class="text-white">
                                     <div class="card h-100 bg-dark text-white">
                                         <div class="row g-0">
                                             <div class="img-container hover-zoom bg-image">
                                                 <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
                                             </div>
                                             <div class="card-body bg-dark">
-                                                <h5 class="card-title"><%=contentItem.get("title")%></h5>
+                                                <h5 class="card-title"><%=contentItem.get("name")%></h5>
                                                 <p class="card-text m-0 text-muted">
-                                                    <%=contentItem.get("release_date")%>
+                                                    <%=contentItem.get("first_air_date")%>
                                                 </p>
                                             </div>
                                         </div>
@@ -278,7 +281,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <form action="/MML/ReviewController" method="POST">
-                                                    <input name="isShow" type="hidden" value="false">
+                                                    <input name="isShow" type="hidden" value="true">
                                                     <input name="contentId" type="hidden" value="<%=request.getParameter("id")%>">
                                                     <div class="mb-3">
                                                         <h5>Your Rating</h5>
@@ -519,7 +522,7 @@
                     listStatus: event.target.innerText,
                     movieId:<%=request.getParameter("id")%>,
                     runtime:<%=details.get("runtime")%>,
-                    isShow: false
+                    isShow: true
                 })
                         .then(data => {
                             console.log(data); // JSON data parsed by `data.json()` call

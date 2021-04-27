@@ -37,7 +37,6 @@ public class LikeDislikeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("reached here");
         try {
             StringBuilder buffer = new StringBuilder();
             BufferedReader reader = request.getReader();

@@ -105,7 +105,7 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <div class="position-relative">
+            <div class="position-relative" id="searchContainer">
                 <form class="d-flex input-group w-auto form-white" id="searchForm" action="/MML/search">
                     <select name="type" id="searchType" class="searchType border border-dark bg-dark text-white rounded-start px-2">
                         <option value="all">All</option>
@@ -118,7 +118,7 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
-                <div class="bg-white position-absolute top-100 bg-dark text-white d-none w-100" id="searchResults">
+                <div class="bg-white position-absolute top-100 bg-dark text-white w-100" id="searchResults">
                     <ul class="list-unstyled m-0 w-100"></ul>
                 </div>
             </div>
@@ -328,6 +328,7 @@
         })
     }
     
+    const searchContainer = document.getElementById('searchContainer')
     const searchForm = document.getElementById('searchForm')
     const searchType = document.getElementById('searchType')
     const searchQuery = document.querySelector('#searchForm input')
@@ -336,14 +337,12 @@
     
     searchQuery.addEventListener('keyup', handleSearch)
     searchQuery.addEventListener('change', handleSearch)
-    searchQuery.addEventListener('click', ()=> resultList.innerHTML = "")
+    searchQuery.addEventListener('click', ()=> {
+        setTimeout(()=>{
+            if(searchQuery.value=="") {
+                resultList.innerHTML = ""
+            }
+        }, 10)
+    })
 
-
-    searchQuery.addEventListener('focus', (event) => {
-        resultListContainer.classList.remove('d-none')
-    });
-
-    searchQuery.addEventListener('blur', (event) => {
-        resultListContainer.classList.add('d-none')
-    });
 </script>

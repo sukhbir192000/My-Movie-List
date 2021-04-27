@@ -5,12 +5,19 @@
  */
 package servlets;
 
+import beans.User;
+import daos.ApiDao;
+import daos.ContentDao;
+import daos.ReviewDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -30,18 +37,34 @@ public class ShowController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ShowController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ShowController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        ApiDao dao = new ApiDao();
+        ReviewDao reviewDao = new ReviewDao();
+        ContentDao statusDao = new ContentDao();
+        User user = (User)(request.getSession().getAttribute("loggedUser"));
+        int userId = -1;
+        String movieStatus = null;
+        JSONArray myReviews = null;
+        if(user!=null) {
+            userId = user.getUserId();
+            movieStatus = statusDao.getShowStatus(userId, Integer.parseInt(request.getParameter("id")));
+            myReviews = reviewDao.getMyShowReviews(userId, Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("status", movieStatus);
+            request.setAttribute("myReviews", myReviews);
         }
+        JSONArray allReviews = reviewDao.getAllShowReviews(userId,Integer.parseInt(request.getParameter("id")));
+        
+        JSONObject movieDetails = dao.getRequestObject("/tv/" + request.getParameter("id"));
+        JSONArray castDetails = dao.getRequestArray("/tv/" + request.getParameter("id") + "/credits", "cast");
+        JSONArray similarDetails = dao.getRequestArray("/tv/" + request.getParameter("id") + "/similar", "results");
+
+        
+        request.setAttribute("details", movieDetails);
+        request.setAttribute("cast", castDetails);
+        request.setAttribute("similar", similarDetails);
+        request.setAttribute("allReviews", allReviews);
+        RequestDispatcher rd = request.getRequestDispatcher("show.jsp");
+        rd.forward(request, response);
     }
     
 

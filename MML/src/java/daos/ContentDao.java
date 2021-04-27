@@ -84,5 +84,68 @@ public class ContentDao implements Dao {
         return false;
 
     }
+    
+    public String getShowStatus(int userId, int contentId) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM status  WHERE user_id = ? AND content_id= ? AND content_type=false");
+
+            ps.setInt(1, userId);
+            ps.setInt(2, contentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("status");
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return "Add to watchlist";
+
+    }
+
+    public boolean setShowStatus(int userId, long contentId, String status,long watchTime) {
+        try {
+            System.out.println("entered content dao, updating");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            PreparedStatement checkStatement = con.prepareStatement("SELECT * FROM status WHERE user_id = ? AND content_id= ? and content_type=false");
+            checkStatement.setInt(1, userId);
+            checkStatement.setLong(2, contentId);
+            ResultSet exists = checkStatement.executeQuery();
+            PreparedStatement ps = null;
+            if (exists.next()) {
+                ps = con.prepareStatement("UPDATE status SET status = ? WHERE user_id = ? AND content_id= ? and content_type=false");
+
+            } else {
+
+                ps = con.prepareStatement("INSERT INTO status (status, user_id, content_id ,content_type) VALUES (?, ?, ?, false)");
+
+            }
+            ps.setString(1, status);
+            if (status.equals("Completed")) {
+                System.out.println("status" + status);
+
+                WatchTimeDao watchTimeDao = new WatchTimeDao();
+                watchTimeDao.setWatchTime(userId, contentId,watchTime);
+            }
+            ps.setInt(2, userId);
+            ps.setLong(3, contentId);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                System.out.println("updated data");
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+
+    }
 
 }
