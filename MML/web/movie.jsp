@@ -63,7 +63,7 @@
                                     class="col-12 col-sm-7 col-md-9 text-white d-flex flex-column justify-content-center align-items-start pt-3 pt-sm-0">
                                     <div class="row w-100">
                                         <div class="col-12 col-md-10">
-                                            <h3 class="display-5 fw-normal"><%=details.get("original_title")%></h3>
+                                            <h3 class="display-5 fw-normal"><%=details.get("title")%></h3>
                                             <p class="text-muted mb-0"><%=details.get("tagline")%></p>
                                         </div>
                                         <div class="d-none d-md-block col-md-2 pe-xl-5">
@@ -319,6 +319,7 @@
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
                                             <div class="row gx-2 flex-grow-1 w-auto">
                                                 <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
+                                                    <a href="/MML/profile?id=<%=myReview.get("user_id")%>">
                                                     <%
                                                         String profilePic = (String) (myReview.get("profilePic"));
                                                         if (profilePic.isEmpty()) {%>
@@ -329,7 +330,7 @@
                                                     <div style="background:url('data:image/jpg;base64, <%=myReview.get("profilePic")%>') center center;background-size:cover;padding-top:100%;width:100%;"
                                                          alt="" class="w-100 rounded-circle"></div>
                                                     <%}%>
-
+                                                    </a>
 
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
@@ -406,6 +407,7 @@
                                         <div class="card-header d-flex flex-row justify-content-between align-items-center">
                                             <div class="row gx-2 flex-grow-1 w-auto">
                                                 <div class="col-2 col-sm-1 pe-xl-4 d-flex flex-column justify-content-center">
+                                                    <a href="/MML/profile?id=<%=myReview.get("user_id")%>">
                                                     <%
                                                         String profilePic = (String) (myReview.get("profilePic"));
                                                         if (profilePic.isEmpty()) {%>
@@ -416,10 +418,13 @@
                                                     <div style="background:url('data:image/jpg;base64, <%=myReview.get("profilePic")%>') center center;background-size:cover;padding-top:100%;width:100%;"
                                                          alt="" class="w-100 rounded-circle"></div>
                                                     <%}%>
+                                                    </a>
                                                 </div>
                                                 <div class="col-10 col-sm-11 d-flex flex-column justify-content-center w-auto">
                                                     <div class="d-block d-sm-flex flex-row justify-content-start align-items-end">
-                                                        <h4 class="my-0 d-inline-block"><%=myReview.get("username")%></h4><br>
+                                                        <a href="/MML/profile?id=<%=myReview.get("user_id")%>">
+                                                            <h4 class="my-0 d-inline-block text-white"><%=myReview.get("username")%></h4>
+                                                        </a><br>
                                                         <span class="text-muted mx-sm-2"><%=myReview.get("date")%></span>
                                                     </div>
                                                     <div>
