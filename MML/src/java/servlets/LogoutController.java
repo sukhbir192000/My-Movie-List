@@ -19,6 +19,7 @@ public class LogoutController extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.removeAttribute("loggedUser");
+        session.removeAttribute("adminUser");
         session.invalidate();
 
         Cookie[] cookies = request.getCookies();

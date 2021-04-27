@@ -43,7 +43,11 @@ public class LoginController extends HttpServlet {
         User user = dao.validate(uname, pass);
         if (user != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("loggedUser", user);
+            if(user.getRole() == 0)
+                session.setAttribute("loggedUser", user);
+            else{
+                session.setAttribute("adminUser", user);
+            }
 
             if (rememberMe) {
                 UserAuthDao authDao = new UserAuthDao();
@@ -80,7 +84,7 @@ public class LoginController extends HttpServlet {
                 response.addCookie(cookieValidator);
             }
             
-            System.out.println(redirect);
+            
             if(redirect != null && !redirect.equals("null")) {
                 response.sendRedirect(redirect);
             }

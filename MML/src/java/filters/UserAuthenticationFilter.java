@@ -36,18 +36,14 @@ public class UserAuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
 
-        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
-
-        if (path.startsWith("/admin/")) {
-            chain.doFilter(request, response);
-            return;
-        }
+        
 
         boolean loggedIn = (session != null) && (session.getAttribute("loggedUser") != null);
+        boolean isAdmin = (session != null) && (session.getAttribute("adminUser") != null);
 
         Cookie[] cookies = httpRequest.getCookies();
 
-        if (!loggedIn && cookies != null) {
+        if (!loggedIn && !isAdmin && cookies != null) {
             // process auto login for remember me feature
             String selector = "";
             String rawValidator = "";
@@ -70,8 +66,14 @@ public class UserAuthenticationFilter implements Filter {
 
                     if (hashedValidatorCookie.equals(hashedValidatorDatabase)) {
                         session = httpRequest.getSession();
-                        session.setAttribute("loggedUser", token.getUser());
-                        loggedIn = true;
+                        if(token.getUser().getRole() == 0) {
+                            session.setAttribute("loggedUser", token.getUser());
+                            loggedIn = true;
+                        }
+                        else {
+                            session.setAttribute("adminUser", token.getUser());
+                            isAdmin = true;
+                        }
 
                         // update new token in database
                         boolean created = false;
@@ -104,21 +106,31 @@ public class UserAuthenticationFilter implements Filter {
             }
 
         }
+        
+        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
+        if (path.startsWith("/superAdmin/")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        if(isAdmin) {
+            httpResponse.sendRedirect("/MML/superAdmin/stats");
+        }
+        
         String loginURI = httpRequest.getContextPath() + "/login";
-        boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
-        boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
+        String registerURI = httpRequest.getContextPath() + "/register";
+        boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI) || httpRequest.getRequestURI().equals(registerURI);
+        boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp") || httpRequest.getRequestURI().endsWith("register.jsp");
         
         if (loggedIn && (isLoginRequest || isLoginPage)) {
             // the user is already logged in and he's trying to login again
             // then forward to the homepage
-            System.out.println("I'm here");
-            httpResponse.sendRedirect("/home");
+            httpResponse.sendRedirect("/MML/home");
 
         } else if (!loggedIn && isLoginRequired()) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            httpResponse.sendRedirect("/login");
+            httpResponse.sendRedirect("/MML/login");
         } else {
             // for other requested pages that do not require authentication
             // or the user is already logged in, continue to the destination

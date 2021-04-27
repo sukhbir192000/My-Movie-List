@@ -44,14 +44,14 @@
                         if (profilePic.isEmpty()) {
                     %>
 
-                    <i id="default-profile-pic" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                    <div id="change-profile-pic" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
+                    <i id="default-profile-pic-sm" class="fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                    <div id="change-profile-pic-sm" class="d-none" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em;">
                     </div>
 
                     <% } else {%>
 
-                    <i id="default-profile-pic" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
-                    <div id="change-profile-pic" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
+                    <i id="default-profile-pic-sm" class="d-none fas fa-user-circle fa-lg" style="font-size: 35px"></i>
+                    <div id="change-profile-pic-sm" style="height: 0;border-radius: 100px; width: 2em; padding-top: 2em; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;">
                     </div>
                     <% }%>
                 </a>
