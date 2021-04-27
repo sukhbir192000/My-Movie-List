@@ -82,7 +82,7 @@
                 %>
                 <div class="row position-relative p-0 m-0">
                     <div class="min-vh-25 bg-danger d-flex flex-column justify-content-end"
-                         style="background:url('images/in-back.jpg');background-size: cover;">
+                         style="background:url('data:image/jpg;base64, <%=currentUser.getBannerPic()%>') center center;background-size: cover;">
                         <div class="row blur-bg p-0 h-100 h-md-auto">
 
 
@@ -94,7 +94,7 @@
                                     String profilePic = user.getProfilePic();
                                     if (profilePic.isEmpty()) {
                                 %>
-                                <div style="height:0;padding-top:40%;width:40%;background-image:url('images/in.jpg');background-size: cover;"
+                                <div style="height:0;padding-top:40%;width:40%;background-image:url('images/def_user.svg');background-size: cover;"
                                      class=" d-block d-md-none mt-3 rounded-circle">
 
                                 </div>
@@ -153,7 +153,7 @@
                                 if (profilePic.isEmpty()) {
                             %>
 
-                            <img src="images/in.jpg" class="col-6 col-md-12 ">
+                            <img src="images/def_user.svg" class="col-6 col-md-12 ">
                             <% } else {%>
 
                             <div style="height:0px;padding-top:150%;width:100%; background: url('data:image/jpg;base64, <%=profilePic%>') center center; background-size: cover;;"    >
