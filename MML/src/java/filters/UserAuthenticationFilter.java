@@ -109,7 +109,7 @@ public class UserAuthenticationFilter implements Filter {
         
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
-        if (path.startsWith("/superAdmin/")) {
+        if (path.startsWith("/superAdmin")) {
             chain.doFilter(request, response);
             return;
         }

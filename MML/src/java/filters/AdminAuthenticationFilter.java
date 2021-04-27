@@ -51,6 +51,7 @@ public class AdminAuthenticationFilter implements Filter {
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
  
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
+        System.out.println(httpRequest.getRequestURI());
  
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             // the admin is already logged in and he's trying to login again
