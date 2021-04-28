@@ -442,7 +442,7 @@
                                                         %>
                                                         <i class="fas fa-star-half-alt text-yellow"></i>
                                                         <%
-                                                        } else {%>
+                                                        } else if (Float.parseFloat((String) myReview.get("rating")) != 5) {%>
                                                         <i class="far fa-star text-yellow"></i>
 
                                                         <%}
@@ -456,7 +456,6 @@
                                                             }
 
                                                         %>
-
 
                                                     </div>
                                                 </div>
