@@ -231,10 +231,9 @@
         let isMovie = type=="movies" ? true : false
 
         if(query == "") {
-            resultList.innerHTML = ""
+            resultListContainer.classList.remove('show')
             return
         }
-
         fetch(`/MML/search?type=${type}&query=${query}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
@@ -277,7 +276,7 @@
                     </li>
                 `
             })
-            
+            resultListContainer.classList.add('show')
             let lazyloadImages;    
 
             if ("IntersectionObserver" in window) {
@@ -340,9 +339,13 @@
     searchQuery.addEventListener('click', ()=> {
         setTimeout(()=>{
             if(searchQuery.value=="") {
-                resultList.innerHTML = ""
+                resultListContainer.classList.remove('show')
             }
         }, 10)
+    })
+    resultListContainer.addEventListener('transitionend', () => {
+        if(resultListContainer.classList.contains('show')) return
+        resultList.innerHTML = ""
     })
 
 </script>

@@ -125,7 +125,7 @@
                                                                 <%
                                                                     if (((String)userItem.get("profile_pic")).isEmpty()) {
                                                                 %>
-                                                                    <div style="height:0px;padding-top:150%;width:100%; background: url('images/in.jpg') center center; background-size: cover;">
+                                                                    <div style="height:0px;padding-top:150%;width:100%; background: url('images/def_user.svg') no-repeat center center;">
                                                                     </div>
                                                                 <% } else {%>
 

@@ -13,11 +13,16 @@
 
 #searchResults {
     z-index: 10;
-    max-height: 20rem;
+    max-height: 0rem;
     overflow: auto;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     scroll-behavior: smooth;
+    transition: all 0.3s;
+}
+
+#searchResults.show {
+    max-height: 20rem;
 }
 
 #searchResults::-webkit-scrollbar {
