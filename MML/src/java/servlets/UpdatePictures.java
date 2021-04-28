@@ -51,7 +51,7 @@ public class UpdatePictures extends HttpServlet {
             // Sending response
             HashMap<String, String> responseMap = new HashMap<String, String>();
             responseMap.put("changeProfilePic", user.getProfilePic());
-            
+            responseMap.put("isBanner", "false");
             responseMap.put("isEmpty", user.getProfilePic().isEmpty() ? "true" : "false");
             JSONObject responseObject = new JSONObject(responseMap);
             PrintWriter out = response.getWriter();
@@ -66,6 +66,12 @@ public class UpdatePictures extends HttpServlet {
             Blob image = userDao.retrieveImage(user.getUserId(), "banner_pic");
             imageDao im = new imageDao();
             user.setBannerPic(im.convertToBase64(image));
+            
+            HashMap<String, String> responseMap = new HashMap<String, String>();
+            responseMap.put("isBanner", "true");
+            JSONObject responseObject = new JSONObject(responseMap);
+            PrintWriter out = response.getWriter();
+            out.print(responseObject);
         }
     }
 

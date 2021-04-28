@@ -327,23 +327,26 @@
                 success: function (data) {
                     console.log(data)
                     data = (JSON.parse(data))
-                    let updatedImage = data.changeProfilePic
-                    let isEmpty = data.isEmpty
-                    if(isEmpty == "true"){
-                        defaultProfilePic.classList.remove('d-none')
-                        navbarProfilePic.classList.add('d-none')
-                        defaultProfilePicSm.classList.remove('d-none')
-                        navbarProfilePicSm.classList.add('d-none')
-                    }
-                    else{
-                        defaultProfilePic.classList.add('d-none')
-                        navbarProfilePic.classList.remove('d-none')
-                        navbarProfilePic.style.background = "url('data:image/jpg;base64,"+ updatedImage +"') center center"
-                        navbarProfilePic.style.backgroundSize = "cover"
-                        defaultProfilePicSm.classList.add('d-none')
-                        navbarProfilePicSm.classList.remove('d-none')
-                        navbarProfilePicSm.style.background = "url('data:image/jpg;base64,"+ updatedImage +"') center center"
-                        navbarProfilePicSm.style.backgroundSize = "cover"
+                    let isBanner = data.isBanner
+                    if(isBanner == 'false'){
+                        let updatedImage = data.changeProfilePic
+                        let isEmpty = data.isEmpty
+                        if(isEmpty == "true"){
+                            defaultProfilePic.classList.remove('d-none')
+                            navbarProfilePic.classList.add('d-none')
+                            defaultProfilePicSm.classList.remove('d-none')
+                            navbarProfilePicSm.classList.add('d-none')
+                        }
+                        else{
+                            defaultProfilePic.classList.add('d-none')
+                            navbarProfilePic.classList.remove('d-none')
+                            navbarProfilePic.style.background = "url('data:image/jpg;base64,"+ updatedImage +"') center center"
+                            navbarProfilePic.style.backgroundSize = "cover"
+                            defaultProfilePicSm.classList.add('d-none')
+                            navbarProfilePicSm.classList.remove('d-none')
+                            navbarProfilePicSm.style.background = "url('data:image/jpg;base64,"+ updatedImage +"') center center"
+                            navbarProfilePicSm.style.backgroundSize = "cover"
+                        }
                     }
                     const alert = document.getElementById("successImage");
                     alert.classList.add('show');
