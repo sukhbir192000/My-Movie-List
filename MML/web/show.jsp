@@ -45,7 +45,11 @@
                             <div class="row py-2 py-sm-5 px-2 px-sm-0">
                                 <div class="col-12 col-sm-5 col-md-3 ">
                                     <div class="position-relative">
-                                        <img src="https://image.tmdb.org/t/p/w500/<%=details.get("poster_path")%>" alt="poster" class="w-100 shadow-2-strong">
+                                        <% if(details.get("poster_path")!=null) { %>
+                                            <img src="https://image.tmdb.org/t/p/w500/<%=details.get("poster_path")%>" alt="poster" class="w-100 shadow-2-strong">
+                                        <% } else { %>
+                                            <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                        <% } %>
                                         <div class="w-25 position-absolute end-0 bottom-0 d-block d-md-none m-1">
                                             <svg id="animated-small" viewbox="0 0 100 100">
                                             <circle cx="50" cy="50" r="45" fill="rgba(0,0,0,0.8)" />
@@ -141,6 +145,10 @@
                 </div>
 
                 <div class="container-lg px-3 my-5">
+                    <%
+                        JSONArray castArray = (JSONArray) request.getAttribute("cast");
+                        if(castArray.size()>0) {
+                    %>
                     <h2 class="mt-5 text-yellow fw-bold ps-2">Cast</h2>
 
                     <div id="cast-carousel" class="custom-carousel position-relative">
@@ -153,7 +161,7 @@
                             <i class="fas fa-chevron-right fs-4"></i>
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
-                            <%for (int i = 0; i < ((JSONArray) request.getAttribute("cast")).size(); i++) {
+                            <%for (int i = 0; i < castArray.size(); i++) {
                                     JSONObject castItem = (JSONObject) ((JSONArray) request.getAttribute("cast")).get(i);
                             %>
                             <div class="col-xl-2 col-md-3 col-sm-4 col-6">
@@ -180,8 +188,14 @@
 
                         </div>
                     </div>
+                    <%
+                        }
+                    %>
 
-
+                    <%
+                        JSONArray similarMovieArray = (JSONArray) request.getAttribute("similar");
+                        if(similarMovieArray.size()>0) {
+                    %>
                     <h2 class="mt-5 text-yellow fw-bold ps-2">More like this</h2>
 
                     <div class="custom-carousel position-relative">
@@ -195,7 +209,6 @@
                         </button>
                         <div class="custom-carousel-container d-flex flex-row">
                             <%
-                                JSONArray similarMovieArray = (JSONArray) request.getAttribute("similar");
                                 for (int i = 0; i < similarMovieArray.size(); i++) {
                                     JSONObject contentItem = (JSONObject) similarMovieArray.get(i);
                             %>
@@ -204,7 +217,11 @@
                                     <div class="card h-100 bg-dark text-white">
                                         <div class="row g-0">
                                             <div class="img-container hover-zoom bg-image">
-                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                <% if(contentItem.get("poster_path")!=null) { %>
+                                                    <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                <% } else { %>
+                                                    <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                <% } %>
                                             </div>
                                             <div class="card-body bg-dark">
                                                 <h5 class="card-title"><%=contentItem.get("name")%></h5>
@@ -221,6 +238,9 @@
                             %>
                         </div>
                     </div>
+                    <%
+                        }
+                    %>
                 </div>
 
                 <div id="social-section" class="container-lg px-3 my-5">

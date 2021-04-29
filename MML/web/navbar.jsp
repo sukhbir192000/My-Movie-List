@@ -260,7 +260,7 @@
                             <div class="card bg-dark text-white" style="border-radius: 0;">
                                 <div class="row g-0">
                                     <div class="col-md-2">
-                                        <div class="bg-image lazy" style="height:0; padding-top:160%; width:100%; background-image:url('${ hasImage ? 'https://image.tmdb.org/t/p/w92/'+item.poster_path : 'images/default.png'}'); background-size: cover; background-position:center center"></div>
+                                        <div class="bg-image lazy" style="height:0; padding-top:160%; width:100%; background-image:url('${ hasImage ? 'https://image.tmdb.org/t/p/w92/'+item.poster_path : 'images/default.png'}'); background-position:center center"></div>
                                     </div>
                                     <div class="col-md-10">
                                         <div class="card-body">

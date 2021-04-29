@@ -54,7 +54,7 @@ import org.json.simple.JSONObject;
              Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement ps = con.prepareStatement("SELECT * FROM review WHERE content_type = ?");
              
-             ps.setInt(1, content_type);
+             ps.setBoolean(1, content_type==1 ? true : false);
              ResultSet rs = ps.executeQuery();
              
              JSONArray allReviews = new JSONArray();

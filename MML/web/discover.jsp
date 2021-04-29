@@ -133,8 +133,8 @@
                                                     <% 
                                                         JSONArray genreList = (JSONArray) request.getAttribute("genreList");
                                                         String selectedGenres[] = request.getParameterValues("with_genres");
-                                                        ArrayList<String> selected = new ArrayList<String>();
-                                                        if(selectedGenres != null) selected = new ArrayList<String>(Arrays.asList(selectedGenres));
+                                                        ArrayList<String> selected = new ArrayList<>();
+                                                        if(selectedGenres != null) selected = new ArrayList<>(Arrays.asList(selectedGenres));
                                                         for (int i = 0; i < genreList.size(); i++) {
                                                             JSONObject genreItem = (JSONObject) genreList.get(i);
                                                             boolean isSelected = selected.contains(genreItem.get("id").toString());
@@ -230,7 +230,11 @@
                                 <div class="card h-100 bg-dark text-white">
                                     <div class="row g-0">
                                         <div class="img-container col-4 col-sm-12">
-                                            <img src="https://image.tmdb.org/t/p/w342/${item.poster_path}" class="card-img-top" />
+                                            ${item.poster_path ? 
+                                                    `<div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/${item.poster_path}') no-repeat center center; background-size: cover;"></div>`
+                                                :
+                                                    `<div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>`
+                                            }
                                         </div>
                                         <div class="card-body bg-dark col-8 col-sm-12 d-flex flex-column justify-content-evenly">
                                             <h5 class="card-title">`+ item.<%= isMovie ? "title" : "name" %> +`</h5>

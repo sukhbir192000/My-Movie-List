@@ -322,8 +322,13 @@
                                                             JSONObject listItem = (JSONObject) finalList.get(j);%>
 
                                                 <tr>
-                                                    <th scope="row" class="align-middle text-center"><img class="table-img"
-                                                                                                          src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
+                                                    <th scope="row" class="align-middle text-center">
+                                                        <% if(listItem.get("poster_path")!=null) { %>
+                                                            <img class="table-img" src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>">
+                                                        <% } else { %>
+                                                            <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center; background-size: contain;"></div>
+                                                        <% } %>
+                                                    </th>
                                                     <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
                                                     <td class="align-middle text-center"><%=listItem.get("tagline")%></td>
                                                     <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>
@@ -365,8 +370,13 @@
                                                             JSONObject listItem = (JSONObject) finalList.get(j);%>
 
                                                     <tr>
-                                                        <th scope="row" class="align-middle"><img class="table-img"
-                                                                                                  src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>"></th>
+                                                        <th scope="row" class="align-middle">
+                                                            <% if(listItem.get("poster_path")!=null) { %>
+                                                                <img class="table-img" src="https://image.tmdb.org/t/p/w154/<%=listItem.get("poster_path")%>">
+                                                            <% } else { %>
+                                                                <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center; background-size: contain;"></div>
+                                                            <% } %>
+                                                        </th>
                                                         <td class="align-middle text-yellow text-center"><a class="text-yellow" href="/MML/movie?id=<%=listItem.get("id")%>"><%=listItem.get("title")%></a></td>
                                                         <td class="align-middle text-center "><%=listItem.get("tagline")%></td>
                                                         <td class="align-middle text-center"><%=listItem.get("vote_average")%>/10</td>

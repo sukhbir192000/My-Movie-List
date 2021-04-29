@@ -49,7 +49,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-2 col-md-3 offset-1 position-absolute bottom-0 d-none d-md-block me-0 pe-0">
-                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="w-100 ps-3">
+                                                <% if(contentItem.get("poster_path")!=null) { %>
+                                                    <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="w-100 ps-3">
+                                                <% } else { %>
+                                                    <div class="ps-3" style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                <% } %>
+                                                
                                             </div>
                                             <div class="mt-n10 pt-5 col-12 px-4 px-md-0 back-grad">
                                                 <div class="row">
@@ -148,7 +153,11 @@
                                                     <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
                                                             <div class="img-container hover-zoom bg-image">
-                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                                <% if(contentItem.get("poster_path")!=null) { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                                <% } else { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                                <% } %>
                                                             </div>
                                                             <div class="card-body bg-dark">
                                                                 <h5 class="card-title"><%=contentItem.get("title")%></h5>
@@ -188,7 +197,11 @@
                                                     <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
                                                                 <div class="img-container hover-zoom bg-image">
-                                                                    <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                                    <% if(contentItem.get("poster_path")!=null) { %>
+                                                                        <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                                    <% } else { %>
+                                                                        <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                                    <% } %>
                                                                 </div>
                                                             <div class="card-body bg-dark">
                                                                     <h5 class="card-title"><%=contentItem.get("name")%></h5>
@@ -252,7 +265,11 @@
                                                     <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
                                                             <div class="img-container hover-zoom bg-image">
-                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                                <% if(contentItem.get("poster_path")!=null) { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                                <% } else { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                                <% } %>
                                                             </div>
                                                             <div class="card-body bg-dark">
                                                                 <h5 class="card-title"><%=contentItem.get("title")%></h5>
@@ -292,7 +309,11 @@
                                                     <div class="card h-100 bg-dark text-white">
                                                         <div class="row g-0">
                                                             <div class="img-container hover-zoom bg-image">
-                                                                <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                                <% if(contentItem.get("poster_path")!=null) { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                                <% } else { %>
+                                                                    <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                                <% } %>
                                                             </div>
                                                             <div class="card-body bg-dark">
                                                                     <h5 class="card-title"><%=contentItem.get("name")%></h5>
@@ -336,7 +357,11 @@
                                             <div class="card h-100 bg-dark text-white">
                                                 <div class="row g-0">
                                                     <div class="img-container hover-zoom bg-image">
-                                                        <img src="https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>" class="card-img-top" />
+                                                        <% if(contentItem.get("poster_path")!=null) { %>
+                                                            <div style="height:0; padding-top:160%; width:100%; background:url('https://image.tmdb.org/t/p/w342/<%=contentItem.get("poster_path")%>') no-repeat center center; background-size: cover;"></div>
+                                                        <% } else { %>
+                                                            <div style="height:0; padding-top:160%; width:100%; background:#777 url('images/default.png') no-repeat center center;"></div>
+                                                        <% } %>
                                                     </div>
                                                     <div class="card-body bg-dark">
                                                         <h5 class="card-title"><%=contentItem.get("title")%></h5>
