@@ -89,8 +89,8 @@
 
                             <div
                                 class="col offset-0 offset-md-4 offset-xl-3 d-flex flex-column justify-content-end align-items-center align-items-md-start  justify-content-md-center justify-content-lg-end">
-                                <!--hi-->
-                                <%                                    User user = (User) (request.getAttribute("currentUser"));
+                                <%
+                                    User user = (User) (request.getAttribute("currentUser"));
                                     String profilePic = user.getProfilePic();
                                     if (profilePic.isEmpty()) {
                                 %>
