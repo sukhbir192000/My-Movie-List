@@ -250,10 +250,6 @@
         <url-pattern>/shows</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LikeDislikeController</servlet-name>
-        <url-pattern>/LikeDislikeController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>manageUsers</servlet-name>
         <url-pattern>/superAdmin/manageUsers</url-pattern>
     </servlet-mapping>
