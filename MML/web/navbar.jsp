@@ -175,7 +175,7 @@
                                         for (int i = 0; i < pendingList.size(); i++) {
                                             User pendingUser = (User) pendingList.get(i);
                                     %>
-                                    <li><span class="dropdown-item d-flex flex-row justify-content-between align-items-center" href="#"><a class="text-dark" href="/MML/profile?id=<%=pendingUser.getUserId()%>"><%=pendingUser.getUsername()%></a> <span id="user_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark confirmFriend  ms-3 p-0"><i class="fas fa-check m-0 p-0 px-3 py-1 "></i></span>
+                                    <li><span class="dropdown-item d-flex flex-row justify-content-between align-items-center" href="#"><a class="text-dark" href="/MML/profile?id=<%=pendingUser.getUserId()%>"><%=pendingUser.getUsername()%></a><div class="d-flex flex-row"><span id="user_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark confirmFriend  ms-3 p-0"><i class="fas fa-check m-0 p-0 px-3 py-1 "></i></span><span id="removeUser_<%=pendingUser.getUserId()%>" class="btn btn-outline-dark rejectFriend  ms-3 p-0"><i class="fas fa-times m-0 p-0 px-3 py-1 "></i></span></div>
                                         </span></li>
 
                                     <%}%>
@@ -219,9 +219,37 @@
             }).then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        currentTarget.parentNode.remove();
+                        currentTarget.parentNode.parentNode.remove();
                     })
         }
+        let rejectFriendButtonsNavbar = document.querySelectorAll(".rejectFriend");
+        console.log("adding event listerner to remove", rejectFriendButtonsNavbar);
+        if (rejectFriendButtonsNavbar.length > 0) {
+            rejectFriendButtonsNavbar.forEach((elm) => {
+                elm.addEventListener('click', removeFriendNavBar);
+            })
+        }
+        function removeFriendNavBar(e) {
+            let currentTarget = e.currentTarget;
+            console.log("hi", currentTarget.id);
+            let friendNavId = currentTarget.id;
+            friendNavId = friendNavId.split('_');
+            friendNavId = friendNavId[1];
+    //        console.log("id", friendNavId);
+            fetch("/MML/rejectFriendController", {
+                method: "POST",
+                body: JSON.stringify({
+                    userId: <%=((User)(request.getSession()).getAttribute("loggedUser")).getUserId()%>,
+                    visitorId: parseInt(friendNavId),
+
+                })
+            }).then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        currentTarget.parentNode.parentNode.remove();
+                    })
+        }
+        
     </script>
 <% }%>
 <script>

@@ -168,6 +168,10 @@
         <servlet-name>RemoveFriendController</servlet-name>
         <servlet-class>servlets.RemoveFriendController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>rejectFriendController</servlet-name>
+        <servlet-class>servlets.rejectFriendController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -244,10 +248,6 @@
         <servlet-name>DiscoverController</servlet-name>
         <url-pattern>/movies</url-pattern>
         <url-pattern>/shows</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LikeDislikeController</servlet-name>
-        <url-pattern>/LikeDislikeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>manageUsers</servlet-name>
@@ -332,6 +332,10 @@
     <servlet-mapping>
         <servlet-name>SearchResultController</servlet-name>
         <url-pattern>/superAdmin/superadmin_search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rejectFriendController</servlet-name>
+        <url-pattern>/rejectFriendController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
