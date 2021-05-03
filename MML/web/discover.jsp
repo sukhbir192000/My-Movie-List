@@ -133,8 +133,8 @@
                                                     <% 
                                                         JSONArray genreList = (JSONArray) request.getAttribute("genreList");
                                                         String selectedGenres[] = request.getParameterValues("with_genres");
-                                                        ArrayList<String> selected = new ArrayList<>();
-                                                        if(selectedGenres != null) selected = new ArrayList<>(Arrays.asList(selectedGenres));
+                                                        ArrayList<String> selected = new ArrayList<String>();
+                                                        if(selectedGenres != null) selected = new ArrayList<String>(Arrays.asList(selectedGenres));
                                                         for (int i = 0; i < genreList.size(); i++) {
                                                             JSONObject genreItem = (JSONObject) genreList.get(i);
                                                             boolean isSelected = selected.contains(genreItem.get("id").toString());

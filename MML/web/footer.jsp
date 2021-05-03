@@ -47,16 +47,16 @@
 
                 <ul class="list-unstyled" style="font-size: 14px;">
                     <li>
-                        <a href="#!" class="text-muted">Popular</a>
+                        <a href="/MML/movies" class="text-muted">Popular</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-muted">Trending</a>
+                        <a href="/MML/movies?q=tr" class="text-muted">Top Rated</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-muted">Upcoming</a>
+                        <a href="/MML/movies?q=cs" class="text-muted">Upcoming</a>
                     </li>
                     <li>
-                        <a href="#!" class="text-muted">Search</a>
+                        <a href="/MML/movies?q=np" class="text-muted">In Theaters</a>
                     </li>
                 </ul>
             </div>
