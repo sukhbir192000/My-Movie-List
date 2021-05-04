@@ -291,8 +291,8 @@
                                         <div class="bg-image lazy" style="height:0; padding-top:160%; width:100%; background-image:url('${ hasImage ? 'https://image.tmdb.org/t/p/w92/'+item.poster_path : 'images/default.png'}'); background-position:center center"></div>
                                     </div>
                                     <div class="col-md-10">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${ isMovie ? item.title : item.name }</h5>
+                                        <div class="card-body py-2">
+                                            <h5 class="card-title m-0">${ isMovie ? item.title : item.name }</h5>
                                             <p class="card-text">
                                                 <small class="text-muted">${ isMovie ? item.release_date : item.first_air_date }</small>
                                             </p>

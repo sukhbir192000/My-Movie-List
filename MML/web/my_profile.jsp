@@ -82,7 +82,7 @@
                 %>
                 <div class="row position-relative p-0 m-0">
                     <div class="min-vh-25 bg-danger d-flex flex-column justify-content-end"
-                         style="background:url('data:image/jpg;base64, <%=currentUser.getBannerPic()%>') center center;background-size: cover;">
+                         <% if(!currentUser.getBannerPic().isEmpty()){%> style="background:url('data:image/jpg;base64, <%=currentUser.getBannerPic()%>') center center;background-size: cover;" <%}%>>
                         <div class="row blur-bg p-0 h-100 h-md-auto">
 
 

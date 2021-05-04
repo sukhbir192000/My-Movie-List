@@ -33,12 +33,15 @@
             <div>
                 <jsp:include page="navbar.jsp" />
 
+                <%
+                    JSONArray carouselArray = (JSONArray) request.getAttribute("carouselArray");
+                    if(carouselArray != null && carouselArray.size()>0){
+                %>
                 <!-- Carousel wrapper -->
                 <div id="homeCarousel" class="carousel slide carousel-fade" data-mdb-ride="carousel">
                     <!-- Inner -->
                     <div class="carousel-inner">
                         <%
-                            JSONArray carouselArray = (JSONArray) request.getAttribute("carouselArray");
                             for (int i = 0; i < carouselArray.size(); i++) {
                                 JSONObject contentItem = (JSONObject) carouselArray.get(i);
                         %>
@@ -109,6 +112,9 @@
                     </button>
                 </div>
                 <!-- Carousel wrapper -->
+                <%
+                    }
+                %>
 
                 <div class="container-lg my-5">
                     <div class="heading-container mt-5 d-block d-sm-flex flex-row justify-content-start align-items-baseline">

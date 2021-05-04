@@ -344,8 +344,8 @@
                                                     <%
                                                         String profilePic = (String) (myReview.get("profilePic"));
                                                         if (profilePic.isEmpty()) {%>
-                                                    <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
-                                                         alt="" class="w-100 rounded-circle">
+                                                    <div style="background:#1a1a1a url('images/def_user.svg') center center;background-size:cover;padding-top:100%;width:100%;"
+                                                         alt="" class="w-100 rounded-circle"></div>
                                                     <%} else {%>
                                                     
                                                     <div style="background:url('data:image/jpg;base64, <%=myReview.get("profilePic")%>') center center;background-size:cover;padding-top:100%;width:100%;"
@@ -387,7 +387,6 @@
                                                         <%
                                                                 emptyStars--;
                                                             }
-
                                                         %>
 
 
@@ -432,8 +431,8 @@
                                                     <%
                                                         String profilePic = (String) (myReview.get("profilePic"));
                                                         if (profilePic.isEmpty()) {%>
-                                                    <img src="https://www.themoviedb.org/t/p/w150_and_h150_face/xNLOqXXVJf9m7WngUMLIMFsjKgh.jpg"
-                                                         alt="" class="w-100 rounded-circle">
+                                                    <div style="background:#1a1a1a url('images/def_user.svg') center center;background-size:cover;padding-top:100%;width:100%;"
+                                                         alt="" class="w-100 rounded-circle"></div>
                                                     <%} else {%>
                                                     
                                                     <div style="background:url('data:image/jpg;base64, <%=myReview.get("profilePic")%>') center center;background-size:cover;padding-top:100%;width:100%;"

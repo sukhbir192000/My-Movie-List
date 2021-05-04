@@ -84,12 +84,12 @@
                                     <!-- Register buttons -->
                                     <div class="text-center">
                                         <p>Not a member? <a class="text-white" href="/MML/register">Register</a></p>
-                                        <p>or sign in with:</p>
+<!--                                        <p>or sign in with:</p>
                                         <button type="button" class="btn btn-lg btn-block mx-1 d-flex flex-row align-items-center justify-content-center text-white
                                                 rounded-3" style="background-color: rgb(255, 255, 255, 0.2);">
                                             <img src="images/google.png" class="me-2" style="width: 1.5em;" alt=""> 
                                             <div class="fs-6">Google</div>
-                                        </button>
+                                        </button>-->
                                     </div>
                                 </form>
                             </div>
